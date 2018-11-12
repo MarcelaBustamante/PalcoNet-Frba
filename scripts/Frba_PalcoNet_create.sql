@@ -8,7 +8,7 @@ GO
 -- Table: Canjes
 print('Creando tablas...')
 CREATE TABLE Canjes (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Fecha_canje Date  NOT NULL,
     Puntos_canjeados int  NOT NULL,
     Cliente_Id int  NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE Canjes (
 
 -- Table: Cliente
 CREATE TABLE Cliente (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Nombre nvarchar(255)  NOT NULL,
     Apellido nvarchar(255)  NOT NULL,
     Tipo_documento int  NOT NULL,
@@ -29,8 +29,8 @@ CREATE TABLE Cliente (
     Fecha_nacimiento datetime  NOT NULL,
     Fecha_alta Date  NOT NULL,
     Fecha_baja Date  NOT NULL,
-    Estado binary  NOT NULL,
-    Cliente_frecuente binary  NOT NULL,
+    Estado char  NOT NULL default 'A',
+    Cliente_frecuente int  NOT NULL,
     Puntos int  NOT NULL,
     Fecha_venc_puntos Date  NOT NULL,
     Usuarios_Id int  NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE Cliente (
 
 -- Table: ClienteDireccion
 CREATE TABLE ClienteDireccion (
-    Cliente_id int  NOT NULL,
+    Cliente_id int  NOT NULL IDENTITY,
     Direccion_id int  NOT NULL,
     Fecha_Alta datetime  NOT NULL,
     Fecha_Baja datetime  NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE ClienteDireccion (
 
 -- Table: Compra
 CREATE TABLE Compra (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Fecha datetime  NOT NULL,
     Tajetas_Nro_tarjeta int  NOT NULL,
     Cliente_Id int  NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE Compra (
 
 -- Table: Direccion
 CREATE TABLE Direccion (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Calle nvarchar(50)  NOT NULL,
     Numero numeric(18,0)  NULL,
     Piso numeric(18,0)  NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE Direccion (
 
 -- Table: Empresa
 CREATE TABLE Empresa (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Razon_social nvarchar(255)  NOT NULL,
     Mail nvarchar(50)  NULL,
     Telefono varchar(50)  NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE Empresa (
 
 -- Table: EmpresaDireccion
 CREATE TABLE EmpresaDireccion (
-    Cliente_id int  NOT NULL,
+    Cliente_id int  NOT NULL IDENTITY,
     Direccion_id int  NOT NULL,
     Fecha_Alta datetime  NOT NULL,
     Fecha_Baja datetime  NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE EmpresaDireccion (
 
 -- Table: Facturas
 CREATE TABLE Facturas (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Fecha Date  NOT NULL,
     Empresa_Id int  NOT NULL,
     Numero numeric(18,0)  NOT NULL,
@@ -108,21 +108,21 @@ CREATE TABLE Facturas (
 
 -- Table: Funcionalidad
 CREATE TABLE Funcionalidad (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Nombre varchar(50)  NOT NULL,
     CONSTRAINT Funcionalidad_pk PRIMARY KEY  (Id)
 );
 
 -- Table: Grados_publicacion
 CREATE TABLE Grados_publicacion (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Comision int  NOT NULL,
     CONSTRAINT Grados_publicacion_pk PRIMARY KEY  (Id)
 );
 
 -- Table: Items_factura
 CREATE TABLE Items_factura (
-    Monto numeric(18,2)  NOT NULL,
+    Monto numeric(18,2)  NOT NULL ,
     Cantidad numeric(18,0)  NOT NULL,
     Facturas_Id int  NOT NULL,
     Descripcion nvarchar(60)  NOT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE Items_factura (
 
 -- Table: Premios
 CREATE TABLE Premios (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Descripcion varchar(50)  NOT NULL,
     Puntos_necesarios int  NOT NULL,
     Condiciones varchar(50)  NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE Premios (
 
 -- Table: Publicaciones
 CREATE TABLE Publicaciones (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Estado nvarchar(255)  NOT NULL,
     Fecha_inicio datetime  NOT NULL,
     Fecha_Vencimiento datetime  NOT NULL,
@@ -177,7 +177,7 @@ CREATE TABLE Rol_Funcionalidad (
 
 -- Table: Rubros
 CREATE TABLE Rubros (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Descripcion nvarchar(255)  NOT NULL,
     CONSTRAINT Rubros_pk PRIMARY KEY  (Id)
 );
@@ -195,7 +195,7 @@ CREATE TABLE Tajetas (
 
 -- Table: Tipos_publicacion
 CREATE TABLE Tipos_publicacion (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Descripcion varchar(100)  NOT NULL,
     Grados_publicacion_Id int  NOT NULL,
     CONSTRAINT Tipos_publicacion_pk PRIMARY KEY  (Id)
@@ -203,14 +203,14 @@ CREATE TABLE Tipos_publicacion (
 
 -- Table: Tipos_usuario
 CREATE TABLE Tipos_usuario (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Descripcion varchar(50)  NOT NULL,
     CONSTRAINT Tipos_usuario_pk PRIMARY KEY  (Id)
 );
 
 -- Table: Ubicacion
 CREATE TABLE Ubicacion (
-    Id int  NOT NULL,
+    Id int  NOT NULL IDENTITY,
     Fila varchar(3)  NOT NULL,
     Asiento numeric(10,0)  NOT NULL,
     Precio numeric(18,0)  NOT NULL,
@@ -222,17 +222,14 @@ CREATE TABLE Ubicacion (
     Compra_Id int  NOT NULL,
     CONSTRAINT Ubicacion_pk PRIMARY KEY  (Id,Fila)
 );
-
--- Table: Usuario
 CREATE TABLE Usuario (
-    Id int  NOT NULL,
-    Username varchar(20)  NOT NULL,
+    Id int  NOT NULL IDENTITY,
+    Username varchar(20)  NOT NULL UNIQUE,
     Password varchar(50)  NOT NULL,
-    Estado binary  NOT NULL,
-    Tipos_usuario_Id int  NOT NULL,
+    Estado char  NOT NULL DEFAULT 'A',--A:ALTA Y B:BAJA
+    Tipos_usuario_Id int  ,
     CONSTRAINT Usuario_pk PRIMARY KEY  (Id)
 );
-
 -- Table: Usuario_Rol
 CREATE TABLE Usuario_Rol (
     Rol_Id int  NOT NULL,
