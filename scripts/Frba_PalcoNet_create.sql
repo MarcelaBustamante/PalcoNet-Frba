@@ -73,10 +73,10 @@ CREATE TABLE Direccion (
 -- Table: Empresa
 CREATE TABLE Empresa (
     Id int  NOT NULL IDENTITY,
-    Razon_social nvarchar(255)  NOT NULL,
+    Razon_social nvarchar(255)  NOT NULL UNIQUE,
     Mail nvarchar(50)  NULL,
     Telefono varchar(50)  NOT NULL,
-    CUIT nvarchar(255)  NOT NULL,
+    CUIT nvarchar(255)  NOT NULL UNIQUE,
     Estado binary  NOT NULL,
     Fecha_alta datetime  NOT NULL,
     Fecha_baja datetime  NOT NULL,
