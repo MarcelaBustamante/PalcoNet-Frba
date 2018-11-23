@@ -4,10 +4,11 @@ GO
 /* CREACIÓN DEL ESQUEMA */
 CREATE SCHEMA CAMPUS_ANALYTICA AUTHORIZATION gdEspectaculos2018
 GO
+
 -- tables
 -- Table: Canjes
 print('Creando tablas...')
-CREATE TABLE Canjes (
+CREATE TABLE [CAMPUS_ANALYTICA].Canjes (
     Id int  NOT NULL IDENTITY,
     Fecha_canje Date  NOT NULL,
     Puntos_canjeados int  NOT NULL,
@@ -17,7 +18,7 @@ CREATE TABLE Canjes (
 );
 
 -- Table: Cliente
-CREATE TABLE Cliente (
+CREATE TABLE [CAMPUS_ANALYTICA].Cliente (
     Id int  NOT NULL IDENTITY,
     Nombre nvarchar(255)  NOT NULL,
     Apellido nvarchar(255)  NOT NULL,
@@ -28,7 +29,7 @@ CREATE TABLE Cliente (
     Telefono varchar(20)  NOT NULL,
     Fecha_nacimiento datetime  NOT NULL,
     Fecha_alta Date  NOT NULL,
-    Fecha_baja Date  NOT NULL,
+    Fecha_baja Date  ,
     Estado char  NOT NULL default 'A',
     Cliente_frecuente int  NOT NULL,
     Puntos int  NOT NULL,
@@ -38,18 +39,16 @@ CREATE TABLE Cliente (
 );
 
 -- Table: ClienteDireccion
-CREATE TABLE ClienteDireccion (
+CREATE TABLE [CAMPUS_ANALYTICA].ClienteDireccion (
     Cliente_id int  NOT NULL IDENTITY,
     Direccion_id int  NOT NULL,
     Fecha_Alta datetime  NOT NULL,
-    Fecha_Baja datetime  NOT NULL,
-    Clientes_Id int  NOT NULL,
-    Direccion_Id int  NOT NULL,
+    Fecha_Baja datetime  ,
     CONSTRAINT ClienteDireccion_pk PRIMARY KEY  (Cliente_id,Direccion_id)
 );
 
 -- Table: Compra
-CREATE TABLE Compra (
+CREATE TABLE [CAMPUS_ANALYTICA].Compra (
     Id int  NOT NULL IDENTITY,
     Fecha datetime  NOT NULL,
     Tajetas_Nro_tarjeta int  NOT NULL,
@@ -59,7 +58,7 @@ CREATE TABLE Compra (
 );
 
 -- Table: Direccion
-CREATE TABLE Direccion (
+CREATE TABLE [CAMPUS_ANALYTICA].Direccion (
     Id int  NOT NULL IDENTITY,
     Calle nvarchar(50)  NOT NULL,
     Numero numeric(18,0)  NULL,
@@ -71,33 +70,31 @@ CREATE TABLE Direccion (
 );
 
 -- Table: Empresa
-CREATE TABLE Empresa (
+CREATE TABLE [CAMPUS_ANALYTICA].Empresa (
     Id int  NOT NULL IDENTITY,
     Razon_social nvarchar(255)  NOT NULL UNIQUE,
     Mail nvarchar(50)  NULL,
-    Telefono varchar(50)  NOT NULL,
+    Telefono varchar(50)  ,
     CUIT nvarchar(255)  NOT NULL UNIQUE,
-    Estado binary  NOT NULL,
+    Estado char  NOT NULL default 'A',
     Fecha_alta datetime  NOT NULL,
-    Fecha_baja datetime  NOT NULL,
+    Fecha_baja datetime  ,
     Usuarios_Id int  NOT NULL,
-    Fecha_Creacion datetime  NOT NULL,
+    Fecha_Creacion datetime  ,
     CONSTRAINT Empresa_pk PRIMARY KEY  (Id)
 );
 
 -- Table: EmpresaDireccion
-CREATE TABLE EmpresaDireccion (
+CREATE TABLE [CAMPUS_ANALYTICA].EmpresaDireccion (
     Cliente_id int  NOT NULL IDENTITY,
     Direccion_id int  NOT NULL,
     Fecha_Alta datetime  NOT NULL,
-    Fecha_Baja datetime  NOT NULL,
-    Direccion_Id int  NOT NULL,
-    Empresa_Id int  NOT NULL,
+    Fecha_Baja datetime  ,
     CONSTRAINT EmpresaDireccion_pk PRIMARY KEY  (Cliente_id,Direccion_id)
 );
 
 -- Table: Facturas
-CREATE TABLE Facturas (
+CREATE TABLE [CAMPUS_ANALYTICA].Facturas (
     Id int  NOT NULL IDENTITY,
     Fecha Date  NOT NULL,
     Empresa_Id int  NOT NULL,
@@ -107,21 +104,21 @@ CREATE TABLE Facturas (
 );
 
 -- Table: Funcionalidad
-CREATE TABLE Funcionalidad (
+CREATE TABLE [CAMPUS_ANALYTICA].Funcionalidad (
     Id int  NOT NULL IDENTITY,
     Nombre varchar(50)  NOT NULL,
     CONSTRAINT Funcionalidad_pk PRIMARY KEY  (Id)
 );
 
 -- Table: Grados_publicacion
-CREATE TABLE Grados_publicacion (
+CREATE TABLE [CAMPUS_ANALYTICA].Grados_publicacion (
     Id int  NOT NULL IDENTITY,
     Comision int  NOT NULL,
     CONSTRAINT Grados_publicacion_pk PRIMARY KEY  (Id)
 );
 
 -- Table: Items_factura
-CREATE TABLE Items_factura (
+CREATE TABLE [CAMPUS_ANALYTICA].Items_factura (
     Monto numeric(18,2)  NOT NULL ,
     Cantidad numeric(18,0)  NOT NULL,
     Facturas_Id int  NOT NULL,
@@ -130,18 +127,18 @@ CREATE TABLE Items_factura (
 );
 
 -- Table: Premios
-CREATE TABLE Premios (
+CREATE TABLE [CAMPUS_ANALYTICA].Premios (
     Id int  NOT NULL IDENTITY,
     Descripcion varchar(50)  NOT NULL,
     Puntos_necesarios int  NOT NULL,
     Condiciones varchar(50)  NOT NULL,
     Fecha_alta Date  NOT NULL,
-    Fecha_baja Date  NOT NULL,
+    Fecha_baja Date  ,
     CONSTRAINT Premios_pk PRIMARY KEY  (Id)
 );
 
 -- Table: Publicaciones
-CREATE TABLE Publicaciones (
+CREATE TABLE [CAMPUS_ANALYTICA].Publicaciones (
     Id int  NOT NULL IDENTITY,
     Estado nvarchar(255)  NOT NULL,
     Fecha_inicio datetime  NOT NULL,
@@ -156,7 +153,7 @@ CREATE TABLE Publicaciones (
 );
 
 -- Table: Rol
-CREATE TABLE Rol (
+CREATE TABLE [CAMPUS_ANALYTICA].Rol (
     Id int  NOT NULL IDENTITY,
     Nombre varchar(50)  NOT NULL,
     Estado char  NOT NULL  DEFAULT 'A',--A:alta y B: baja
@@ -165,25 +162,23 @@ CREATE TABLE Rol (
 
 
 -- Table: Rol_Funcionalidad
-CREATE TABLE Rol_Funcionalidad (
+CREATE TABLE [CAMPUS_ANALYTICA].Rol_Funcionalidad (
     Funcionalidad_id int  NOT NULL,
     Rol_id int  NOT NULL,
     Fecha_Alta datetime  NOT NULL,
-    Fecha_Baja datetime  NOT NULL,
-    Funcionalidad_Id int  NOT NULL,
-    Rol_Id int  NOT NULL,
+    Fecha_Baja datetime  ,
     CONSTRAINT Rol_Funcionalidad_pk PRIMARY KEY  (Funcionalidad_id,Rol_id)
 );
 
 -- Table: Rubros
-CREATE TABLE Rubros (
+CREATE TABLE [CAMPUS_ANALYTICA].Rubros (
     Id int  NOT NULL IDENTITY,
     Descripcion nvarchar(255)  NOT NULL,
     CONSTRAINT Rubros_pk PRIMARY KEY  (Id)
 );
 
 -- Table: Tajetas
-CREATE TABLE Tajetas (
+CREATE TABLE [CAMPUS_ANALYTICA].Tajetas (
     Nro_tarjeta int  NOT NULL,
     Banco varchar(50)  NOT NULL,
     Tipo varchar(50)  NOT NULL,
@@ -194,7 +189,7 @@ CREATE TABLE Tajetas (
 );
 
 -- Table: Tipos_publicacion
-CREATE TABLE Tipos_publicacion (
+CREATE TABLE [CAMPUS_ANALYTICA].Tipos_publicacion (
     Id int  NOT NULL IDENTITY,
     Descripcion varchar(100)  NOT NULL,
     Grados_publicacion_Id int  NOT NULL,
@@ -202,14 +197,14 @@ CREATE TABLE Tipos_publicacion (
 );
 
 -- Table: Tipos_usuario
-CREATE TABLE Tipos_usuario (
+CREATE TABLE [CAMPUS_ANALYTICA].Tipos_usuario (
     Id int  NOT NULL IDENTITY,
     Descripcion varchar(50)  NOT NULL,
     CONSTRAINT Tipos_usuario_pk PRIMARY KEY  (Id)
 );
 
 -- Table: Ubicacion
-CREATE TABLE Ubicacion (
+CREATE TABLE [CAMPUS_ANALYTICA].Ubicacion (
     Id int  NOT NULL IDENTITY,
     Fila varchar(3)  NOT NULL,
     Asiento numeric(10,0)  NOT NULL,
@@ -222,7 +217,7 @@ CREATE TABLE Ubicacion (
     Compra_Id int  NOT NULL,
     CONSTRAINT Ubicacion_pk PRIMARY KEY  (Id,Fila)
 );
-CREATE TABLE Usuario (
+CREATE TABLE [CAMPUS_ANALYTICA].Usuario (
     Id int  NOT NULL IDENTITY,
     Username varchar(20)  NOT NULL UNIQUE,
     Password varchar(50)  NOT NULL,
@@ -231,159 +226,199 @@ CREATE TABLE Usuario (
     CONSTRAINT Usuario_pk PRIMARY KEY  (Id)
 );
 -- Table: Usuario_Rol
-CREATE TABLE Usuario_Rol (
+CREATE TABLE [CAMPUS_ANALYTICA].Usuario_Rol (
     Rol_Id int  NOT NULL,
     Usuario_Id int  NOT NULL,
     Fecha_alta datetime  NOT NULL,
-    Fecha_baja int  NOT NULL
+    Fecha_baja int  
 );
+
 
 -- foreign keys
 -- Reference: Canjes_Premios (table: Canjes)
-ALTER TABLE Canjes ADD CONSTRAINT Canjes_Premios
+ALTER TABLE [CAMPUS_ANALYTICA].Canjes ADD CONSTRAINT Canjes_Premios
     FOREIGN KEY (Premios_Id)
-    REFERENCES Premios (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Premios (Id);
 
 -- Reference: ClienteDireccion_Clientes (table: ClienteDireccion)
-ALTER TABLE ClienteDireccion ADD CONSTRAINT ClienteDireccion_Clientes
+ALTER TABLE [CAMPUS_ANALYTICA].ClienteDireccion ADD CONSTRAINT ClienteDireccion_Clientes
     FOREIGN KEY (Clientes_Id)
-    REFERENCES Cliente (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Cliente (Id);
 
 -- Reference: ClienteDireccion_Direccion (table: ClienteDireccion)
-ALTER TABLE ClienteDireccion ADD CONSTRAINT ClienteDireccion_Direccion
+ALTER TABLE [CAMPUS_ANALYTICA].ClienteDireccion ADD CONSTRAINT ClienteDireccion_Direccion
     FOREIGN KEY (Direccion_Id)
-    REFERENCES Direccion (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Direccion (Id);
 
 -- Reference: Clientes_Usuarios (table: Cliente)
-ALTER TABLE Cliente ADD CONSTRAINT Clientes_Usuarios
+ALTER TABLE [CAMPUS_ANALYTICA].Cliente ADD CONSTRAINT Clientes_Usuarios
     FOREIGN KEY (Usuarios_Id)
-    REFERENCES Usuario (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
 
 -- Reference: Compra_Clientes (table: Compra)
-ALTER TABLE Compra ADD CONSTRAINT Compra_Clientes
+ALTER TABLE [CAMPUS_ANALYTICA].Compra ADD CONSTRAINT Compra_Clientes
     FOREIGN KEY (Cliente_Id)
-    REFERENCES Cliente (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Cliente (Id);
 
 -- Reference: Compra_Tajetas (table: Compra)
-ALTER TABLE Compra ADD CONSTRAINT Compra_Tajetas
+ALTER TABLE [CAMPUS_ANALYTICA].Compra ADD CONSTRAINT Compra_Tajetas
     FOREIGN KEY (Tajetas_Nro_tarjeta)
-    REFERENCES Tajetas (Nro_tarjeta);
+    REFERENCES [CAMPUS_ANALYTICA].Tajetas (Nro_tarjeta);
 
 -- Reference: EmpresaDireccion_Direccion (table: EmpresaDireccion)
-ALTER TABLE EmpresaDireccion ADD CONSTRAINT EmpresaDireccion_Direccion
+ALTER TABLE [CAMPUS_ANALYTICA].EmpresaDireccion ADD CONSTRAINT EmpresaDireccion_Direccion
     FOREIGN KEY (Direccion_Id)
-    REFERENCES Direccion (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Direccion (Id);
 
 -- Reference: EmpresaDireccion_Empresa (table: EmpresaDireccion)
-ALTER TABLE EmpresaDireccion ADD CONSTRAINT EmpresaDireccion_Empresa
+ALTER TABLE [CAMPUS_ANALYTICA].EmpresaDireccion ADD CONSTRAINT EmpresaDireccion_Empresa
     FOREIGN KEY (Empresa_Id)
-    REFERENCES Empresa (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Empresa (Id);
 
 -- Reference: Empresas_Usuarios (table: Empresa)
-ALTER TABLE Empresa ADD CONSTRAINT Empresas_Usuarios
+ALTER TABLE [CAMPUS_ANALYTICA].Empresa ADD CONSTRAINT Empresas_Usuarios
     FOREIGN KEY (Usuarios_Id)
-    REFERENCES Usuario (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
 
 -- Reference: Facturas_Empresas (table: Facturas)
-ALTER TABLE Facturas ADD CONSTRAINT Facturas_Empresas
+ALTER TABLE [CAMPUS_ANALYTICA].Facturas ADD CONSTRAINT Facturas_Empresas
     FOREIGN KEY (Empresa_Id)
-    REFERENCES Empresa (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Empresa (Id);
 
 -- Reference: Historial_canje_Clientes (table: Canjes)
-ALTER TABLE Canjes ADD CONSTRAINT Historial_canje_Clientes
+ALTER TABLE [CAMPUS_ANALYTICA].Canjes ADD CONSTRAINT Historial_canje_Clientes
     FOREIGN KEY (Cliente_Id)
-    REFERENCES Cliente (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Cliente (Id);
 
 -- Reference: Items_factura_Facturas (table: Items_factura)
-ALTER TABLE Items_factura ADD CONSTRAINT Items_factura_Facturas
+ALTER TABLE [CAMPUS_ANALYTICA].Items_factura ADD CONSTRAINT Items_factura_Facturas
     FOREIGN KEY (Facturas_Id)
-    REFERENCES Facturas (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Facturas (Id);
 
 -- Reference: Publicaciones_Empresas (table: Publicaciones)
-ALTER TABLE Publicaciones ADD CONSTRAINT Publicaciones_Empresas
+ALTER TABLE [CAMPUS_ANALYTICA].Publicaciones ADD CONSTRAINT Publicaciones_Empresas
     FOREIGN KEY (Empresa_Id)
-    REFERENCES Empresa (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Empresa (Id);
+
+-- Reference: Publicaciones_Estados (table: Publicaciones)
+ALTER TABLE [CAMPUS_ANALYTICA].Publicaciones ADD CONSTRAINT Publicaciones_Estados
+    FOREIGN KEY (Estados_Estado_id)
+    REFERENCES [CAMPUS_ANALYTICA].Estados (Estado_id);
 
 -- Reference: Publicaciones_Grados_publicacion (table: Publicaciones)
-ALTER TABLE Publicaciones ADD CONSTRAINT Publicaciones_Grados_publicacion
+ALTER TABLE [CAMPUS_ANALYTICA].Publicaciones ADD CONSTRAINT Publicaciones_Grados_publicacion
     FOREIGN KEY (Grados_publicacion_Id)
-    REFERENCES Grados_publicacion (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Grados_publicacion (Id);
 
 -- Reference: Publicaciones_Rubros (table: Publicaciones)
-ALTER TABLE Publicaciones ADD CONSTRAINT Publicaciones_Rubros
+ALTER TABLE [CAMPUS_ANALYTICA].Publicaciones ADD CONSTRAINT Publicaciones_Rubros
     FOREIGN KEY (Rubros_Id)
-    REFERENCES Rubros (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Rubros (Id);
 
 -- Reference: Rol_Funcionalidad_Funcionalidad (table: Rol_Funcionalidad)
-ALTER TABLE Rol_Funcionalidad ADD CONSTRAINT Rol_Funcionalidad_Funcionalidad
+ALTER TABLE [CAMPUS_ANALYTICA].Rol_Funcionalidad ADD CONSTRAINT Rol_Funcionalidad_Funcionalidad
     FOREIGN KEY (Funcionalidad_Id)
-    REFERENCES Funcionalidad (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Funcionalidad (Id);
 
 -- Reference: Rol_Funcionalidad_Rol (table: Rol_Funcionalidad)
-ALTER TABLE Rol_Funcionalidad ADD CONSTRAINT Rol_Funcionalidad_Rol
+ALTER TABLE [CAMPUS_ANALYTICA].Rol_Funcionalidad ADD CONSTRAINT Rol_Funcionalidad_Rol
     FOREIGN KEY (Rol_Id)
-    REFERENCES Rol (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Rol (Id);
 
 -- Reference: Tajetas_Clientes (table: Tajetas)
-ALTER TABLE Tajetas ADD CONSTRAINT Tajetas_Clientes
+ALTER TABLE [CAMPUS_ANALYTICA].Tajetas ADD CONSTRAINT Tajetas_Clientes
     FOREIGN KEY (Cliente_Id)
-    REFERENCES Cliente (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Cliente (Id);
 
 -- Reference: Tipos_publicacion_Grados_publicacion (table: Tipos_publicacion)
-ALTER TABLE Tipos_publicacion ADD CONSTRAINT Tipos_publicacion_Grados_publicacion
+ALTER TABLE [CAMPUS_ANALYTICA].Tipos_publicacion ADD CONSTRAINT Tipos_publicacion_Grados_publicacion
     FOREIGN KEY (Grados_publicacion_Id)
-    REFERENCES Grados_publicacion (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Grados_publicacion (Id);
 
 -- Reference: Ubicacion_Compra (table: Ubicacion)
-ALTER TABLE Ubicacion ADD CONSTRAINT Ubicacion_Compra
+ALTER TABLE [CAMPUS_ANALYTICA].Ubicacion ADD CONSTRAINT Ubicacion_Compra
     FOREIGN KEY (Compra_Id)
-    REFERENCES Compra (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Compra (Id);
 
 -- Reference: Ubicacion_Publicaciones (table: Ubicacion)
-ALTER TABLE Ubicacion ADD CONSTRAINT Ubicacion_Publicaciones
+ALTER TABLE [CAMPUS_ANALYTICA].Ubicacion ADD CONSTRAINT Ubicacion_Publicaciones
     FOREIGN KEY (Publicaciones_Id)
-    REFERENCES Publicaciones (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Publicaciones (Id);
 
 -- Reference: Usuario_Rol_Rol (table: Usuario_Rol)
-ALTER TABLE Usuario_Rol ADD CONSTRAINT Usuario_Rol_Rol
+ALTER TABLE [CAMPUS_ANALYTICA].Usuario_Rol ADD CONSTRAINT Usuario_Rol_Rol
     FOREIGN KEY (Rol_Id)
-    REFERENCES Rol (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Rol (Id);
 
 -- Reference: Usuario_Rol_Usuario (table: Usuario_Rol)
-ALTER TABLE Usuario_Rol ADD CONSTRAINT Usuario_Rol_Usuario
+ALTER TABLE [CAMPUS_ANALYTICA].Usuario_Rol ADD CONSTRAINT Usuario_Rol_Usuario
     FOREIGN KEY (Usuario_Id)
-    REFERENCES Usuario (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
 
-	
 -- Reference: Usuarios_Tipos_usuario (table: Usuario)
-ALTER TABLE Usuario ADD CONSTRAINT Usuarios_Tipos_usuario
+ALTER TABLE [CAMPUS_ANALYTICA].Usuario ADD CONSTRAINT Usuarios_Tipos_usuario
     FOREIGN KEY (Tipos_usuario_Id)
-    REFERENCES Tipos_usuario (Id);
+    REFERENCES [CAMPUS_ANALYTICA].Tipos_usuario (Id);
+
 	
 --*******************************INSERT***********************************	--
 /* INSERT FUNCIONALIDADES */
 print('Cargando tabla de funcionalidad...')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('ABM de Rol')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('ABM de Usuario')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('ABM de Cliente')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('ABM de Empresa de espectáculos')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('ABM de Categoría')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('ABM grado de publicación')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('Generar Publicación')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('Editar Publicación')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('Comprar')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('Historial del cliente')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('Canje y administración de puntos')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('Generar Pago de comisiones')
-INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Funcionalidad_Descripcion) VALUES ('Listado Estadístico')	
-
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('ABM de Rol');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('ABM de Usuario');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('ABM de Cliente');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('ABM de Empresa de espectáculos');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('ABM de Categoría');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('ABM grado de publicación');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('Generar Publicación');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('Editar Publicación');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('Comprar');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('Historial del cliente');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('Canje y administración de puntos');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('Generar Pago de comisiones');
+INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('Listado Estadístico');	
 
 /* INSERT ROLES*/
 print('Cargando tabla de rol...')
-INSERT INTO CAMPUS_ANALYTICA.ROL (Rol_Nombre) VALUES ('Administrador')
-INSERT INTO CAMPUS_ANALYTICA.ROL (Rol_Nombre) VALUES ('Empresa')
-INSERT INTO CAMPUS_ANALYTICA.ROL (Rol_Nombre) VALUES ('Cliente')
+INSERT INTO CAMPUS_ANALYTICA.ROL (Nombre) VALUES ('Administrador');
+INSERT INTO CAMPUS_ANALYTICA.ROL (Nombre) VALUES ('Empresa');
+INSERT INTO CAMPUS_ANALYTICA.ROL (Nombre) VALUES ('Cliente');
 
+/* INSERT ROL y funcionalidad*/
+print('Cargando tabla de rol_funcionalidad...')
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (1,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (2,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (3,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (4,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (5,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (6,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (7,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (8,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (9,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (10,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (11,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (12,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (13,1,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (6,2,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (7,2,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (8,2,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (12,2,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (9,3,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (10,3,GETDATE());
+INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (11,3,GETDATE());
 
+GO
+/* INSERT tipo usuario*/
+print('Cargando tabla de tipo_usuario...')
+INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
+           ([Descripcion])
+     VALUES
+           ('Administrador General')
+GO
 
+/* INSERT  usuario general*/
+print('Cargando tabla de usuario general...')
+INSERT INTO [CAMPUS_ANALYTICA].[Usuario] ([Username],[Password],[Estado],[Tipos_usuario_Id])
+		 VALUES  ('admin','w23e','A',1)
+GO
 
