@@ -86,11 +86,11 @@ CREATE TABLE [CAMPUS_ANALYTICA].Empresa (
 
 -- Table: EmpresaDireccion
 CREATE TABLE [CAMPUS_ANALYTICA].EmpresaDireccion (
-    Cliente_id int  NOT NULL IDENTITY,
+    Empresa_id int  NOT NULL ,
     Direccion_id int  NOT NULL,
     Fecha_Alta datetime  NOT NULL,
     Fecha_Baja datetime  ,
-    CONSTRAINT EmpresaDireccion_pk PRIMARY KEY  (Cliente_id,Direccion_id)
+    CONSTRAINT EmpresaDireccion_pk PRIMARY KEY  (Empresa_id,Direccion_id)
 );
 
 -- Table: Facturas
@@ -414,11 +414,130 @@ INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
            ([Descripcion])
      VALUES
            ('Administrador General')
+INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
+           ([Descripcion])
+     VALUES
+           ('Empresa')
+INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
+           ([Descripcion])
+     VALUES
+           ('Cliente')		   
+		   
 GO
 
 /* INSERT  usuario general*/
 print('Cargando tabla de usuario general...')
 INSERT INTO [CAMPUS_ANALYTICA].[Usuario] ([Username],[Password],[Estado],[Tipos_usuario_Id])
 		 VALUES  ('admin','w23e','A',1)
+GO
+
+
+/**********CREACION DE PROCEDURES************/
+--use GD2C2018
+GO
+--funciones
+CREATE FUNCTION Encriptar (@clave varchar(16))
+RETURNS VARBINARY(255)
+AS
+BEGIN
+	
+	DECLARE @pass AS VARBINARY(255)
+	SET @pass = ENCRYPTBYPASSPHRASE('123', @clave)
+	RETURN @pass
+END
+
+GO
+CREATE FUNCTION Desencriptar (@clave varbinary(255))
+RETURNS VARCHAR(16)
+AS
+BEGIN
+	DECLARE @pass AS VARCHAR(16)
+	SET @pass = DECRYPTBYPASSPHRASE('123', @clave)
+	RETURN @pass
+END
+ 
+
+ 
+/************************************************ CREACIÓN DE PROCEDIMIENTOS ************************************************/
+
+/* PROCEDIMIENTO QUE MIGRA LOS CLIENTES Y LES ASIGNA USUARIO */
+GO
+CREATE PROCEDURE MigraEmpresas AS
+BEGIN TRANSACTION  
+	DECLARE @v_Razon_Social nvarchar(255)
+	DECLARE @v_Empresa_Mail nvarchar(255)
+	DECLARE @v_cod_Postal nvarchar(255)
+	DECLARE @v_Cuit nvarchar(255)
+	DECLARE @v_Depto nvarchar(255)
+    DECLARE @v_Fecha_Creacion datetime
+	DECLARE @v_Dom_Calle nvarchar(255)
+	DECLARE @v_Nro_Calle numeric
+	DECLARE @v_Piso numeric
+	DECLARE @usuario_id int
+	DECLARE @Password binary
+	DECLARE @direccion_id int
+
+	DECLARE ElCursor CURSOR STATIC LOCAL FORWARD_ONLY FOR
+		select distinct [Espec_Empresa_Razon_Social]
+						,[Espec_Empresa_Cuit]
+						,[Espec_Empresa_Fecha_Creacion]
+						,[Espec_Empresa_Mail]
+						,[Espec_Empresa_Dom_Calle]
+						,[Espec_Empresa_Nro_Calle]
+						,[Espec_Empresa_Piso]
+						,[Espec_Empresa_Depto]
+						,[Espec_Empresa_Cod_Postal]					
+		from gd_esquema.Maestra		 
+
+    SET @usuario_id = 1
+	SET @direccion_id = 1
+	OPEN ElCursor FETCH NEXT FROM ElCursor INTO @v_Razon_Social, @v_Cuit, @v_Fecha_Creacion, @v_Empresa_Mail, @v_Dom_Calle, @v_Piso,
+												@v_Depto,@v_cod_Postal 
+				
+		WHILE (@@FETCH_STATUS = 0) BEGIN
+		
+			INSERT INTO [CAMPUS_ANALYTICA].[Empresa]
+           ([Razon_social]
+           ,[Mail]
+           ,[Telefono]
+           ,[CUIT]
+           ,[Estado]
+           ,[Fecha_alta]
+           ,[Fecha_baja]
+           ,[Usuarios_Id]
+           ,[Fecha_Creacion])
+				VALUES (@v_Razon_Social,@v_Empresa_Mail,null,@v_Cuit,'A',@v_Fecha_Creacion,null,@usuario_id,getdate())
+
+			SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Direccion] ON
+			INSERT INTO [CAMPUS_ANALYTICA].[Direccion]
+           ([Id]
+		   ,[Calle]
+           ,[Numero]
+           ,[Piso]
+           ,[Codigo_postal]
+           ,[Localidad]
+           ,[Depoto])
+     VALUES
+           (@direccion_id,@v_Dom_Calle,@v_Nro_Calle,@v_Piso,@v_cod_Postal,'caba',@v_Depto)	
+		   			
+			SET @Password = ' 0x010000009ECE0B9919D92706570D94462D18A99E82D5C70FCC18D93C' -- La password por defecto es '123'				
+			
+				
+			INSERT INTO [CAMPUS_ANALYTICA].[Usuario]
+           ([Username]
+           ,[Password]
+           ,[Estado]
+           ,[Tipos_usuario_Id])
+				VALUES (@v_Razon_Social, @Password,'A',2 )
+				
+			
+			SET @usuario_id = @usuario_id + 1
+			
+			FETCH NEXT FROM ElCursor INTO @v_Razon_Social, @v_Cuit, @v_Fecha_Creacion, @v_Empresa_Mail, @CliDomNro, @CliDomPiso,
+												@v_Depto,@v_cod_Postal 
+		END
+	CLOSE ElCursor
+	DEALLOCATE ElCursor
+END
 GO
 
