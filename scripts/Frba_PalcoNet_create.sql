@@ -460,10 +460,11 @@ END
  
 /************************************************ CREACIÓN DE PROCEDIMIENTOS ************************************************/
 
-/* PROCEDIMIENTO QUE MIGRA LOS CLIENTES Y LES ASIGNA USUARIO */
+/* PROCEDIMIENTO QUE MIGRA LAS EMPRESAS Y LES ASIGNA USUARIO */
 GO
 CREATE PROCEDURE MigraEmpresas AS
-BEGIN TRANSACTION  
+BEGIN   
+	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 	DECLARE @v_Razon_Social nvarchar(255)
 	DECLARE @v_Empresa_Mail nvarchar(255)
 	DECLARE @v_cod_Postal nvarchar(255)
@@ -476,6 +477,7 @@ BEGIN TRANSACTION
 	DECLARE @usuario_id int
 	DECLARE @Password binary
 	DECLARE @direccion_id int
+	DECLARE @Empresa_id int
 
 	DECLARE ElCursor CURSOR STATIC LOCAL FORWARD_ONLY FOR
 		select distinct [Espec_Empresa_Razon_Social]
@@ -491,11 +493,11 @@ BEGIN TRANSACTION
 
     SET @usuario_id = 1
 	SET @direccion_id = 1
-	OPEN ElCursor FETCH NEXT FROM ElCursor INTO @v_Razon_Social, @v_Cuit, @v_Fecha_Creacion, @v_Empresa_Mail, @v_Dom_Calle, @v_Piso,
+	OPEN ElCursor FETCH NEXT FROM ElCursor INTO @v_Razon_Social, @v_Cuit,@v_Fecha_Creacion,@v_Empresa_Mail, @v_Dom_Calle,@v_Nro_Calle,@v_Piso,
 												@v_Depto,@v_cod_Postal 
 				
-		WHILE (@@FETCH_STATUS = 0) BEGIN
-		
+		WHILE (@@FETCH_STATUS = 0) 
+		BEGIN
 			INSERT INTO [CAMPUS_ANALYTICA].[Empresa]
            ([Razon_social]
            ,[Mail]
@@ -506,8 +508,10 @@ BEGIN TRANSACTION
            ,[Fecha_baja]
            ,[Usuarios_Id]
            ,[Fecha_Creacion])
-				VALUES (@v_Razon_Social,@v_Empresa_Mail,null,@v_Cuit,'A',@v_Fecha_Creacion,null,@usuario_id,getdate())
+				VALUES (@v_Razon_Social,@v_Empresa_Mail,null,@v_Cuit,'A',SYSDATETIME(),null,@usuario_id,SYSDATETIME())
 
+			--como direccion tiene id identity se desabilita para poder insertar datos de migracion
+			--guardo los datos del cliente en la tabla direccion para que el cliente peda tener varias direcciones
 			SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Direccion] ON
 			INSERT INTO [CAMPUS_ANALYTICA].[Direccion]
            ([Id]
@@ -519,8 +523,19 @@ BEGIN TRANSACTION
            ,[Depoto])
      VALUES
            (@direccion_id,@v_Dom_Calle,@v_Nro_Calle,@v_Piso,@v_cod_Postal,'caba',@v_Depto)	
+
+		   --traigo el id de empresa
+		   select @Empresa_id=id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social=@v_Razon_Social
+
+		   --guarda la relacion entre empresa y sus direcciones
+			INSERT INTO [CAMPUS_ANALYTICA].[EmpresaDireccion]
+					   ([Empresa_id]
+					   ,[Direccion_id]
+					   ,[Fecha_Alta]
+					   ,[Fecha_Baja])
+				 VALUES (@Empresa_id,@direccion_id,SYSDATETIME(),null)
 		   			
-			SET @Password = ' 0x010000009ECE0B9919D92706570D94462D18A99E82D5C70FCC18D93C' -- La password por defecto es '123'				
+			SET @Password = 0x010000009ECE0B9919D92706570D94462D18A99E82D5C70FCC18D93C -- La password por defecto es '123'				
 			
 				
 			INSERT INTO [CAMPUS_ANALYTICA].[Usuario]
@@ -532,12 +547,18 @@ BEGIN TRANSACTION
 				
 			
 			SET @usuario_id = @usuario_id + 1
-			
-			FETCH NEXT FROM ElCursor INTO @v_Razon_Social, @v_Cuit, @v_Fecha_Creacion, @v_Empresa_Mail, @CliDomNro, @CliDomPiso,
-												@v_Depto,@v_cod_Postal 
+			SET @direccion_id=@direccion_id + 1
+				
+			FETCH NEXT FROM ElCursor INTO @v_Razon_Social, @v_Cuit,@v_Fecha_Creacion,@v_Empresa_Mail, @v_Dom_Calle,@v_Nro_Calle,@v_Piso,
+										  @v_Depto,@v_cod_Postal   
 		END
+
 	CLOSE ElCursor
 	DEALLOCATE ElCursor
-END
+END 
 GO
 
+
+
+/********************************************ejecucion de procedimientos**************************************/
+exec MigraEmpresas
