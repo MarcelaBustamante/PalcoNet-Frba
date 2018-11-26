@@ -26,14 +26,14 @@ CREATE TABLE [CAMPUS_ANALYTICA].Cliente (
     Nro_documento numeric(18,0)  NOT NULL,
     CUIL varchar(50)  NOT NULL,
     Mail nvarchar(255)  NOT NULL,
-    Telefono varchar(20)  NOT NULL,
+    Telefono varchar(20)   NULL,
     Fecha_nacimiento datetime  NOT NULL,
     Fecha_alta Date  NOT NULL,
     Fecha_baja Date  ,
     Estado char  NOT NULL default 'A',
-    Cliente_frecuente int  NOT NULL,
-    Puntos int  NOT NULL,
-    Fecha_venc_puntos Date  NOT NULL,
+    Cliente_frecuente int  NULL,
+    Puntos int 	NULL,
+    Fecha_venc_puntos Date  NULL,
     Usuarios_Id int  NOT NULL,
     CONSTRAINT Cliente_pk PRIMARY KEY  (Id)
 );
@@ -557,8 +557,138 @@ BEGIN
 	DEALLOCATE ElCursor
 END 
 GO
+/*************migra clientes***************/    
+CREATE PROCEDURE MigraClientes AS
+BEGIN   
+	DECLARE @usuario_id INT
+	DECLARE @direccion_id INT
+	DECLARE @Cli_Dni numeric
+	DECLARE @Cli_Apeliido nvarchar(255)
+	DECLARE @Cli_Nombre nvarchar(255)
+	DECLARE @Cli_Fecha_Nac datetime
+	DECLARE @Cli_Mail nvarchar(255)
+	DECLARE @Cli_Dom_Calle nvarchar(255)
+	DECLARE @Cli_Nro_Calle nvarchar(255)
+	DECLARE @Cli_Piso numeric
+	DECLARE @Cli_Depto nvarchar(20)
+	DECLARE @Cli_Cod_Postal nvarchar(255)
+	DECLARE @Cliente_id int
+	DECLARE @Password binary
+
+
+	DECLARE ElCursor CURSOR STATIC LOCAL FORWARD_ONLY FOR
+		SELECT distinct [Cli_Dni]
+      ,[Cli_Apeliido]
+      ,[Cli_Nombre]
+      ,[Cli_Fecha_Nac]
+      ,[Cli_Mail]
+      ,[Cli_Dom_Calle]
+      ,[Cli_Nro_Calle]
+      ,[Cli_Piso]
+      ,[Cli_Depto]
+      ,[Cli_Cod_Postal]
+  FROM [GD2C2018].[gd_esquema].[Maestra]
+  where cli_Dni is not null		 
+
+    select @usuario_id = id from CAMPUS_ANALYTICA.Usuario
+	IF @usuario_id is not null 
+		begin
+		SET @usuario_id = @usuario_id + 1
+		end
+
+	else
+		begin
+			SET @usuario_id=1
+		end
+    		
+     select @direccion_id = id from CAMPUS_ANALYTICA.Direccion
+	 		IF @direccion_id is not null 
+			begin
+			SET @direccion_id = @direccion_id + 1
+			end
+	else
+	begin
+	SET @direccion_id = 1
+	end
+		
+	OPEN ElCursor FETCH NEXT FROM ElCursor INTO @Cli_Dni,@Cli_Apeliido,@Cli_Nombre,@Cli_Fecha_Nac,
+												@Cli_Mail,@Cli_Dom_Calle,@Cli_Nro_Calle,@Cli_Piso,
+												@Cli_Depto,@Cli_Cod_Postal
+
+				
+		WHILE (@@FETCH_STATUS = 0) 
+		BEGIN
+		  
+			INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
+					   ([Nombre]
+					   ,[Apellido]
+					   ,[Tipo_documento]
+					   ,[Nro_documento]
+					   ,[CUIL]
+					   ,[Mail]
+					   ,[Telefono]
+					   ,[Fecha_nacimiento]
+					   ,[Fecha_alta]
+					   ,[Fecha_baja]
+					   ,[Estado]
+					   ,[Cliente_frecuente]
+					   ,[Puntos]
+					   ,[Fecha_venc_puntos]
+					   ,[Usuarios_Id])
+				 VALUES
+					   (@Cli_Nombre,@Cli_Apeliido,1,@Cli_Dni,'11111111',@Cli_Mail,null,@Cli_Fecha_Nac,SYSDATETIME(),null,'A',0,0,null,@usuario_id)
+
+			--como direccion tiene id identity se desabilita para poder insertar datos de migracion
+			--guardo los datos del cliente en la tabla direccion para que el cliente peda tener varias direcciones
+			SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Direccion] ON
+			INSERT INTO [CAMPUS_ANALYTICA].[Direccion]
+           ([Id]
+		   ,[Calle]
+           ,[Numero]
+           ,[Piso]
+           ,[Codigo_postal]
+           ,[Localidad]
+           ,[Depoto])
+     VALUES
+           (@Direccion_id,@Cli_Dom_Calle,@Cli_Nro_Calle,@Cli_Piso,@Cli_Cod_Postal,'caba',@Cli_Depto)	
+
+		   --traigo el id de empresa
+		   select @Cliente_id=id from CAMPUS_ANALYTICA.Cliente c where c.Apellido=@Cli_Apeliido and c.Nombre=@Cli_Nombre
+
+		   --guarda la relacion entre empresa y sus direcciones
+			INSERT INTO [CAMPUS_ANALYTICA].[EmpresaDireccion]
+					   ([Empresa_id]
+					   ,[Direccion_id]
+					   ,[Fecha_Alta]
+					   ,[Fecha_Baja])
+				 VALUES (@Cliente_id,@direccion_id,SYSDATETIME(),null)
+		   			
+			SET @Password = 0x010000009ECE0B9919D92706570D94462D18A99E82D5C70FCC18D93C -- La password por defecto es '123'				
+			
+				
+			INSERT INTO [CAMPUS_ANALYTICA].[Usuario]
+           ([Username]
+           ,[Password]
+           ,[Estado]
+           ,[Tipos_usuario_Id])
+				VALUES (@Cli_Nombre+ '_'+@Cli_Apeliido, @Password,'A',2 )
+				
+			
+			SET @usuario_id = @usuario_id + 1
+			SET @direccion_id=@direccion_id + 1
+				
+			FETCH NEXT FROM ElCursor INTO @Cli_Dni,@Cli_Apeliido,@Cli_Nombre,@Cli_Fecha_Nac,
+												@Cli_Mail,@Cli_Dom_Calle,@Cli_Nro_Calle,@Cli_Piso,
+												@Cli_Depto,@Cli_Cod_Postal   
+		END
+
+	CLOSE ElCursor
+	DEALLOCATE ElCursor
+END 
+
 
 
 
 /********************************************ejecucion de procedimientos**************************************/
 exec MigraEmpresas
+exec MigraClientes
