@@ -7,3 +7,12 @@ D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\Aplicacion D
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.exe.config
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.exe
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.pdb
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Properties.Resources.resources
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.exe
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.pdb
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.ListaRol.resources

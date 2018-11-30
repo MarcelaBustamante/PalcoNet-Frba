@@ -10,11 +10,14 @@ using System.Windows.Forms;
 
 namespace PalcoNet.Abm_Rol
 {
-    public partial class Form1 : Form
+    public partial class DarDeAltaRol : Form
     {
-        public Form1()
+        public DarDeAltaRol(dbmanager db)
         {
             InitializeComponent();
+        }
+        public DarDeAltaRol(dbmanager db, Decimal rol_id, Char rolHabilitado)
+        {
         }
     }
 }

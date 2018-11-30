@@ -16,7 +16,8 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            dbmanager db = new dbmanager();//se coneta la base
+            Application.Run(new Abm_Rol.ListaRol(db,"papa"));//Application.Run(new Login.Login(db));
         }
     }
 }
