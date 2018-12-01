@@ -67,6 +67,7 @@
             this.limpiar.TabIndex = 4;
             this.limpiar.Text = "Limpiar";
             this.limpiar.UseVisualStyleBackColor = true;
+            this.limpiar.Click += new System.EventHandler(this.limpiar_Click);
             // 
             // buscar
             // 
@@ -76,6 +77,7 @@
             this.buscar.TabIndex = 3;
             this.buscar.Text = "Buscar";
             this.buscar.UseVisualStyleBackColor = true;
+            this.buscar.Click += new System.EventHandler(this.buscar_Click_1);
             // 
             // habilitados
             // 
@@ -138,6 +140,7 @@
             this.alta.TabIndex = 2;
             this.alta.Text = "Alta";
             this.alta.UseVisualStyleBackColor = true;
+            this.alta.Click += new System.EventHandler(this.alta_Click);
             // 
             // editar
             // 
@@ -147,6 +150,7 @@
             this.editar.TabIndex = 3;
             this.editar.Text = "Editar";
             this.editar.UseVisualStyleBackColor = true;
+            this.editar.Click += new System.EventHandler(this.editar_Click);
             // 
             // borrar
             // 
@@ -156,6 +160,7 @@
             this.borrar.TabIndex = 4;
             this.borrar.Text = "Borrar";
             this.borrar.UseVisualStyleBackColor = true;
+            this.borrar.Click += new System.EventHandler(this.borrar_Click);
             // 
             // ListaRol
             // 

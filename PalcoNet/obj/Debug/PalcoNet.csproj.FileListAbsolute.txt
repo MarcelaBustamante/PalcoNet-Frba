@@ -16,3 +16,4 @@ D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.exe
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.pdb
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.ListaRol.resources
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.DarDeAltaRol.resources

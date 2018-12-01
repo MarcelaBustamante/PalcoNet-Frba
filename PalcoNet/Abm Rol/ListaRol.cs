@@ -26,6 +26,7 @@ namespace PalcoNet.Abm_Rol
 
         public void cargaGrilla()
         {
+            this.grillaRoles.AllowUserToAddRows = false;
             DataTable dt = new DataTable();
             SqlDataAdapter da = new SqlDataAdapter("SELECT [Id],[Nombre],[Estado]  FROM [GD2C2018].[CAMPUS_ANALYTICA].[Rol]", this.db.StringConexion());
             da.SelectCommand.CommandType = CommandType.Text;
@@ -61,8 +62,9 @@ namespace PalcoNet.Abm_Rol
 
         }
 
-        private void buscar_Click(object sender, EventArgs e)
+        private void buscar_Click_1(object sender, EventArgs e)
         {
+            
             String filtroNombre = tbRol.Text;
             Char filtroSoloHabilitados;
 
@@ -94,6 +96,7 @@ namespace PalcoNet.Abm_Rol
         {
             this.tbRol.Text = "";
             this.habilitados.Checked = false;
+            this.cargaGrilla();
         }
 
         private void alta_Click(object sender, EventArgs e)
@@ -102,7 +105,7 @@ namespace PalcoNet.Abm_Rol
             DialogResult res = nuevoRol.ShowDialog();
             if (res == DialogResult.OK)
             {
-                this.buscar_Click(sender, e);
+                this.buscar_Click_1(sender, e);
             }
         }
 
@@ -116,10 +119,10 @@ namespace PalcoNet.Abm_Rol
             DialogResult res = f.ShowDialog(); // Comunicación entre formularios
             if (res == DialogResult.OK) // Cuando vuelve del otro Form con el botón Editar
             {
-                this.buscar_Click(sender, e); // Actualiza la grilla
+                this.buscar_Click_1(sender, e); // Actualiza la grilla
             }
         }
-
+ 
         private void borrar_Click(object sender, EventArgs e)
         {
             Int32 fila = this.grillaRoles.CurrentCell.RowIndex;
@@ -127,7 +130,7 @@ namespace PalcoNet.Abm_Rol
 
             this.db.Ejecutar("UPDATE CAMPUS_ANALYTICA.ROL SET Estado = 'N' WHERE Id = " + rol_id);
             MessageBox.Show("Rol eliminado.");
-            this.buscar_Click(sender, e); // Actualiza la grilla
+            this.buscar_Click_1(sender, e); // Actualiza la grilla
         }
 
     }

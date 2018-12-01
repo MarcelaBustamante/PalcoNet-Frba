@@ -138,6 +138,9 @@
     <Compile Include="Registro de Usuario\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Rol\DarDeAltaRol.resx">
+      <DependentUpon>DarDeAltaRol.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\ListaRol.resx">
       <DependentUpon>ListaRol.cs</DependentUpon>
     </EmbeddedResource>
