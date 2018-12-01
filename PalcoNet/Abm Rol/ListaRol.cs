@@ -40,9 +40,15 @@ namespace PalcoNet.Abm_Rol
         private void CargaTablaFiltrada(String filtroNombre, Char filtroSoloHabilitados)
         {
             DataTable dt = new DataTable();
-            if (filtroSoloHabilitados == 'S')
+            if (filtroSoloHabilitados == 'A')
             {
-                String query = "SELECT Id, Nombre, Estado FROM CAMPUS_ANALYTICA.ROL WHERE Nombre LIKE '%" + filtroNombre + "%' AND Estado = '" + filtroSoloHabilitados.ToString() + "' AND Rol_Eliminado IS NULL";
+                String query;
+                if (filtroNombre == "") {
+                    query = "SELECT Id, Nombre, Estado FROM CAMPUS_ANALYTICA.ROL WHERE Estado = '" + filtroSoloHabilitados.ToString() + "'";
+                }
+                else{ 
+                  query = "SELECT Id, Nombre, Estado FROM CAMPUS_ANALYTICA.ROL WHERE Nombre LIKE '%" + filtroNombre + "%' AND Estado = '" + filtroSoloHabilitados.ToString() + "'";
+                }
                 SqlDataAdapter da = new SqlDataAdapter(query, this.db.StringConexion());
                 da.SelectCommand.CommandType = CommandType.Text;
                 da.Fill(dt);
@@ -63,6 +69,7 @@ namespace PalcoNet.Abm_Rol
         }
 
         private void buscar_Click_1(object sender, EventArgs e)
+        
         {
             
             String filtroNombre = tbRol.Text;
@@ -70,11 +77,11 @@ namespace PalcoNet.Abm_Rol
 
             if (habilitados.Checked == true)
             {
-                filtroSoloHabilitados = 'S';
+                filtroSoloHabilitados = 'A';
             }
             else
             {
-                filtroSoloHabilitados = 'N';
+                filtroSoloHabilitados = 'B';
             }
 
             while (this.grillaRoles.RowCount > 0) // ELIMINA LAS FILAS EXISTENTES EN LA GRILLA
@@ -82,7 +89,7 @@ namespace PalcoNet.Abm_Rol
                 this.grillaRoles.Rows.Remove(this.grillaRoles.CurrentRow);
             }
 
-            if (filtroNombre != "" || filtroSoloHabilitados == 'S')
+            if (filtroNombre != "" || filtroSoloHabilitados == 'A')
             {
                 this.CargaTablaFiltrada(filtroNombre, filtroSoloHabilitados);
             }
@@ -96,7 +103,7 @@ namespace PalcoNet.Abm_Rol
         {
             this.tbRol.Text = "";
             this.habilitados.Checked = false;
-            this.cargaGrilla();
+            this.buscar_Click_1(sender, e);
         }
 
         private void alta_Click(object sender, EventArgs e)
@@ -128,7 +135,8 @@ namespace PalcoNet.Abm_Rol
             Int32 fila = this.grillaRoles.CurrentCell.RowIndex;
             Decimal rol_id = Decimal.Parse(this.grillaRoles.Rows[fila].Cells[0].Value.ToString());
 
-            this.db.Ejecutar("UPDATE CAMPUS_ANALYTICA.ROL SET Estado = 'N' WHERE Id = " + rol_id);
+            this.db.Ejecutar("UPDATE CAMPUS_ANALYTICA.ROL SET Estado = 'B' WHERE Id = " + rol_id);
+            this.db.Ejecutar("delete CAMPUS_ANALYTICA.Usuario_Rol where Rol_Id = " + rol_id);
             MessageBox.Show("Rol eliminado.");
             this.buscar_Click_1(sender, e); // Actualiza la grilla
         }

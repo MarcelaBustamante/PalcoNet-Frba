@@ -31,7 +31,7 @@ namespace PalcoNet.Abm_Rol
                 Boolean existe = false;
 
                 String funcionalidadNombre = this.funcionalidades.Items[j].ToString();
-                existe = this.db.Consultar("SELECT f.Funcionalidad_id FROM CAMPUS_ANALYTICA.ROL_FUNCIONALIDAD rf JOIN CAMPUS_ANALYTICA.FUNCIONALIDAD f ON rf.Funcionalidad_Id = f.Funcionalidad_Id WHERE Rol_Id = " + rol_id + " AND f.Funcionalidad_Descripcion = '" + funcionalidadNombre.Trim() + "'");
+                existe = this.db.Consultar("SELECT f.Id FROM CAMPUS_ANALYTICA.ROL_FUNCIONALIDAD rf JOIN CAMPUS_ANALYTICA.FUNCIONALIDAD f ON rf.Funcionalidad_Id = f.Id WHERE rf.Rol_Id = " + rol_id + " AND f.Nombre = '" + funcionalidadNombre.Trim() + "'");
                 if (existe)
                 {
                     this.funcionalidades.SetItemChecked(j, true);
@@ -42,15 +42,15 @@ namespace PalcoNet.Abm_Rol
                 }
             }
             // TILDA LAS FUNCIONALIDADES QUE TIENE EL ROL ACTUALMENTE
-            Boolean existeR = this.db.Consultar("SELECT Rol_Nombre FROM CAMPUS_ANALYTICA.ROL WHERE Rol_Id = " + rol_id);
+            Boolean existeR = this.db.Consultar("SELECT Nombre FROM CAMPUS_ANALYTICA.ROL WHERE Id = " + rol_id);
             if (existeR)
             {
                 this.db.Leer();
-                nombre.Text = this.db.ObtenerValor("Rol_Nombre");
+                nombre.Text = this.db.ObtenerValor("Nombre");
             }
             nombre.Enabled = false;
             aceptar.Text = "Editar";
-            if (rolHabilitado == 'S')
+            if (rolHabilitado == 'A')
             {
                 active.Checked = true;
             }
@@ -95,7 +95,7 @@ namespace PalcoNet.Abm_Rol
                     else
                     {
                         this.guardarRol();
-                        MessageBox.Show("Rol guardado.");
+                       
                     }
                     this.Dispose();
                 }
@@ -107,22 +107,36 @@ namespace PalcoNet.Abm_Rol
             Char Rol_Habilitado;
             if (active.Checked == true)
             {
-                Rol_Habilitado = 'S';
+                Rol_Habilitado = 'A';
             }
             else
             {
-                Rol_Habilitado = 'N';
+                Rol_Habilitado = 'B';
             }
 
             Decimal Rol_Id = 0;
-
-            this.db.Ejecutar("INSERT INTO CAMPUS_ANALYTICA.ROL VALUES ( '" + Rol_Nombre + "')");
-
             Boolean existeT = this.db.Consultar("SELECT Id FROM CAMPUS_ANALYTICA.ROL WHERE Nombre = '" + Rol_Nombre + "'");
+            if (existeT) {
+                MessageBox.Show("El rol que desea crear ya existe actualmente, puede intentar con la opcion modificar");
+                return;
+            }
+            else {
+                try
+                {
+                    this.db.Ejecutar("INSERT INTO [CAMPUS_ANALYTICA].[Rol] ([Nombre],[Estado]) VALUES('" + Rol_Nombre + "','" + Rol_Habilitado + "')");
+                    MessageBox.Show("Rol guardado.");
+                }
+                catch (SqlException e)
+                {
+                    MessageBox.Show("No se pudo agregar el usuario");
+                }
+           
+             existeT = this.db.Consultar("SELECT Id FROM CAMPUS_ANALYTICA.ROL WHERE Nombre = '" + Rol_Nombre + "'");
             if (existeT)
             {
                 this.db.Leer();
                 Rol_Id = Decimal.Parse(this.db.ObtenerValor("Id"));
+                MessageBox.Show("Rol creado");
             }
             else
             {
@@ -137,11 +151,19 @@ namespace PalcoNet.Abm_Rol
 
                 if (existe)
                 {
-                    this.db.Leer();
-                    Decimal Funcionalidad_Id = Decimal.Parse(this.db.ObtenerValor("Id"));
-                    this.db.Ejecutar("INSERT INTO CAMPUS_ANALYTICA.ROL_FUNCIONALIDAD VALUES (" + Funcionalidad_Id + ", " + Rol_Id + ", " + "GETDATE())");
-                }
+                    try
+                    {
+                        this.db.Leer();
+                        Decimal Funcionalidad_Id = Decimal.Parse(this.db.ObtenerValor("Id"));
+                        this.db.Ejecutar("INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (" + Funcionalidad_Id + ", " + Rol_Id + ", " + "GETDATE())");
+                    }
+                    catch (SqlException e)
+                    {
+                        MessageBox.Show("Este rol ya tiene dicha funcionalidad");
+                    }
+               }
             }
+          } 
         }
 
         private void editarRol(String RolNombre)
@@ -150,11 +172,11 @@ namespace PalcoNet.Abm_Rol
             Char Rol_Habilitado;
             if (active.Checked == true)
             {
-                Rol_Habilitado = 'S';
+                Rol_Habilitado = 'A';
             }
             else
             {
-                Rol_Habilitado = 'N';
+                Rol_Habilitado = 'B';
             }
 
             Decimal Rol_Id = 0;
@@ -167,7 +189,7 @@ namespace PalcoNet.Abm_Rol
 
 
             this.db.Ejecutar("UPDATE CAMPUS_ANALYTICA.ROL SET Estado = '" + Rol_Habilitado + "' WHERE Id = " + Rol_Id);
-            this.db.Ejecutar("DELETE CAMPUS_ANALYTICA.ROL_FUNCIONALIDAD WHERE Id = " + Rol_Id);
+            this.db.Ejecutar("DELETE CAMPUS_ANALYTICA.ROL_FUNCIONALIDAD WHERE Rol_Id = " + Rol_Id);
 
             foreach (var item in this.funcionalidades.CheckedItems)
             {
@@ -177,7 +199,16 @@ namespace PalcoNet.Abm_Rol
                 {
                     this.db.Leer();
                     int Funcionalidad_Codigo = Int32.Parse(this.db.ObtenerValor("Id"));
-                    this.db.Ejecutar("INSERT INTO CAMPUS_ANALYTICA.ROL_FUNCIONALIDAD VALUES (" + Funcionalidad_Codigo + ", " + Rol_Id + ", " + "GETDATE())");
+               
+                    try
+                    {
+                     
+                        this.db.Ejecutar("INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (" + Funcionalidad_Codigo + ", " + Rol_Id + ", " + "GETDATE())");
+                    }
+                    catch (SqlException e)
+                    {
+                        MessageBox.Show("Este rol ya tiene dicha funcionalidad");
+                    }
                 }
 
             }
