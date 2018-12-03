@@ -59,7 +59,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].Compra (
 
 -- Table: Direccion
 CREATE TABLE [CAMPUS_ANALYTICA].Direccion (
-    Id int  NOT NULL IDENTITY,
+    Id int  NOT NULL ,
     Calle nvarchar(50)  NOT NULL,
     Numero numeric(18,0)  NULL,
     Piso numeric(18,0)  NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].EmpresaDireccion (
 
 -- Table: Facturas
 CREATE TABLE [CAMPUS_ANALYTICA].Facturas (
-    Id int  NOT NULL ,
+    Id int  identity ,
     Fecha Date  NOT NULL,
     Empresa_Id int ,
     Numero numeric(18,0)  NOT NULL,
@@ -254,10 +254,10 @@ ALTER TABLE [CAMPUS_ANALYTICA].ClienteDireccion ADD CONSTRAINT ClienteDireccion_
     FOREIGN KEY (Direccion_Id)
     REFERENCES [CAMPUS_ANALYTICA].Direccion (Id);
 
--- Reference: Clientes_Usuarios (table: Cliente)
-ALTER TABLE [CAMPUS_ANALYTICA].Cliente ADD CONSTRAINT Clientes_Usuarios
-    FOREIGN KEY (Usuarios_Id)
-    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
+---- Reference: Clientes_Usuarios (table: Cliente)
+--ALTER TABLE [CAMPUS_ANALYTICA].Cliente ADD CONSTRAINT Clientes_Usuarios
+--    FOREIGN KEY (Usuarios_Id)
+--    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
 
 -- Reference: Compra_Clientes (table: Compra)
 ALTER TABLE [CAMPUS_ANALYTICA].Compra ADD CONSTRAINT Compra_Clientes
@@ -291,10 +291,10 @@ ALTER TABLE [CAMPUS_ANALYTICA].Canjes ADD CONSTRAINT Historial_canje_Clientes
     FOREIGN KEY (Cliente_Id)
     REFERENCES [CAMPUS_ANALYTICA].Cliente (Id);
 
--- Reference: Items_factura_Facturas (table: Items_factura)
-ALTER TABLE [CAMPUS_ANALYTICA].Items_factura ADD CONSTRAINT Items_factura_Facturas
-    FOREIGN KEY (Facturas_Id)
-    REFERENCES [CAMPUS_ANALYTICA].Facturas (Id);
+---- Reference: Items_factura_Facturas (table: Items_factura)
+--ALTER TABLE [CAMPUS_ANALYTICA].Items_factura ADD CONSTRAINT Items_factura_Facturas
+--    FOREIGN KEY (Facturas_Id)
+--    REFERENCES [CAMPUS_ANALYTICA].Facturas (Id);
 
 -- Reference: Publicaciones_Empresas (table: Publicaciones)
 ALTER TABLE [CAMPUS_ANALYTICA].Publicaciones ADD CONSTRAINT Publicaciones_Empresas
@@ -331,10 +331,10 @@ ALTER TABLE [CAMPUS_ANALYTICA].Tipos_publicacion ADD CONSTRAINT Tipos_publicacio
     FOREIGN KEY (Grados_publicacion_Id)
     REFERENCES [CAMPUS_ANALYTICA].Grados_publicacion (Id);
 
--- Reference: Ubicacion_Compra (table: Ubicacion)
-ALTER TABLE [CAMPUS_ANALYTICA].Ubicacion ADD CONSTRAINT Ubicacion_Compra
-    FOREIGN KEY (Compra_Id)
-    REFERENCES [CAMPUS_ANALYTICA].Compra (Id);
+---- Reference: Ubicacion_Compra (table: Ubicacion)
+--ALTER TABLE [CAMPUS_ANALYTICA].Ubicacion ADD CONSTRAINT Ubicacion_Compra
+--    FOREIGN KEY (Compra_Id)
+--    REFERENCES [CAMPUS_ANALYTICA].Compra (Id);
 
 -- Reference: Ubicacion_Publicaciones (table: Ubicacion)
 ALTER TABLE [CAMPUS_ANALYTICA].Ubicacion ADD CONSTRAINT Ubicacion_Publicaciones
@@ -346,10 +346,10 @@ ALTER TABLE [CAMPUS_ANALYTICA].Usuario_Rol ADD CONSTRAINT Usuario_Rol_Rol
     FOREIGN KEY (Rol_Id)
     REFERENCES [CAMPUS_ANALYTICA].Rol (Id);
 
--- Reference: Usuario_Rol_Usuario (table: Usuario_Rol)
-ALTER TABLE [CAMPUS_ANALYTICA].Usuario_Rol ADD CONSTRAINT Usuario_Rol_Usuario
-    FOREIGN KEY (Usuario_Id)
-    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
+---- Reference: Usuario_Rol_Usuario (table: Usuario_Rol)
+--ALTER TABLE [CAMPUS_ANALYTICA].Usuario_Rol ADD CONSTRAINT Usuario_Rol_Usuario
+--    FOREIGN KEY (Usuario_Id)
+--    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
 		
 
 -- Reference: Usuarios_Tipos_usuario (table: Usuario)
@@ -472,6 +472,27 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
       from
          gd_esquema.Maestra m 
          GO 
+	/* insert Compra **/
+	print('Cargando tabla Compra ...')	 	   
+
+	INSERT INTO [CAMPUS_ANALYTICA].[Compra]
+           ([Fecha]
+           ,[Tajetas_Nro_tarjeta]
+           ,[Cliente_Id]
+           ,[Cantidad])
+		select  m.[Compra_Fecha],
+			 m.Forma_Pago_Desc,
+			 (select top 1 c.Id
+				from CAMPUS_ANALYTICA.Cliente c 
+            where
+               c.Mail = m.Cli_Mail
+         ) cliente,
+		 m.Compra_Cantidad
+  FROM [GD2C2018].[gd_esquema].[Maestra] m
+  where m.Compra_Fecha is not null
+		AND m.Forma_Pago_Desc is not null
+		
+GO	 
 	/* insert Ubicacion **/
 	print('Cargando tabla Ubicacion ...')	 
          INSERT INTO
@@ -505,27 +526,6 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
                gd_esquema.Maestra M 
     
 		   GO
-	/* insert Compra **/
-	print('Cargando tabla Compra ...')	 	   
-
-	INSERT INTO [CAMPUS_ANALYTICA].[Compra]
-           ([Fecha]
-           ,[Tajetas_Nro_tarjeta]
-           ,[Cliente_Id]
-           ,[Cantidad])
-		select  m.[Compra_Fecha],
-			 m.Forma_Pago_Desc,
-			 (select top 1 c.Id
-				from CAMPUS_ANALYTICA.Cliente c 
-            where
-               c.Mail = m.Cli_Mail
-         ) cliente,
-		 m.Compra_Cantidad
-  FROM [GD2C2018].[gd_esquema].[Maestra] m
-  where m.Compra_Fecha is not null
-		AND m.Forma_Pago_Desc is not null
-		
-GO
 /* insert Factura **/
 		print('Cargando tabla factura ...')	 		
 	
@@ -628,21 +628,11 @@ BEGIN
 				
 		WHILE (@@FETCH_STATUS = 0) 
 		BEGIN
-			INSERT INTO [CAMPUS_ANALYTICA].[Empresa]
-           ([Razon_social]
-           ,[Mail]
-           ,[Telefono]
-           ,[CUIT]
-           ,[Estado]
-           ,[Fecha_alta]
-           ,[Fecha_baja]
-           ,[Usuarios_Id]
-           ,[Fecha_Creacion])
-				VALUES (@v_Razon_Social,@v_Empresa_Mail,null,@v_Cuit,'A',SYSDATETIME(),null,@usuario_id,SYSDATETIME())
+			
 
 			--como direccion tiene id identity se desabilita para poder insertar datos de migracion
 			--guardo los datos del cliente en la tabla direccion para que el cliente pueda tener varias direcciones
-			SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Direccion] ON
+			--SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Direccion] ON
 			INSERT INTO [CAMPUS_ANALYTICA].[Direccion]
            ([Id]
 		   ,[Calle]
@@ -653,19 +643,7 @@ BEGIN
            ,[Depoto])
      VALUES
            (@direccion_id,@v_Dom_Calle,@v_Nro_Calle,@v_Piso,@v_cod_Postal,'caba',@v_Depto)	
-
-		   --traigo el id de empresa
-		   select @Empresa_id=id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social=@v_Razon_Social
-
-		   --guarda la relacion entre empresa y sus direcciones
-			INSERT INTO [CAMPUS_ANALYTICA].[EmpresaDireccion]
-					   ([Empresa_id]
-					   ,[Direccion_id]
-					   ,[Fecha_Alta]
-					   ,[Fecha_Baja])
-				 VALUES (@Empresa_id,@direccion_id,SYSDATETIME(),null)
-		   			
-			SET @Password = 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3' -- La password por defecto es '123'				
+		   SET @Password = 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3' -- La password por defecto es '123'				
 			
 				
 			INSERT INTO [CAMPUS_ANALYTICA].[Usuario]
@@ -675,6 +653,28 @@ BEGIN
            ,[Tipos_usuario_Id])
 				VALUES (@v_Razon_Social, @Password,'A',2 )
 
+		   INSERT INTO [CAMPUS_ANALYTICA].[Empresa]
+           ([Razon_social]
+           ,[Mail]
+           ,[Telefono]
+           ,[CUIT]
+           ,[Estado]
+           ,[Fecha_alta]
+           ,[Fecha_baja]
+           ,[Usuarios_Id]
+           ,[Fecha_Creacion])
+				VALUES (@v_Razon_Social,@v_Empresa_Mail,null,@v_Cuit,'A',SYSDATETIME(),null,@usuario_id,SYSDATETIME())
+		   --traigo el id de empresa
+		   select @Empresa_id=id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social=@v_Razon_Social
+
+		   --guarda la relacion entre empresa y sus direcciones
+			INSERT INTO [CAMPUS_ANALYTICA].[EmpresaDireccion]
+					   ([Empresa_id]
+					   ,[Direccion_id]
+					   ,[Fecha_Alta]
+					   ,[Fecha_Baja])
+				 VALUES (isnull(@Empresa_id,0),isnull(@direccion_id,0),SYSDATETIME(),null)
+		 
 				
 			INSERT INTO [CAMPUS_ANALYTICA].[Usuario_Rol]
            ([Rol_Id]
@@ -715,7 +715,7 @@ BEGIN
 	DECLARE @Cli_Depto nvarchar(20)
 	DECLARE @Cli_Cod_Postal nvarchar(255)
 	DECLARE @Cliente_id int
-	DECLARE @Password varchar(255)
+	DECLARE @Password nvarchar(255)
 	DECLARE @usrRepetido INT
 
 	print('Cargando tabla de clientes...')
@@ -761,7 +761,34 @@ BEGIN
 		WHILE (@@FETCH_STATUS = 0) 
 		BEGIN
 		  
-			INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
+			--como direccion tiene id identity se desabilita para poder insertar datos de migracion
+			--guardo los datos del cliente en la tabla direccion para que el cliente peda tener varias direcciones
+			--SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Direccion] ON
+			INSERT INTO [CAMPUS_ANALYTICA].[Direccion]
+           ([Id]
+		   ,[Calle]
+           ,[Numero]
+           ,[Piso]
+           ,[Codigo_postal]
+           ,[Localidad]
+           ,[Depoto])
+     VALUES
+           (@Direccion_id,@Cli_Dom_Calle,@Cli_Nro_Calle,@Cli_Piso,@Cli_Cod_Postal,'caba',@Cli_Depto)
+	
+			SET @Password ='A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3'  -- La password por defecto es '123'				
+			
+			select @usrRepetido=id from CAMPUS_ANALYTICA.Usuario where id =@usuario_id
+			
+			if(@usrRepetido is null)
+			begin	
+			INSERT INTO [CAMPUS_ANALYTICA].[Usuario]
+           ([Username]
+           ,[Password]
+           ,[Estado]
+           ,[Tipos_usuario_Id])
+				VALUES (CONVERT(varchar(100),@usuario_id)+@Cli_Nombre+@Cli_Apeliido,@Password,'A',3 )	
+
+		   INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
 					   ([Nombre]
 					   ,[Apellido]
 					   ,[Tipo_documento]
@@ -779,21 +806,6 @@ BEGIN
 					   ,[Usuarios_Id])
 				 VALUES
 					   (@Cli_Nombre,@Cli_Apeliido,1,@Cli_Dni,'11111111',@Cli_Mail,null,@Cli_Fecha_Nac,SYSDATETIME(),null,'A',0,0,null,@usuario_id)
-
-			--como direccion tiene id identity se desabilita para poder insertar datos de migracion
-			--guardo los datos del cliente en la tabla direccion para que el cliente peda tener varias direcciones
-			SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Direccion] ON
-			INSERT INTO [CAMPUS_ANALYTICA].[Direccion]
-           ([Id]
-		   ,[Calle]
-           ,[Numero]
-           ,[Piso]
-           ,[Codigo_postal]
-           ,[Localidad]
-           ,[Depoto])
-     VALUES
-           (@Direccion_id,@Cli_Dom_Calle,@Cli_Nro_Calle,@Cli_Piso,@Cli_Cod_Postal,'caba',@Cli_Depto)	
-
 		   --traigo el id de cliente
 		   select @Cliente_id=id from CAMPUS_ANALYTICA.Cliente c where c.Usuarios_Id=@usuario_id
 
@@ -804,19 +816,7 @@ BEGIN
 						,[Fecha_Alta]
 						,[Fecha_Baja])
 				 VALUES (@Cliente_id,@direccion_id,SYSDATETIME(),null)
-		   			
-			SET @Password ='A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3'  -- La password por defecto es '123'				
-			
-			select @usrRepetido=id from CAMPUS_ANALYTICA.Usuario where id =@usuario_id
-			
-			if(@usrRepetido is null)
-			begin	
-			INSERT INTO [CAMPUS_ANALYTICA].[Usuario]
-           ([Username]
-           ,[Password]
-           ,[Estado]
-           ,[Tipos_usuario_Id])
-				VALUES (CONVERT(varchar(100),@usuario_id)+@Cli_Nombre+@Cli_Apeliido,@Password,'A',3 )			
+		   					
 				
 			INSERT INTO [CAMPUS_ANALYTICA].[Usuario_Rol]
            ([Rol_Id]
@@ -844,7 +844,6 @@ END
 GO
 
 /**********ejecucion de procedimientos***********************************/
-
 exec MigraEmpresas
 exec MigraClientes
 
