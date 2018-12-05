@@ -122,8 +122,9 @@ CREATE TABLE [CAMPUS_ANALYTICA].Items_factura (
     Monto numeric(18,2)  NOT NULL ,
     Cantidad numeric(18,0)  NOT NULL,
     Facturas_Id int  NOT NULL,
+	Compras_Id int, 
     Descripcion nvarchar(60)  NOT NULL,
-    CONSTRAINT Items_factura_pk PRIMARY KEY  (Facturas_Id)
+    CONSTRAINT Items_factura_pk PRIMARY KEY  (Facturas_Id,Compras_Id)
 );
 
 -- Table: Premios
@@ -358,6 +359,10 @@ ALTER TABLE [CAMPUS_ANALYTICA].Usuario ADD CONSTRAINT Usuarios_Tipos_usuario
     REFERENCES [CAMPUS_ANALYTICA].Tipos_usuario (Id);
 GO	
 
+ALTER TABLE [CAMPUS_ANALYTICA].items_factura ADD CONSTRAINT compra_item_factura
+    FOREIGN KEY (Compras_Id)
+    REFERENCES [CAMPUS_ANALYTICA].Compra(Id);
+GO	
 
 	
 --*******************************INSERT***********************************	--
