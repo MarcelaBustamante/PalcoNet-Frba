@@ -119,12 +119,13 @@ CREATE TABLE [CAMPUS_ANALYTICA].Grados_publicacion (
 
 -- Table: Items_factura
 CREATE TABLE [CAMPUS_ANALYTICA].Items_factura (
+	Id int identity,
     Monto numeric(18,2)  NOT NULL ,
     Cantidad numeric(18,0)  NOT NULL,
     Facturas_Id int  NOT NULL,
 	Compras_Id int, 
     Descripcion nvarchar(60)  NOT NULL,
-    CONSTRAINT Items_factura_pk PRIMARY KEY  (Facturas_Id,Compras_Id)
+    CONSTRAINT Items_factura_pk PRIMARY KEY  (id,Facturas_Id,Compras_Id)
 );
 
 -- Table: Premios
@@ -221,8 +222,8 @@ CREATE TABLE [CAMPUS_ANALYTICA].Ubicacion (
 
 CREATE TABLE [CAMPUS_ANALYTICA].Usuario (
     Id int  NOT NULL IDENTITY,
-    Username varchar(20)  NOT NULL ,
-    Password varchar(250)  NOT NULL,
+    Username varchar(255)  NOT NULL ,
+    Password varchar(500)  NOT NULL,
     Estado char  NOT NULL DEFAULT 'A',--A:ALTA Y B:BAJA
     Tipos_usuario_Id int  ,
     CONSTRAINT Usuario_pk PRIMARY KEY  (Id)
@@ -332,10 +333,7 @@ ALTER TABLE [CAMPUS_ANALYTICA].Tipos_publicacion ADD CONSTRAINT Tipos_publicacio
     FOREIGN KEY (Grados_publicacion_Id)
     REFERENCES [CAMPUS_ANALYTICA].Grados_publicacion (Id);
 
----- Reference: Ubicacion_Compra (table: Ubicacion)
---ALTER TABLE [CAMPUS_ANALYTICA].Ubicacion ADD CONSTRAINT Ubicacion_Compra
---    FOREIGN KEY (Compra_Id)
---    REFERENCES [CAMPUS_ANALYTICA].Compra (Id);
+
 
 -- Reference: Ubicacion_Publicaciones (table: Ubicacion)
 ALTER TABLE [CAMPUS_ANALYTICA].Ubicacion ADD CONSTRAINT Ubicacion_Publicaciones
@@ -347,12 +345,7 @@ ALTER TABLE [CAMPUS_ANALYTICA].Usuario_Rol ADD CONSTRAINT Usuario_Rol_Rol
     FOREIGN KEY (Rol_Id)
     REFERENCES [CAMPUS_ANALYTICA].Rol (Id);
 
----- Reference: Usuario_Rol_Usuario (table: Usuario_Rol)
---ALTER TABLE [CAMPUS_ANALYTICA].Usuario_Rol ADD CONSTRAINT Usuario_Rol_Usuario
---    FOREIGN KEY (Usuario_Id)
---    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
-		
-
+	
 -- Reference: Usuarios_Tipos_usuario (table: Usuario)
 ALTER TABLE [CAMPUS_ANALYTICA].Usuario ADD CONSTRAINT Usuarios_Tipos_usuario
     FOREIGN KEY (Tipos_usuario_Id)
@@ -450,130 +443,7 @@ INSERT INTO [CAMPUS_ANALYTICA].[Rubros]
      VALUES
            ('GENERAL')
 GO
-/* insert Publicaciones **/
-print('Cargando tabla Publicaciones ...')
-GO 
-SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
-   INSERT INTO
-      [CAMPUS_ANALYTICA].[Publicaciones] (Id , [Estado] , [Fecha_inicio] , [Fecha_Vencimiento] , [Localidades] , [Descripcion] , [Direccion] , [Empresa_Id] , [Grados_publicacion_Id] , [Rubros_Id]) 
-      select distinct
-         m.Espectaculo_Cod,
-         m.Espectaculo_Estado,
-         m.Espectaculo_Fecha,
-         m.Espectaculo_Fecha_Venc,
-         0,
-         m.Espectaculo_Descripcion,
-         'N/A',
-         (
-            select
-               e.Id 
-            from
-               CAMPUS_ANALYTICA.Empresa e 
-            where
-               e.Razon_social = m.Espec_Empresa_Razon_Social
-         ) empresa,
-         1,
-         1 
-      from
-         gd_esquema.Maestra m 
-         GO 
-	/* insert Compra **/
-	print('Cargando tabla Compra ...')	 	   
-
-	INSERT INTO [CAMPUS_ANALYTICA].[Compra]
-           ([Fecha]
-           ,[Tajetas_Nro_tarjeta]
-           ,[Cliente_Id]
-           ,[Cantidad])
-		select  m.[Compra_Fecha],
-			 m.Forma_Pago_Desc,
-			 (select top 1 c.Id
-				from CAMPUS_ANALYTICA.Cliente c 
-            where
-               c.Mail = m.Cli_Mail
-         ) cliente,
-		 m.Compra_Cantidad
-  FROM [GD2C2018].[gd_esquema].[Maestra] m
-  where m.Compra_Fecha is not null
-		AND m.Forma_Pago_Desc is not null
-		
-GO	 
-	/* insert Ubicacion **/
-	print('Cargando tabla Ubicacion ...')	 
-         INSERT INTO
-            [CAMPUS_ANALYTICA].[Ubicacion] ([Fila] ,
-					 [Asiento] ,
-					 [Precio] ,
-					 [Comprada] ,
-					 [Publicaciones_Id] ,
-					 [sin_numerar] ,
-					 [Tipo_Codigo] , 
-					 [Tipo_descripcion] , 
-					 [Compra_Id]) 
-            SELECT DISTINCT
-               m.Ubicacion_Fila,
-               m.Ubicacion_Asiento,
-               m.Ubicacion_Precio,
-              ( case
-                  when
-                        m.Factura_Nro is not null
-                  then
-                     'S' 
-                  else
-                     'N' 
-               end) as comprada,
-			    m.Espectaculo_Cod ,
-				m.Ubicacion_Sin_numerar,
-				m.Ubicacion_Tipo_Codigo,
-				m.Ubicacion_Tipo_Descripcion,
-				m.Factura_Nro
-            FROM
-               gd_esquema.Maestra M 
-    
-		   GO
-/* insert Factura **/
-		print('Cargando tabla factura ...')	 		
-	
-	INSERT INTO [CAMPUS_ANALYTICA].[Facturas]
-			   ([Fecha]
-			   ,[Empresa_Id]
-			   ,[Numero]
-			   ,[Total])
-		SELECT  
-		   m.[Factura_Fecha],
-		   (select e.id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social= m.Espec_Empresa_Razon_Social) empresa,
-		   m.[Factura_Nro],
-		  [Factura_Total]
-	  FROM [GD2C2018].[gd_esquema].[Maestra] m
-	  where m.Factura_Fecha is not null
-	GO
-	/* insert item_Factura **/
-		print('Cargando tabla item_factura ...')
-	
-	go
-	INSERT INTO [CAMPUS_ANALYTICA].[Items_factura]
-			   ([Monto]
-			   ,[Cantidad]
-			   ,[Facturas_Id]
-			   ,[Descripcion])
-	SELECT 
-		   m.Item_Factura_Monto,
-		   m.Item_Factura_Cantidad,
-		   m.Factura_Nro,
-		   m.Item_Factura_Descripcion
-	  FROM [GD2C2018].[gd_esquema].[Maestra] m
-	  where m.Factura_Fecha is not null
-	  group by   m.Item_Factura_Monto,
-		   m.Item_Factura_Cantidad,
-		   m.Factura_Nro,
-		   m.Item_Factura_Descripcion
-	go
-		
-		
-GO
-
-	
-	   
+   
 
 /************************************************ CREACIÓN DE PROCEDIMIENTOS ************************************************/
 
@@ -592,7 +462,7 @@ BEGIN
 	DECLARE @v_Nro_Calle numeric
 	DECLARE @v_Piso numeric
 	DECLARE @usuario_id int
-	DECLARE @Password nvarchar(255)
+	DECLARE @Password varchar(500)
 	DECLARE @direccion_id int
 	DECLARE @Empresa_id int
 	print('Cargando empresas...')
@@ -720,7 +590,7 @@ BEGIN
 	DECLARE @Cli_Depto nvarchar(20)
 	DECLARE @Cli_Cod_Postal nvarchar(255)
 	DECLARE @Cliente_id int
-	DECLARE @Password nvarchar(255)
+	DECLARE @Password varchar(500)
 	DECLARE @usrRepetido INT
 
 	print('Cargando tabla de clientes...')
@@ -791,7 +661,7 @@ BEGIN
            ,[Password]
            ,[Estado]
            ,[Tipos_usuario_Id])
-				VALUES (CONVERT(varchar(100),@usuario_id)+@Cli_Nombre+@Cli_Apeliido,@Password,'A',3 )	
+				VALUES (CONVERT(varchar(255),@usuario_id)+@Cli_Nombre+@Cli_Apeliido,@Password,'A',3 )	
 
 		   INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
 					   ([Nombre]
@@ -851,4 +721,113 @@ GO
 /**********ejecucion de procedimientos***********************************/
 exec MigraEmpresas
 exec MigraClientes
+
+/************************************************************************/
+/* insert Publicaciones **/
+print('Cargando tabla Publicaciones ...')
+GO 
+SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
+   INSERT INTO
+      [CAMPUS_ANALYTICA].[Publicaciones] (Id , [Estado] , [Fecha_inicio] , [Fecha_Vencimiento] , [Localidades] , [Descripcion] , [Direccion] , [Empresa_Id] , [Grados_publicacion_Id] , [Rubros_Id]) 
+      select distinct
+         m.Espectaculo_Cod,
+         m.Espectaculo_Estado,
+         m.Espectaculo_Fecha,
+         m.Espectaculo_Fecha_Venc,
+         0,
+         m.Espectaculo_Descripcion,
+         'N/A',
+         (
+            select
+               e.Id 
+            from
+               CAMPUS_ANALYTICA.Empresa e 
+            where
+               e.Razon_social = m.Espec_Empresa_Razon_Social
+         ) empresa,
+         1,
+         1 
+      from
+         gd_esquema.Maestra m 
+         GO 
+	
+	/* insert Ubicacion **/
+	print('Cargando tabla Ubicacion ...')	 
+         INSERT INTO
+            [CAMPUS_ANALYTICA].[Ubicacion] ([Fila] ,
+					 [Asiento] ,
+					 [Precio] ,
+					 [Comprada] ,
+					 [Publicaciones_Id] ,
+					 [sin_numerar] ,
+					 [Tipo_Codigo] , 
+					 [Tipo_descripcion] , 
+					 [Compra_Id]) 
+            SELECT DISTINCT
+               m.Ubicacion_Fila,
+               m.Ubicacion_Asiento,
+               m.Ubicacion_Precio,
+              ( case
+                  when
+                        m.Factura_Nro is not null
+                  then
+                     'S' 
+                  else
+                     'N' 
+               end) as comprada,
+			    m.Espectaculo_Cod ,
+				m.Ubicacion_Sin_numerar,
+				m.Ubicacion_Tipo_Codigo,
+				m.Ubicacion_Tipo_Descripcion,
+				m.Factura_Nro
+            FROM
+               gd_esquema.Maestra M 
+    
+		   GO
+/* insert Factura **/
+		print('Cargando tabla factura ...')	 		
+	
+	INSERT INTO [CAMPUS_ANALYTICA].[Facturas]
+			   ([Fecha]
+			   ,[Empresa_Id]
+			   ,[Numero]
+			   ,[Total])
+		SELECT  
+		   m.[Factura_Fecha],
+		   (select e.id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social= m.Espec_Empresa_Razon_Social) empresa,
+		   m.[Factura_Nro],
+		  [Factura_Total]
+	  FROM [GD2C2018].[gd_esquema].[Maestra] m
+	  where m.Factura_Fecha is not null
+	GO
+	/* insert item_Factura **/
+		print('Cargando tabla item_factura ...')
+	
+	go
+	INSERT INTO [CAMPUS_ANALYTICA].[Items_factura]
+			   ([Monto]
+			   ,[Cantidad]
+			   ,[Facturas_Id]
+			   ,[Descripcion]
+			   ,[Compras_Id])
+	SELECT distinct
+		   m.Item_Factura_Monto,
+		   m.Item_Factura_Cantidad,
+		   m.Factura_Nro,
+		   m.Item_Factura_Descripcion,
+		   c.Id
+	  FROM [GD2C2018].[gd_esquema].[Maestra] m
+	  join CAMPUS_ANALYTICA.Cliente cli
+	  on cli.Mail like m.Cli_Mail
+	  join CAMPUS_ANALYTICA.Compra c
+	  on c.Cliente_Id =cli.Id
+	  and c.Cantidad = m.Compra_Cantidad
+	  and c.Fecha= m.Compra_Fecha
+	  where m.Factura_Fecha is not null
+	     and m.Cli_Mail is not null
+		
+GO
+
+	
+	
 
