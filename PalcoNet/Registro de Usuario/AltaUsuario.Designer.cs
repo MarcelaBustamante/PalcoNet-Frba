@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Registro_de_Usuario
 {
-    partial class Form1
+    partial class AltaUsuario
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // AltaUsuario
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(588, 282);
+            this.Name = "AltaUsuario";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

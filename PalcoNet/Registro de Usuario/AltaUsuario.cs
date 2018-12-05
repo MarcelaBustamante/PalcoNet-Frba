@@ -8,23 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Abm_Cliente
+namespace PalcoNet.Registro_de_Usuario
 {
-    public partial class ListadoCliente : Form
+    public partial class AltaUsuario : Form
     {
-        public ListadoCliente()
+        public AltaUsuario()
         {
             InitializeComponent();
-        }
-
-        private void ListadoCliente_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
