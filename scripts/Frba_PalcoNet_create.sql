@@ -236,6 +236,17 @@ CREATE TABLE [CAMPUS_ANALYTICA].Usuario_Rol (
     Fecha_baja int  
 );
 
+--tabla tipo documento
+CREATE TABLE CAMPUS_ANALYTICA.TIPO_DOCUMENTO(
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Descripcion] [varchar](100) NOT NULL,
+ CONSTRAINT [tipo_documento_Id] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
 
 /*****restricciones para tablas ***/
 GO
@@ -443,7 +454,10 @@ INSERT INTO [CAMPUS_ANALYTICA].[Rubros]
      VALUES
            ('GENERAL')
 GO
-   
+/*tabla tipo documento */
+print('cargando tipo documento...')
+insert into CAMPUS_ANALYTICA.tipo_documento (descripcion) values('DNI')
+GO   
 
 /************************************************ CREACIÓN DE PROCEDIMIENTOS ************************************************/
 
