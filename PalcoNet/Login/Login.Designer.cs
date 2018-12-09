@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.aceptar = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbUsername = new System.Windows.Forms.TextBox();
             this.tbPassword = new System.Windows.Forms.TextBox();
+            this.tbUsername = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.aceptar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.altaUsuario = new System.Windows.Forms.Button();
             this.cancelar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -53,23 +53,19 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Acceso a usuarios";
             // 
-            // label1
+            // tbPassword
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Username";
+            this.tbPassword.Location = new System.Drawing.Point(86, 61);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(149, 20);
+            this.tbPassword.TabIndex = 4;
             // 
-            // aceptar
+            // tbUsername
             // 
-            this.aceptar.Location = new System.Drawing.Point(30, 102);
-            this.aceptar.Name = "aceptar";
-            this.aceptar.Size = new System.Drawing.Size(207, 44);
-            this.aceptar.TabIndex = 1;
-            this.aceptar.Text = "Aceptar";
-            this.aceptar.UseVisualStyleBackColor = true;
+            this.tbUsername.Location = new System.Drawing.Point(85, 27);
+            this.tbUsername.Name = "tbUsername";
+            this.tbUsername.Size = new System.Drawing.Size(149, 20);
+            this.tbUsername.TabIndex = 3;
             // 
             // label2
             // 
@@ -80,19 +76,24 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Password";
             // 
-            // tbUsername
+            // aceptar
             // 
-            this.tbUsername.Location = new System.Drawing.Point(85, 27);
-            this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(149, 20);
-            this.tbUsername.TabIndex = 3;
+            this.aceptar.Location = new System.Drawing.Point(30, 102);
+            this.aceptar.Name = "aceptar";
+            this.aceptar.Size = new System.Drawing.Size(207, 44);
+            this.aceptar.TabIndex = 1;
+            this.aceptar.Text = "Aceptar";
+            this.aceptar.UseVisualStyleBackColor = true;
+            this.aceptar.Click += new System.EventHandler(this.aceptar_Click);
             // 
-            // tbPassword
+            // label1
             // 
-            this.tbPassword.Location = new System.Drawing.Point(86, 61);
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.Size = new System.Drawing.Size(149, 20);
-            this.tbPassword.TabIndex = 4;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(24, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Username";
             // 
             // altaUsuario
             // 
@@ -111,6 +112,7 @@
             this.cancelar.TabIndex = 2;
             this.cancelar.Text = "Cancelar";
             this.cancelar.UseVisualStyleBackColor = true;
+            this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
             // 
             // Login
             // 

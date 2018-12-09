@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rol = new System.Windows.Forms.CheckedListBox();
+            this.roles = new System.Windows.Forms.CheckedListBox();
             this.aceptar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rol);
+            this.groupBox1.Controls.Add(this.roles);
             this.groupBox1.Location = new System.Drawing.Point(31, 24);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(230, 175);
@@ -44,13 +44,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seleccion Rol";
             // 
-            // rol
+            // roles
             // 
-            this.rol.FormattingEnabled = true;
-            this.rol.Location = new System.Drawing.Point(17, 29);
-            this.rol.Name = "rol";
-            this.rol.Size = new System.Drawing.Size(194, 139);
-            this.rol.TabIndex = 0;
+            this.roles.FormattingEnabled = true;
+            this.roles.Location = new System.Drawing.Point(17, 29);
+            this.roles.Name = "roles";
+            this.roles.Size = new System.Drawing.Size(194, 139);
+            this.roles.TabIndex = 0;
             // 
             // aceptar
             // 
@@ -60,6 +60,7 @@
             this.aceptar.TabIndex = 1;
             this.aceptar.Text = "Aceptar";
             this.aceptar.UseVisualStyleBackColor = true;
+            this.aceptar.Click += new System.EventHandler(this.aceptar_Click);
             // 
             // SelRol
             // 
@@ -78,7 +79,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckedListBox rol;
+        private System.Windows.Forms.CheckedListBox roles;
         private System.Windows.Forms.Button aceptar;
     }
 }
