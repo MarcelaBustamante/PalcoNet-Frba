@@ -18,3 +18,30 @@ D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.ListaRol.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.DarDeAltaRol.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ListadoCliente.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csprojAssemblyReference.cache
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.AltaCliente.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.bajaCliente.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ListadoCliente.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.AltaEmpresa.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.BajaEmpresa.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.listaEmpresa.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.DarDeAltaRol.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.ListaRol.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Comprar.generarCompra.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Publicaciones.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.AltaPublicacion.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.Form1.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Login.Login.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Login.SelRol.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.MenuPrincipal.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Properties.Resources.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.AltaUsuario.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.BajaUsuario.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.ListaUsuario.resources
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.cache
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csproj.CoreCompileInputs.cache
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.exe
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.pdb
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.exe.config
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.exe
+U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.pdb
