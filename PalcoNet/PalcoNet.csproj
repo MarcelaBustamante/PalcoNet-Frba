@@ -83,11 +83,11 @@
     <Compile Include="Abm Empresa Espectaculo\listaEmpresa.Designer.cs">
       <DependentUpon>listaEmpresa.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Grado\Form1.cs">
+    <Compile Include="Abm Grado\EditarGradoPublicacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Grado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Grado\EditarGradoPublicacion.Designer.cs">
+      <DependentUpon>EditarGradoPublicacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\DarDeAltaRol.cs">
       <SubType>Form</SubType>
@@ -107,9 +107,7 @@
     <Compile Include="Abm Rubro\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Canje Puntos\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Canje Puntos\Form1.cs" />
     <Compile Include="Canje Puntos\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -126,9 +124,7 @@
     <Compile Include="Editar Publicacion\Publicaciones.Designer.cs">
       <DependentUpon>Publicaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Form1.cs" />
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -138,9 +134,7 @@
     <Compile Include="Generar Publicacion\AltaPublicacion.Designer.cs">
       <DependentUpon>AltaPublicacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Generar Rendicion Comisiones\Form1.cs" />
     <Compile Include="Generar Rendicion Comisiones\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -150,9 +144,7 @@
     <Compile Include="Historial Cliente\historial del cliente.Designer.cs">
       <DependentUpon>historial del cliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Listado Estadistico\Form1.cs" />
     <Compile Include="Listado Estadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -211,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\listaEmpresa.resx">
       <DependentUpon>listaEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Grado\EditarGradoPublicacion.resx">
+      <DependentUpon>EditarGradoPublicacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\DarDeAltaRol.resx">
       <DependentUpon>DarDeAltaRol.cs</DependentUpon>
