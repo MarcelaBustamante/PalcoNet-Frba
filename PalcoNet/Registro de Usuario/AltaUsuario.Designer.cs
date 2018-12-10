@@ -91,6 +91,8 @@
             // cbhabilitado
             // 
             this.cbhabilitado.AutoSize = true;
+            this.cbhabilitado.Checked = true;
+            this.cbhabilitado.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbhabilitado.Location = new System.Drawing.Point(252, 182);
             this.cbhabilitado.Name = "cbhabilitado";
             this.cbhabilitado.Size = new System.Drawing.Size(73, 17);
@@ -106,6 +108,7 @@
             this.aceptar.TabIndex = 7;
             this.aceptar.Text = "Aceptar";
             this.aceptar.UseVisualStyleBackColor = true;
+            this.aceptar.Click += new System.EventHandler(this.aceptar_Click);
             // 
             // cancelar
             // 
@@ -115,6 +118,7 @@
             this.cancelar.TabIndex = 8;
             this.cancelar.Text = "Cancelar";
             this.cancelar.UseVisualStyleBackColor = true;
+            this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
             // 
             // AltaUsuario
             // 

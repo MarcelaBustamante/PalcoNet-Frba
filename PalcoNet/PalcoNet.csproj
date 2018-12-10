@@ -107,11 +107,11 @@
     <Compile Include="Abm Rubro\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Canje Puntos\Form1.cs">
+    <Compile Include="Canje Puntos\PanelPuntaje.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Canje Puntos\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Canje Puntos\PanelPuntaje.Designer.cs">
+      <DependentUpon>PanelPuntaje.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\generarCompra.cs">
       <SubType>Form</SubType>
@@ -126,23 +126,23 @@
     <Compile Include="Editar Publicacion\Publicaciones.Designer.cs">
       <DependentUpon>Publicaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Generar Publicacion\AltaPublicacion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Generar Publicacion\AltaPublicacion.Designer.cs">
       <DependentUpon>AltaPublicacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.cs">
+    <Compile Include="Generar Rendicion Comisiones\generarFactura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generar Rendicion Comisiones\generarFactura.Designer.cs">
+      <DependentUpon>generarFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Rendicion Comisiones\popupComison.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Rendicion Comisiones\popupComison.Designer.cs">
+      <DependentUpon>popupComison.cs</DependentUpon>
     </Compile>
     <Compile Include="Historial Cliente\historial del cliente.cs">
       <SubType>Form</SubType>
@@ -150,11 +150,11 @@
     <Compile Include="Historial Cliente\historial del cliente.Designer.cs">
       <DependentUpon>historial del cliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.cs">
+    <Compile Include="Listado Estadistico\lista.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listado Estadistico\lista.Designer.cs">
+      <DependentUpon>lista.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\Login.cs">
       <SubType>Form</SubType>
@@ -218,6 +218,9 @@
     <EmbeddedResource Include="Abm Rol\ListaRol.resx">
       <DependentUpon>ListaRol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Canje Puntos\PanelPuntaje.resx">
+      <DependentUpon>PanelPuntaje.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Comprar\generarCompra.resx">
       <DependentUpon>generarCompra.cs</DependentUpon>
     </EmbeddedResource>
@@ -227,8 +230,17 @@
     <EmbeddedResource Include="Generar Publicacion\AltaPublicacion.resx">
       <DependentUpon>AltaPublicacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Generar Rendicion Comisiones\generarFactura.resx">
+      <DependentUpon>generarFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Rendicion Comisiones\popupComison.resx">
+      <DependentUpon>popupComison.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\historial del cliente.resx">
       <DependentUpon>historial del cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\lista.resx">
+      <DependentUpon>lista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

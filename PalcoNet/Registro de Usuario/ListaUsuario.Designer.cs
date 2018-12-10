@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbUsuario = new System.Windows.Forms.TextBox();
-            this.buscar = new System.Windows.Forms.Button();
             this.limpiar = new System.Windows.Forms.Button();
+            this.buscar = new System.Windows.Forms.Button();
+            this.tbUsuario = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.grillaUsuarios = new System.Windows.Forms.DataGridView();
             this.alta = new System.Windows.Forms.Button();
             this.modificacion = new System.Windows.Forms.Button();
             this.baja = new System.Windows.Forms.Button();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,22 +58,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtro de búsqueda";
             // 
-            // label1
+            // limpiar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Usuario";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // tbUsuario
-            // 
-            this.tbUsuario.Location = new System.Drawing.Point(99, 41);
-            this.tbUsuario.Name = "tbUsuario";
-            this.tbUsuario.Size = new System.Drawing.Size(197, 20);
-            this.tbUsuario.TabIndex = 1;
+            this.limpiar.Location = new System.Drawing.Point(465, 38);
+            this.limpiar.Name = "limpiar";
+            this.limpiar.Size = new System.Drawing.Size(75, 23);
+            this.limpiar.TabIndex = 3;
+            this.limpiar.Text = "Limpiar";
+            this.limpiar.UseVisualStyleBackColor = true;
+            this.limpiar.Click += new System.EventHandler(this.limpiar_Click);
             // 
             // buscar
             // 
@@ -82,20 +76,29 @@
             this.buscar.TabIndex = 2;
             this.buscar.Text = "Buscar";
             this.buscar.UseVisualStyleBackColor = true;
+            this.buscar.Click += new System.EventHandler(this.buscar_Click);
             // 
-            // limpiar
+            // tbUsuario
             // 
-            this.limpiar.Location = new System.Drawing.Point(465, 38);
-            this.limpiar.Name = "limpiar";
-            this.limpiar.Size = new System.Drawing.Size(75, 23);
-            this.limpiar.TabIndex = 3;
-            this.limpiar.Text = "Limpiar";
-            this.limpiar.UseVisualStyleBackColor = true;
+            this.tbUsuario.Location = new System.Drawing.Point(99, 41);
+            this.tbUsuario.Name = "tbUsuario";
+            this.tbUsuario.Size = new System.Drawing.Size(197, 20);
+            this.tbUsuario.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Usuario";
             // 
             // grillaUsuarios
             // 
             this.grillaUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grillaUsuarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
             this.Usuario,
             this.Rol,
             this.TipoUsuario});
@@ -112,6 +115,7 @@
             this.alta.TabIndex = 2;
             this.alta.Text = "Alta";
             this.alta.UseVisualStyleBackColor = true;
+            this.alta.Click += new System.EventHandler(this.alta_Click);
             // 
             // modificacion
             // 
@@ -121,6 +125,7 @@
             this.modificacion.TabIndex = 3;
             this.modificacion.Text = "Modificacion";
             this.modificacion.UseVisualStyleBackColor = true;
+            this.modificacion.Click += new System.EventHandler(this.modificacion_Click);
             // 
             // baja
             // 
@@ -130,6 +135,12 @@
             this.baja.TabIndex = 4;
             this.baja.Text = "Baja";
             this.baja.UseVisualStyleBackColor = true;
+            this.baja.Click += new System.EventHandler(this.baja_Click);
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
             // 
             // Usuario
             // 
@@ -146,7 +157,7 @@
             this.TipoUsuario.HeaderText = "Tipo de usuario";
             this.TipoUsuario.Name = "TipoUsuario";
             // 
-            // AltaUsuario
+            // ListaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -156,7 +167,7 @@
             this.Controls.Add(this.alta);
             this.Controls.Add(this.grillaUsuarios);
             this.Controls.Add(this.groupBox1);
-            this.Name = "AltaUsuario";
+            this.Name = "ListaUsuario";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -176,6 +187,7 @@
         private System.Windows.Forms.Button alta;
         private System.Windows.Forms.Button modificacion;
         private System.Windows.Forms.Button baja;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rol;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoUsuario;

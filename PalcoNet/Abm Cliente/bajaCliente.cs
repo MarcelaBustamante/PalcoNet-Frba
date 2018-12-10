@@ -12,9 +12,11 @@ namespace PalcoNet.Abm_Cliente
 {
     public partial class bajaCliente : Form
     {
-        public bajaCliente()
+        private dbmanager db = new dbmanager();
+        public bajaCliente(dbmanager db,decimal id)
         {
             InitializeComponent();
+            this.db = db;
         }
     }
 }

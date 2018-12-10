@@ -29,25 +29,40 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbEmail = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.limpiar = new System.Windows.Forms.Button();
             this.buscar = new System.Windows.Forms.Button();
             this.tbDoc = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbTipoDoc = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbApellido = new System.Windows.Forms.TextBox();
             this.apellido = new System.Windows.Forms.Label();
             this.tbNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.grillaClientes = new System.Windows.Forms.DataGridView();
             this.alta = new System.Windows.Forms.Button();
             this.editar = new System.Windows.Forms.Button();
             this.borrar = new System.Windows.Forms.Button();
             this.altaUsuario = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbEmail = new System.Windows.Forms.TextBox();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.apellidogrilla = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NroDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cuil = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaNacimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaAlta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.calle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numeroCalle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.localidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -58,9 +73,9 @@
             this.groupBox1.Controls.Add(this.buscar);
             this.groupBox1.Controls.Add(this.tbDoc);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.cbTipoDoc);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.tbApellido);
             this.groupBox1.Controls.Add(this.apellido);
             this.groupBox1.Controls.Add(this.tbNombre);
             this.groupBox1.Controls.Add(this.label1);
@@ -71,6 +86,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtro de búsqueda";
             // 
+            // tbEmail
+            // 
+            this.tbEmail.Location = new System.Drawing.Point(110, 89);
+            this.tbEmail.Name = "tbEmail";
+            this.tbEmail.Size = new System.Drawing.Size(177, 20);
+            this.tbEmail.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(46, 96);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Email";
+            // 
             // limpiar
             // 
             this.limpiar.Location = new System.Drawing.Point(542, 96);
@@ -79,6 +110,7 @@
             this.limpiar.TabIndex = 9;
             this.limpiar.Text = "Limpiar";
             this.limpiar.UseVisualStyleBackColor = true;
+            this.limpiar.Click += new System.EventHandler(this.limpiar_Click);
             // 
             // buscar
             // 
@@ -88,6 +120,7 @@
             this.buscar.TabIndex = 8;
             this.buscar.Text = "Buscar";
             this.buscar.UseVisualStyleBackColor = true;
+            this.buscar.Click += new System.EventHandler(this.buscar_Click);
             // 
             // tbDoc
             // 
@@ -105,13 +138,13 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Nro de Identificacion";
             // 
-            // comboBox1
+            // cbTipoDoc
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(440, 33);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(177, 21);
-            this.comboBox1.TabIndex = 5;
+            this.cbTipoDoc.FormattingEnabled = true;
+            this.cbTipoDoc.Location = new System.Drawing.Point(440, 33);
+            this.cbTipoDoc.Name = "cbTipoDoc";
+            this.cbTipoDoc.Size = new System.Drawing.Size(177, 21);
+            this.cbTipoDoc.TabIndex = 5;
             // 
             // label2
             // 
@@ -122,12 +155,12 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Tipo de identificacion";
             // 
-            // textBox1
+            // tbApellido
             // 
-            this.textBox1.Location = new System.Drawing.Point(110, 60);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(177, 20);
-            this.textBox1.TabIndex = 3;
+            this.tbApellido.Location = new System.Drawing.Point(110, 60);
+            this.tbApellido.Name = "tbApellido";
+            this.tbApellido.Size = new System.Drawing.Size(177, 20);
+            this.tbApellido.TabIndex = 3;
             // 
             // apellido
             // 
@@ -155,13 +188,28 @@
             this.label1.Text = "Nombre";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // dataGridView1
+            // grillaClientes
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(56, 162);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(691, 175);
-            this.dataGridView1.TabIndex = 1;
+            this.grillaClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grillaClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.Nombre,
+            this.apellidogrilla,
+            this.NroDocumento,
+            this.cuil,
+            this.mail,
+            this.telefono,
+            this.FechaNacimiento,
+            this.FechaAlta,
+            this.calle,
+            this.numeroCalle,
+            this.Column1,
+            this.piso,
+            this.localidad});
+            this.grillaClientes.Location = new System.Drawing.Point(56, 162);
+            this.grillaClientes.Name = "grillaClientes";
+            this.grillaClientes.Size = new System.Drawing.Size(691, 197);
+            this.grillaClientes.TabIndex = 1;
             // 
             // alta
             // 
@@ -171,6 +219,7 @@
             this.alta.TabIndex = 2;
             this.alta.Text = "Alta";
             this.alta.UseVisualStyleBackColor = true;
+            this.alta.Click += new System.EventHandler(this.alta_Click);
             // 
             // editar
             // 
@@ -180,6 +229,7 @@
             this.editar.TabIndex = 3;
             this.editar.Text = "Editar";
             this.editar.UseVisualStyleBackColor = true;
+            this.editar.Click += new System.EventHandler(this.editar_Click);
             // 
             // borrar
             // 
@@ -189,51 +239,116 @@
             this.borrar.TabIndex = 4;
             this.borrar.Text = "Borrar";
             this.borrar.UseVisualStyleBackColor = true;
+            this.borrar.Click += new System.EventHandler(this.borrar_Click);
             // 
             // altaUsuario
             // 
-            this.altaUsuario.Location = new System.Drawing.Point(105, 376);
+            this.altaUsuario.Location = new System.Drawing.Point(56, 375);
             this.altaUsuario.Name = "altaUsuario";
             this.altaUsuario.Size = new System.Drawing.Size(160, 24);
             this.altaUsuario.TabIndex = 5;
             this.altaUsuario.Text = "Alta de Usuario";
             this.altaUsuario.UseVisualStyleBackColor = true;
-            this.altaUsuario.Click += new System.EventHandler(this.button1_Click);
+            this.altaUsuario.Click += new System.EventHandler(this.altaUsuario_Click);
             // 
-            // label3
+            // id
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(46, 96);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Email";
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
             // 
-            // tbEmail
+            // Nombre
             // 
-            this.tbEmail.Location = new System.Drawing.Point(110, 89);
-            this.tbEmail.Name = "tbEmail";
-            this.tbEmail.Size = new System.Drawing.Size(177, 20);
-            this.tbEmail.TabIndex = 11;
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            // 
+            // apellidogrilla
+            // 
+            this.apellidogrilla.HeaderText = "Apellido";
+            this.apellidogrilla.Name = "apellidogrilla";
+            // 
+            // NroDocumento
+            // 
+            this.NroDocumento.HeaderText = "Nro de documento";
+            this.NroDocumento.Name = "NroDocumento";
+            // 
+            // cuil
+            // 
+            this.cuil.HeaderText = "cuil";
+            this.cuil.Name = "cuil";
+            // 
+            // mail
+            // 
+            this.mail.HeaderText = "mail";
+            this.mail.Name = "mail";
+            // 
+            // telefono
+            // 
+            this.telefono.HeaderText = "Telefono";
+            this.telefono.Name = "telefono";
+            // 
+            // FechaNacimiento
+            // 
+            this.FechaNacimiento.HeaderText = "Fecha de Nacimiento";
+            this.FechaNacimiento.Name = "FechaNacimiento";
+            // 
+            // FechaAlta
+            // 
+            this.FechaAlta.HeaderText = "Fecha de Alta";
+            this.FechaAlta.Name = "FechaAlta";
+            // 
+            // calle
+            // 
+            this.calle.HeaderText = "Calla";
+            this.calle.Name = "calle";
+            // 
+            // numeroCalle
+            // 
+            this.numeroCalle.HeaderText = "Numero de calle";
+            this.numeroCalle.Name = "numeroCalle";
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            // 
+            // piso
+            // 
+            this.piso.HeaderText = "Piso";
+            this.piso.Name = "piso";
+            // 
+            // localidad
+            // 
+            this.localidad.HeaderText = "Localidad";
+            this.localidad.Name = "localidad";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(53, 403);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(311, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Seleccione un cliente de la grilla y luego presione alta de usuario";
             // 
             // ListadoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(816, 428);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.altaUsuario);
             this.Controls.Add(this.borrar);
             this.Controls.Add(this.editar);
             this.Controls.Add(this.alta);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.grillaClientes);
             this.Controls.Add(this.groupBox1);
             this.Name = "ListadoCliente";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.ListadoCliente_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grillaClientes)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -241,21 +356,36 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbTipoDoc;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbApellido;
         private System.Windows.Forms.Label apellido;
         private System.Windows.Forms.TextBox tbNombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button limpiar;
         private System.Windows.Forms.Button buscar;
         private System.Windows.Forms.TextBox tbDoc;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView grillaClientes;
         private System.Windows.Forms.Button alta;
         private System.Windows.Forms.Button editar;
         private System.Windows.Forms.Button borrar;
         private System.Windows.Forms.Button altaUsuario;
         private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn apellidogrilla;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NroDocumento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cuil;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaNacimiento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaAlta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn calle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroCalle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn piso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn localidad;
+        private System.Windows.Forms.Label label4;
     }
 }
