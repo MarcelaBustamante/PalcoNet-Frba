@@ -7,7 +7,6 @@ D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\Aplicacion D
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
-D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.AltaCliente.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.bajaCliente.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ListadoCliente.resources
@@ -23,7 +22,6 @@ D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.generarFactura.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.popupComison.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.Form1.resources
-D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.lista.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Login.Login.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Login.SelRol.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.MenuPrincipal.resources
@@ -37,3 +35,9 @@ D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin\Debug\PalcoNet.pdb
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.exe
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.pdb
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.Form1.resources
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.xml
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csprojAssemblyReference.cache
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csproj.CoreCompileInputs.cache
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csproj.CopyComplete
