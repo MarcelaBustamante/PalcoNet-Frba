@@ -54,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 42);
+            this.label1.Location = new System.Drawing.Point(45, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 0;
@@ -69,7 +69,7 @@
             // 
             // mcPublicacion
             // 
-            this.mcPublicacion.Location = new System.Drawing.Point(40, 28);
+            this.mcPublicacion.Location = new System.Drawing.Point(12, 31);
             this.mcPublicacion.Name = "mcPublicacion";
             this.mcPublicacion.TabIndex = 2;
             // 
@@ -95,7 +95,7 @@
             // 
             // mbEspectaculo
             // 
-            this.mbEspectaculo.Location = new System.Drawing.Point(40, 28);
+            this.mbEspectaculo.Location = new System.Drawing.Point(12, 31);
             this.mbEspectaculo.Name = "mbEspectaculo";
             this.mbEspectaculo.TabIndex = 2;
             // 
@@ -135,7 +135,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(45, 361);
+            this.label4.Location = new System.Drawing.Point(45, 356);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(94, 13);
             this.label4.TabIndex = 10;
@@ -144,7 +144,7 @@
             // cbGradoPubli
             // 
             this.cbGradoPubli.FormattingEnabled = true;
-            this.cbGradoPubli.Location = new System.Drawing.Point(145, 353);
+            this.cbGradoPubli.Location = new System.Drawing.Point(143, 353);
             this.cbGradoPubli.Name = "cbGradoPubli";
             this.cbGradoPubli.Size = new System.Drawing.Size(164, 21);
             this.cbGradoPubli.TabIndex = 9;
@@ -152,7 +152,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(45, 403);
+            this.label5.Location = new System.Drawing.Point(45, 386);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(69, 13);
             this.label5.TabIndex = 12;
@@ -161,7 +161,7 @@
             // cbUserRespon
             // 
             this.cbUserRespon.FormattingEnabled = true;
-            this.cbUserRespon.Location = new System.Drawing.Point(143, 395);
+            this.cbUserRespon.Location = new System.Drawing.Point(143, 383);
             this.cbUserRespon.Name = "cbUserRespon";
             this.cbUserRespon.Size = new System.Drawing.Size(164, 21);
             this.cbUserRespon.TabIndex = 11;
@@ -169,7 +169,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(361, 361);
+            this.label6.Location = new System.Drawing.Point(361, 356);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 14;
@@ -178,9 +178,9 @@
             // cbEstado
             // 
             this.cbEstado.FormattingEnabled = true;
-            this.cbEstado.Location = new System.Drawing.Point(451, 353);
+            this.cbEstado.Location = new System.Drawing.Point(419, 353);
             this.cbEstado.Name = "cbEstado";
-            this.cbEstado.Size = new System.Drawing.Size(173, 21);
+            this.cbEstado.Size = new System.Drawing.Size(232, 21);
             this.cbEstado.TabIndex = 13;
             // 
             // aceptar
@@ -191,6 +191,7 @@
             this.aceptar.TabIndex = 15;
             this.aceptar.Text = "Aceptar";
             this.aceptar.UseVisualStyleBackColor = true;
+            this.aceptar.Click += new System.EventHandler(this.aceptar_Click);
             // 
             // cancelar
             // 
@@ -214,7 +215,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 465);
+            this.ClientSize = new System.Drawing.Size(681, 465);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cancelar);
             this.Controls.Add(this.aceptar);
@@ -233,7 +234,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "AltaPublicacion";
-            this.Text = "Form1";
+            this.Text = "Alta Publicacion";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
