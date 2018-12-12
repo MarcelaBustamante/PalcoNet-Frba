@@ -45,7 +45,6 @@
             this.alta = new System.Windows.Forms.Button();
             this.editar = new System.Windows.Forms.Button();
             this.borrar = new System.Windows.Forms.Button();
-            this.altaUsuario = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellidogrilla = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,10 +56,9 @@
             this.FechaAlta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.calle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numeroCalle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.localidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label4 = new System.Windows.Forms.Label();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grillaClientes)).BeginInit();
             this.SuspendLayout();
@@ -203,13 +201,14 @@
             this.FechaAlta,
             this.calle,
             this.numeroCalle,
-            this.Column1,
             this.piso,
-            this.localidad});
+            this.localidad,
+            this.Estado});
             this.grillaClientes.Location = new System.Drawing.Point(56, 162);
             this.grillaClientes.Name = "grillaClientes";
             this.grillaClientes.Size = new System.Drawing.Size(691, 197);
             this.grillaClientes.TabIndex = 1;
+            this.grillaClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaClientes_CellContentClick);
             // 
             // alta
             // 
@@ -240,16 +239,6 @@
             this.borrar.Text = "Borrar";
             this.borrar.UseVisualStyleBackColor = true;
             this.borrar.Click += new System.EventHandler(this.borrar_Click);
-            // 
-            // altaUsuario
-            // 
-            this.altaUsuario.Location = new System.Drawing.Point(56, 375);
-            this.altaUsuario.Name = "altaUsuario";
-            this.altaUsuario.Size = new System.Drawing.Size(160, 24);
-            this.altaUsuario.TabIndex = 5;
-            this.altaUsuario.Text = "Alta de Usuario";
-            this.altaUsuario.UseVisualStyleBackColor = true;
-            this.altaUsuario.Click += new System.EventHandler(this.altaUsuario_Click);
             // 
             // id
             // 
@@ -298,18 +287,13 @@
             // 
             // calle
             // 
-            this.calle.HeaderText = "Calla";
+            this.calle.HeaderText = "Calle";
             this.calle.Name = "calle";
             // 
             // numeroCalle
             // 
             this.numeroCalle.HeaderText = "Numero de calle";
             this.numeroCalle.Name = "numeroCalle";
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
             // 
             // piso
             // 
@@ -321,22 +305,16 @@
             this.localidad.HeaderText = "Localidad";
             this.localidad.Name = "localidad";
             // 
-            // label4
+            // Estado
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(53, 403);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(311, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Seleccione un cliente de la grilla y luego presione alta de usuario";
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
             // 
             // ListadoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(816, 428);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.altaUsuario);
             this.Controls.Add(this.borrar);
             this.Controls.Add(this.editar);
             this.Controls.Add(this.alta);
@@ -348,7 +326,6 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grillaClientes)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -369,7 +346,6 @@
         private System.Windows.Forms.Button alta;
         private System.Windows.Forms.Button editar;
         private System.Windows.Forms.Button borrar;
-        private System.Windows.Forms.Button altaUsuario;
         private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
@@ -383,9 +359,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaAlta;
         private System.Windows.Forms.DataGridViewTextBoxColumn calle;
         private System.Windows.Forms.DataGridViewTextBoxColumn numeroCalle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn piso;
         private System.Windows.Forms.DataGridViewTextBoxColumn localidad;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
     }
 }

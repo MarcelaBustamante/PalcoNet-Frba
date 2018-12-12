@@ -183,11 +183,11 @@ CREATE TABLE [CAMPUS_ANALYTICA].Rubros (
 -- Table: Tajetas
 CREATE TABLE [CAMPUS_ANALYTICA].Tajetas (
     Nro_tarjeta int  NOT NULL,
-    Banco varchar(50)  NOT NULL,
-    Tipo varchar(50)  NOT NULL,
-    Fecha_vencimiento varchar(50)  NOT NULL,
-    Estado binary  NOT NULL,
-    Cliente_Id int  NOT NULL,
+    Banco varchar(50)  ,
+    Tipo varchar(50)  ,
+    Fecha_vencimiento varchar(50)  ,
+    Estado char(1),
+    Cliente_Id int  ,
     CONSTRAINT Tajetas_pk PRIMARY KEY  (Nro_tarjeta)
 );
 
