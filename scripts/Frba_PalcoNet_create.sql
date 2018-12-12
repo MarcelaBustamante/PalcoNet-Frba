@@ -113,7 +113,6 @@ CREATE TABLE [CAMPUS_ANALYTICA].Funcionalidad (
 -- Table: Grados_publicacion
 CREATE TABLE [CAMPUS_ANALYTICA].Grados_publicacion (
     Id int  NOT NULL IDENTITY,
-	Grado varchar(15) NOT NULL,
     Comision int  NOT NULL,
     CONSTRAINT Grados_publicacion_pk PRIMARY KEY  (Id)
 );
@@ -443,11 +442,9 @@ GO
 /* insert Grados_publicacion publicación**/
 print('Cargando tabla de Grados_publicacion general...')
 INSERT INTO [CAMPUS_ANALYTICA].[Grados_publicacion]
-           ([Grado],[Comision])
+           ([Comision])
      VALUES
-           ('BAJA',10),
-		   ('MEDIA',15),
-		   ('ALTA',20)
+           (10)
 		   
 GO
 /* insert Rubros **/
@@ -897,4 +894,16 @@ GO
 COMMIT
 
 	
+
+INSERT INTO [CAMPUS_ANALYTICA].[Usuario_Rol]
+           ([Rol_Id]
+           ,[Usuario_Id]
+           ,[Fecha_alta]
+           ,[Fecha_baja])
+     VALUES
+           (1
+           ,1
+           ,GETDATE()
+           ,null)
+GO
 

@@ -104,19 +104,27 @@ namespace PalcoNet.Login
 
                 this.db.Ejecutar("INSERT [dbo].[Logins] ([User],[FechaHora],[LoginCorrecto],[NroLoginFallido]) VALUES (" + dbUsuarioId + ", GETDATE(), 'S', 0)");
 
-
-
-
-
-
-
+                // ABRO EL MENU
+                MenuPrincipal menu = new MenuPrincipal(db, _username);
+                menu.FormClosed += new FormClosedEventHandler(menu.CierraMenu);
+                menu.Ingreso(_username, RolSeleccionado); // Ingresa al menu principal
+                menu.Show(); //Se despliega el menu principal
+                this.Hide(); //Ocultar login
 
             }
+            else
+            {
+                MessageBox.Show(@"El password ingresado es incorrecto.");
+                this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario] SET Cant_Login_Fallidos = Cant_Login_Fallidos + 1 WHERE Id = '" + dbUsuarioId + "'");
+                if (dbIntentosFallidos == 2)
+                {
+                    this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario] SET Estado = 'N' WHERE Id = " + dbUsuarioId);
+                    MessageBox.Show(@"El usuario se ha inhabilitado debido a que se superó la cantidad de intentos fallidos.");
+                }
+                dbIntentosFallidos = dbIntentosFallidos + 1;
+                this.db.Ejecutar("INSERT [dbo].[Logins] ([User],[FechaHora],[LoginCorrecto],[NroLoginFallido]) VALUES (" + dbUsuarioId + ", GETDATE(), 'N', " + dbIntentosFallidos + ")");
 
-
-
-
-            MessageBox.Show(@"Fin acciones.");
+            }
         }
 
 
