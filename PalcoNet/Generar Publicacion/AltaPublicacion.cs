@@ -32,19 +32,26 @@ namespace PalcoNet.Generar_Publicacion
 
         private void cargarComboEstado()
         {
-            
+            this.cbEstado.Items.AddRange(new object[] {"Borrador",
+                        "Publicada",
+                        "Finalizada"});
         }
 
         private void cargarComboResponsable()
         {
-            throw new NotImplementedException();
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Username FROM CAMPUS_ANALYTICA.Usuario", this.db.StringConexion());
+            da.Fill(ds, "CAMPUS_ANALYTICA.Usuario");
+            this.cbGradoPubli.DataSource = ds.Tables[0].DefaultView;
+            this.cbGradoPubli.DisplayMember = "Username";
+            this.cbGradoPubli.ValueMember = "Id";
         }
 
         private void cargarComboGrado()
         {
             DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Grado FROM CAMPUS_ANALYTICA.Grados_publicacion", this.db.StringConexion());
-            da.Fill(ds, "CAMPUS_ANALYTICA.PAIS");
+            da.Fill(ds, "CAMPUS_ANALYTICA.Grados_Publicacion");
             this.cbGradoPubli.DataSource = ds.Tables[0].DefaultView;
             this.cbGradoPubli.DisplayMember = "Grado";
             this.cbGradoPubli.ValueMember = "Id";
@@ -54,7 +61,7 @@ namespace PalcoNet.Generar_Publicacion
         {
             DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Descripcion FROM CAMPUS_ANALYTICA.Rubros", this.db.StringConexion());
-            da.Fill(ds, "CAMPUS_ANALYTICA.PAIS");
+            da.Fill(ds, "CAMPUS_ANALYTICA.Rubros");
             this.cbGradoPubli.DataSource = ds.Tables[0].DefaultView;
             this.cbGradoPubli.DisplayMember = "Descripcion";
             this.cbGradoPubli.ValueMember = "Id";
@@ -62,7 +69,26 @@ namespace PalcoNet.Generar_Publicacion
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-
+            if(tbDescripcion.Text != null){
+                this.db.Ejecutar("INSERT INTO [CAMPUS_ANALYTICA].[Publicaciones]" +
+           "([Estado]" +
+           ",[Fecha_inicio]" +
+           ",[Fecha_Vencimiento]" +
+           ",[Localidades]" +
+           ",[Descripcion]" +
+           ",[Direccion]" +
+           ",[Grados_publicacion_Id]" +
+           ",[Rubros_Id])" +
+     "VALUES" +
+           "(< " + cbEstado.SelectedText + ",>" +
+           ",<" + mcPublicacion.SelectionStart.ToString() + ",>" +
+           ",< " + mbEspectaculo.SelectionStart.ToString() + ",>" +
+           ",< " + tbLocalidades.Text + ",>" +
+           ",< " + tbDescripcion.Text + ",>" +
+           ",< " + tbDirección.Text + ",>" +
+           ",< " + cbGradoPubli.SelectedText + ",>" +
+           ",< " + cbRubro.SelectedItem + ",>)");
+            }
         }
     }
 }

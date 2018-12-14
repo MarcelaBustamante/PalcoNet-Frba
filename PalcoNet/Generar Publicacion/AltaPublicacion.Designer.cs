@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbDescripcion = new System.Windows.Forms.TextBox();
             this.mcPublicacion = new System.Windows.Forms.MonthCalendar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -47,6 +47,8 @@
             this.aceptar = new System.Windows.Forms.Button();
             this.cancelar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.tbLocalidades = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -60,12 +62,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Descripción";
             // 
-            // textBox1
+            // tbDescripcion
             // 
-            this.textBox1.Location = new System.Drawing.Point(117, 34);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(534, 20);
-            this.textBox1.TabIndex = 1;
+            this.tbDescripcion.Location = new System.Drawing.Point(117, 34);
+            this.tbDescripcion.Name = "tbDescripcion";
+            this.tbDescripcion.Size = new System.Drawing.Size(534, 20);
+            this.tbDescripcion.TabIndex = 1;
             // 
             // mcPublicacion
             // 
@@ -118,7 +120,7 @@
             // 
             // tbDirección
             // 
-            this.tbDirección.Location = new System.Drawing.Point(419, 322);
+            this.tbDirección.Location = new System.Drawing.Point(431, 320);
             this.tbDirección.Name = "tbDirección";
             this.tbDirección.Size = new System.Drawing.Size(232, 20);
             this.tbDirección.TabIndex = 8;
@@ -178,14 +180,14 @@
             // cbEstado
             // 
             this.cbEstado.FormattingEnabled = true;
-            this.cbEstado.Location = new System.Drawing.Point(419, 353);
+            this.cbEstado.Location = new System.Drawing.Point(431, 351);
             this.cbEstado.Name = "cbEstado";
             this.cbEstado.Size = new System.Drawing.Size(232, 21);
             this.cbEstado.TabIndex = 13;
             // 
             // aceptar
             // 
-            this.aceptar.Location = new System.Drawing.Point(364, 411);
+            this.aceptar.Location = new System.Drawing.Point(384, 438);
             this.aceptar.Name = "aceptar";
             this.aceptar.Size = new System.Drawing.Size(60, 23);
             this.aceptar.TabIndex = 15;
@@ -195,7 +197,7 @@
             // 
             // cancelar
             // 
-            this.cancelar.Location = new System.Drawing.Point(586, 411);
+            this.cancelar.Location = new System.Drawing.Point(598, 438);
             this.cancelar.Name = "cancelar";
             this.cancelar.Size = new System.Drawing.Size(65, 23);
             this.cancelar.TabIndex = 16;
@@ -204,18 +206,36 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(432, 411);
+            this.button1.Location = new System.Drawing.Point(450, 438);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(142, 23);
             this.button1.TabIndex = 17;
             this.button1.Text = "Aceptar y agregar otra";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // tbLocalidades
+            // 
+            this.tbLocalidades.Location = new System.Drawing.Point(431, 384);
+            this.tbLocalidades.Name = "tbLocalidades";
+            this.tbLocalidades.Size = new System.Drawing.Size(232, 20);
+            this.tbLocalidades.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(361, 389);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(64, 13);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Localidades";
+            // 
             // AltaPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 465);
+            this.ClientSize = new System.Drawing.Size(681, 473);
+            this.Controls.Add(this.tbLocalidades);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cancelar);
             this.Controls.Add(this.aceptar);
@@ -231,7 +251,7 @@
             this.Controls.Add(this.cbRubro);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbDescripcion);
             this.Controls.Add(this.label1);
             this.Name = "AltaPublicacion";
             this.Text = "Alta Publicacion";
@@ -245,7 +265,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbDescripcion;
         private System.Windows.Forms.MonthCalendar mcPublicacion;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -263,5 +283,7 @@
         private System.Windows.Forms.Button aceptar;
         private System.Windows.Forms.Button cancelar;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox tbLocalidades;
+        private System.Windows.Forms.Label label7;
     }
 }
