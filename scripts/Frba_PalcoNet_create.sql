@@ -734,10 +734,8 @@ GO
 /* insert Grados_publicacion publicación**/
 print('Cargando tabla de Grados_publicacion general...')
 INSERT INTO [CAMPUS_ANALYTICA].[Grados_publicacion]
-           ([Comision])
            ([Grado],[Comision])
      VALUES
-           (10)
            ('BAJA',10),
 		   ('MEDIA',15),
 		   ('ALTA',20)
