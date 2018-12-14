@@ -23,9 +23,15 @@ namespace PalcoNet.Abm_Cliente
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Cliente]   SET [Estado] = 'B' WHERE id=" + cliId);
-            this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario]   SET [Estado] = 'B'  WHERE id ="+
+            int resCli= this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Cliente]   SET [Estado] = 'B' WHERE id=" + cliId);
+            int resUsr= this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario]   SET [Estado] = 'B'  WHERE id ="+
                                 "(select Usuarios_Id from CAMPUS_ANALYTICA.Cliente where id="+cliId+")");
-        }
+			if(resCli==1 && resUsr == 1) { MessageBox.Show("El usuario se dió de baja correctamente."); }
+			else
+			{
+				MessageBox.Show("Ocurrió un problema con la baja del ciente.");
+			}
+			DialogResult = DialogResult.OK;
+		}
     }
 }
