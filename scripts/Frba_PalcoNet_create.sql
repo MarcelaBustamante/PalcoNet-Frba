@@ -113,9 +113,11 @@ CREATE TABLE [CAMPUS_ANALYTICA].Funcionalidad (
 -- Table: Grados_publicacion
 CREATE TABLE [CAMPUS_ANALYTICA].Grados_publicacion (
     Id int  NOT NULL IDENTITY,
+	Grado varchar(15) NOT NULL,
     Comision int  NOT NULL,
     CONSTRAINT Grados_publicacion_pk PRIMARY KEY  (Id)
 );
+
 
 -- Table: Items_factura
 CREATE TABLE [CAMPUS_ANALYTICA].Items_factura (
@@ -186,8 +188,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].Tajetas (
     Tipo varchar(50)  ,
     Fecha_vencimiento varchar(50)  ,
     Estado char(1),
-    Cliente_Id int  ,
-    CONSTRAINT Tajetas_pk PRIMARY KEY  (Nro_tarjeta)
+    Cliente_Id int  
 );
 
 -- Table: Tipos_publicacion
@@ -437,14 +438,6 @@ GO
 print('Cargando tabla de usuario general...')
 INSERT INTO [CAMPUS_ANALYTICA].[Usuario] ([Username],[Password],[Estado],[Tipos_usuario_Id])
 		 VALUES  ('admin','w23e','A',1)
-GO
-
-/* insert Grados_publicacion publicación**/
-print('Cargando tabla de Grados_publicacion general...')
-INSERT INTO [CAMPUS_ANALYTICA].[Grados_publicacion]
-           ([Comision])
-     VALUES
-           (10)
 		   
 GO
 /* insert Rubros **/
@@ -737,6 +730,18 @@ exec MigraEmpresas
 exec MigraClientes
 
 /************************************************************************/
+GO
+/* insert Grados_publicacion publicación**/
+print('Cargando tabla de Grados_publicacion general...')
+INSERT INTO [CAMPUS_ANALYTICA].[Grados_publicacion]
+           ([Comision])
+           ([Grado],[Comision])
+     VALUES
+           (10)
+           ('BAJA',10),
+		   ('MEDIA',15),
+		   ('ALTA',20)
+		   go
 /* insert Publicaciones **/
 print('Cargando tabla Publicaciones ...')
 GO 
@@ -882,8 +887,8 @@ CREATE TABLE dbo.Logins
 	NroLoginFallido int NOT NULL
 	)  ON [PRIMARY]
 GO
-ALTER TABLE dbo.Table_1 ADD CONSTRAINT
-	PK_Table_1 PRIMARY KEY CLUSTERED 
+ALTER TABLE dbo.Logins ADD CONSTRAINT
+	PK_Logins PRIMARY KEY CLUSTERED 
 	(
 	Id
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
