@@ -117,7 +117,9 @@ namespace PalcoNet.Abm_Cliente
         {
             PalcoNet.Abm_Cliente.AltaCliente nuevoCliente = new AltaCliente(db);
             DialogResult res = nuevoCliente.ShowDialog();
-        }
+			cargaGrilla();
+
+		}
 
         private void editar_Click(object sender, EventArgs e)
         {
@@ -125,7 +127,8 @@ namespace PalcoNet.Abm_Cliente
             this.Cliente_Id = Decimal.Parse(this.grillaClientes.Rows[fila].Cells[0].Value.ToString());
             PalcoNet.Abm_Cliente.AltaCliente clienteEditado = new AltaCliente(this.db, this.Cliente_Id);
             DialogResult res = clienteEditado.ShowDialog();
-        }
+			cargaGrilla();
+		}
 
         private void borrar_Click(object sender, EventArgs e)
         {
