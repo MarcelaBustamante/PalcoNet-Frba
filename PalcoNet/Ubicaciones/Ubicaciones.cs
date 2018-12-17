@@ -116,6 +116,7 @@ namespace PalcoNet.Ubicaciones
                 "AND [Comprada] = 'N'");
             if (existeR)
             {
+                this.db.Leer();
                  decimal cantidadLocalidadesABorrar = Decimal.Parse(this.db.ObtenerValor("Cantidad"));
                 for(int i = 0; i < cantidadLocalidadesABorrar; i++)
                 {
@@ -145,6 +146,7 @@ namespace PalcoNet.Ubicaciones
                 "AND [Tipo_descripcion] = " + tipoLocalidad);
             if (existeR)
             {
+                this.db.Leer();
                 btnAgregar.Text = "Aceptar";
                 this.tbCantidad.Text = this.db.ObtenerValor("Cantidad");
                 this.tbFila.Text = this.db.ObtenerValor("Fila");

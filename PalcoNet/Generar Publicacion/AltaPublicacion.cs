@@ -113,6 +113,7 @@ namespace PalcoNet.Generar_Publicacion
                     Boolean r = this.db.Consultar("select top 1 Id from [CAMPUS_ANALYTICA].Ubicacion order by 1 desc");
                     if (r)
                     {
+                        this.db.Leer();
                         this.idPublicacion = Decimal.Parse(this.db.ObtenerValor("Id"));
                         btAgregarLocalidades.Enabled = true;
                     }
@@ -132,6 +133,7 @@ namespace PalcoNet.Generar_Publicacion
             if (res.Equals(DialogResult.OK))
             {
                 this.db.Consultar("SELECT COUNT(u.Id) FROM CAMPUS_ANALYTICA.Ubicacion u WHERE u.Publicaciones_Id = " + idPublicacion );
+                this.db.Leer();
                 this.tbLocalidades.Text = this.db.ObtenerValor("Cantidad");
             }
         }
