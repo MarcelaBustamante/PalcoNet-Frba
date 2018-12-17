@@ -33,7 +33,13 @@ namespace PalcoNet.Registro_de_Usuario
             InitializeComponent();
             this.db = db;
             comboTipoUsuario(tipoCliente - 1);
-			this.cliId = id;
+			if (tipoCliente == 3)
+			{
+				this.cliId = id;
+			} else
+			{
+				this.empId = id;
+			}
         }
 
         public AltaUsuario(dbmanager db, decimal usrId)

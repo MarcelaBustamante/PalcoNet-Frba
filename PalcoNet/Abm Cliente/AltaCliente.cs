@@ -115,7 +115,8 @@ namespace PalcoNet.Abm_Cliente
 			}
 
 			private void aceptar_Click(object sender, EventArgs e)
-			{
+
+		{
 				//valida campos vacios, formato de fecha y formato cuil
 				int valForm = validarForm();
 
@@ -242,7 +243,7 @@ namespace PalcoNet.Abm_Cliente
 								 "[Apellido] = '" + cliApellido + "'," + "[Tipo_documento] = " + cliTipoDoc + "," +
 								  "[Nro_documento] =" + cliDoc + "," + "[CUIL] ='" + cliCuil + "'," + "[Mail] = '" +
 								  cliMail + "'," + "[Telefono] = '" + cliTelefono + "'," + "[Fecha_nacimiento] ='" +
-								  cliFecNac + "'," + "[Estado] ='" + Habilitado + "' " + " WHERE id =" + cliId);
+								  auxCliFecNac + "'," + "[Estado] ='" + Habilitado + "' " + " WHERE id =" + cliId);
 
 				//modifica direccion
 				int resdir = this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Direccion]   SET  [Calle] ='" + cliCalle + "'" +

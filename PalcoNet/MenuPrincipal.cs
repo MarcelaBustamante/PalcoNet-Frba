@@ -99,7 +99,7 @@ namespace PalcoNet
 
         private void empresaToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            listaEmpresa f = new listaEmpresa();
+            listaEmpresa f = new listaEmpresa(_db);
             f.Show();
         }
 
