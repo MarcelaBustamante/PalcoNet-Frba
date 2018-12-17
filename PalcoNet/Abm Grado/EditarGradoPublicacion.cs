@@ -20,8 +20,8 @@ namespace PalcoNet.Abm_Grado
             this.db = dbMng;
             InitializeComponent();
             CargaCombo();
-            this.tbComisionGradoPublicacion.Text = CargarComision(this.cbGradoPublicaccion.SelectedItem);
-        }      
+            this.tbComisionGradoPublicacion.Text = CargarComision(Decimal.Parse(this.cbGradoPublicaccion.SelectedValue.ToString()));
+        }
 
         public String CargarComision(object idGrado)
         {
@@ -43,7 +43,7 @@ namespace PalcoNet.Abm_Grado
         public void CargaCombo()
         {
             DataSet ds = new DataSet();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Grado FROM CAMPUS_ANALYTICA.PAIS", this.db.StringConexion());
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Grado FROM CAMPUS_ANALYTICA.Grados_publicacion", this.db.StringConexion());
             da.Fill(ds, "CAMPUS_ANALYTICA.PAIS");
             this.cbGradoPublicaccion.DataSource = ds.Tables[0].DefaultView;
             this.cbGradoPublicaccion.DisplayMember = "Grado";
