@@ -14,12 +14,31 @@ namespace PalcoNet.Generar_Publicacion
     public partial class AltaPublicacion : Form
     {
         private dbmanager db;
+        private decimal idPublicacion;
+
         
         public AltaPublicacion(dbmanager dbmanager)
         {
             InitializeComponent();
             this.db = dbmanager;
+            this.btAgregarLocalidades.Enabled = false;
+            this.tbLocalidades.Text = "0";
             cargarCombos();
+        }
+
+        public AltaPublicacion(dbmanager dbmanager, decimal id)
+        {
+            InitializeComponent();
+            this.idPublicacion = id;
+            this.db = dbmanager;
+            this.btAgregarLocalidades.Enabled = false;
+            cargarCombos();
+            inicializar();
+        }
+
+        private void inicializar()
+        {
+            throw new NotImplementedException();
         }
 
         private void cargarCombos()
@@ -35,6 +54,7 @@ namespace PalcoNet.Generar_Publicacion
             this.cbEstado.Items.AddRange(new object[] {"Borrador",
                         "Publicada",
                         "Finalizada"});
+            this.cbEstado.SelectedIndex = 0;
         }
 
         private void cargarComboResponsable()
@@ -69,8 +89,8 @@ namespace PalcoNet.Generar_Publicacion
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            if(tbDescripcion.Text != null){
-                this.db.Ejecutar("INSERT INTO [CAMPUS_ANALYTICA].[Publicaciones]" +
+            if(validarCampos()){
+                int res = this.db.Ejecutar("INSERT INTO [CAMPUS_ANALYTICA].[Publicaciones]" +
            "([Estado]" +
            ",[Fecha_inicio]" +
            ",[Fecha_Vencimiento]" +
@@ -88,6 +108,31 @@ namespace PalcoNet.Generar_Publicacion
            ",< " + tbDirección.Text + ",>" +
            ",< " + cbGradoPubli.SelectedText + ",>" +
            ",< " + cbRubro.SelectedItem + ",>)");
+                if (res == 1)
+                {
+                    Boolean r = this.db.Consultar("select top 1 Id from [CAMPUS_ANALYTICA].Ubicacion order by 1 desc");
+                    if (r)
+                    {
+                        this.idPublicacion = Decimal.Parse(this.db.ObtenerValor("Id"));
+                        btAgregarLocalidades.Enabled = true;
+                    }
+                }
+            }
+        }
+
+        private bool validarCampos()
+        {
+            return true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PalcoNet.Ubicaciones.Ubicaciones localidades = new Ubicaciones.Ubicaciones(this.db, this.idPublicacion);
+            DialogResult res = localidades.ShowDialog();
+            if (res.Equals(DialogResult.OK))
+            {
+                this.db.Consultar("SELECT COUNT(u.Id) FROM CAMPUS_ANALYTICA.Ubicacion u WHERE u.Publicaciones_Id = " + idPublicacion );
+                this.tbLocalidades.Text = this.db.ObtenerValor("Cantidad");
             }
         }
     }

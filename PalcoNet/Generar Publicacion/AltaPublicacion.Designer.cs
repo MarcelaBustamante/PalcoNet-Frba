@@ -47,8 +47,11 @@
             this.aceptar = new System.Windows.Forms.Button();
             this.cancelar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.tbLocalidades = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.tbLocalidades = new System.Windows.Forms.TextBox();
+            this.btAgregarLocalidades = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -78,7 +81,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.mcPublicacion);
-            this.groupBox1.Location = new System.Drawing.Point(117, 91);
+            this.groupBox1.Location = new System.Drawing.Point(117, 60);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(259, 205);
             this.groupBox1.TabIndex = 3;
@@ -87,10 +90,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.mbEspectaculo);
-            this.groupBox2.Location = new System.Drawing.Point(392, 91);
+            this.groupBox2.Location = new System.Drawing.Point(392, 60);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(259, 205);
+            this.groupBox2.Size = new System.Drawing.Size(259, 236);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fecha del Espectaculo";
@@ -122,7 +127,7 @@
             // 
             this.tbDirección.Location = new System.Drawing.Point(431, 320);
             this.tbDirección.Name = "tbDirección";
-            this.tbDirección.Size = new System.Drawing.Size(232, 20);
+            this.tbDirección.Size = new System.Drawing.Size(238, 20);
             this.tbDirección.TabIndex = 8;
             // 
             // label3
@@ -182,7 +187,7 @@
             this.cbEstado.FormattingEnabled = true;
             this.cbEstado.Location = new System.Drawing.Point(431, 351);
             this.cbEstado.Name = "cbEstado";
-            this.cbEstado.Size = new System.Drawing.Size(232, 21);
+            this.cbEstado.Size = new System.Drawing.Size(238, 21);
             this.cbEstado.TabIndex = 13;
             // 
             // aceptar
@@ -213,13 +218,6 @@
             this.button1.Text = "Aceptar y agregar otra";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // tbLocalidades
-            // 
-            this.tbLocalidades.Location = new System.Drawing.Point(431, 384);
-            this.tbLocalidades.Name = "tbLocalidades";
-            this.tbLocalidades.Size = new System.Drawing.Size(232, 20);
-            this.tbLocalidades.TabIndex = 19;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -229,11 +227,48 @@
             this.label7.TabIndex = 18;
             this.label7.Text = "Localidades";
             // 
+            // tbLocalidades
+            // 
+            this.tbLocalidades.Enabled = false;
+            this.tbLocalidades.Location = new System.Drawing.Point(431, 384);
+            this.tbLocalidades.Name = "tbLocalidades";
+            this.tbLocalidades.Size = new System.Drawing.Size(67, 20);
+            this.tbLocalidades.TabIndex = 19;
+            // 
+            // btAgregarLocalidades
+            // 
+            this.btAgregarLocalidades.CausesValidation = false;
+            this.btAgregarLocalidades.DialogResult = System.Windows.Forms.DialogResult.Yes;
+            this.btAgregarLocalidades.Location = new System.Drawing.Point(511, 381);
+            this.btAgregarLocalidades.Name = "btAgregarLocalidades";
+            this.btAgregarLocalidades.Size = new System.Drawing.Size(158, 23);
+            this.btAgregarLocalidades.TabIndex = 20;
+            this.btAgregarLocalidades.Text = "Cargar Localidades";
+            this.btAgregarLocalidades.UseVisualStyleBackColor = true;
+            this.btAgregarLocalidades.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 206);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(30, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Hora";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(48, 203);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(70, 20);
+            this.textBox1.TabIndex = 4;
+            // 
             // AltaPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(681, 473);
+            this.Controls.Add(this.btAgregarLocalidades);
             this.Controls.Add(this.tbLocalidades);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.button1);
@@ -253,10 +288,12 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tbDescripcion);
             this.Controls.Add(this.label1);
+            this.Enabled = false;
             this.Name = "AltaPublicacion";
             this.Text = "Alta Publicacion";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,7 +320,10 @@
         private System.Windows.Forms.Button aceptar;
         private System.Windows.Forms.Button cancelar;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox tbLocalidades;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbLocalidades;
+        private System.Windows.Forms.Button btAgregarLocalidades;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label8;
     }
 }
