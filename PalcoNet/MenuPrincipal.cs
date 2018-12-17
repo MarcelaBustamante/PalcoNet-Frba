@@ -156,5 +156,11 @@ namespace PalcoNet
             Publicaciones f = new Publicaciones();
             f.Show();
         }
+
+        private void historialDelClienteToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Historial_Cliente.Form1 f = new Historial_Cliente.Form1();
+            f.Show();
+        }
     }
 }
