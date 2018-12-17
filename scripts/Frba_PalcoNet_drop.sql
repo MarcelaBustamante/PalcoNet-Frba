@@ -1,99 +1,103 @@
 
-
+use GD2C2018
 
 -- foreign keys
-ALTER TABLE Canjes DROP CONSTRAINT Canjes_Premios;
+ALTER TABLE CAMPUS_ANALYTICA.Canjes DROP CONSTRAINT Canjes_Premios;
 
-ALTER TABLE ClienteDireccion DROP CONSTRAINT ClienteDireccion_Clientes;
+ALTER TABLE CAMPUS_ANALYTICA.ClienteDireccion DROP CONSTRAINT ClienteDireccion_Clientes;
 
-ALTER TABLE ClienteDireccion DROP CONSTRAINT ClienteDireccion_Direccion;
+ALTER TABLE CAMPUS_ANALYTICA.ClienteDireccion DROP CONSTRAINT ClienteDireccion_Direccion;
 
-ALTER TABLE Cliente DROP CONSTRAINT Clientes_Usuarios;
+ALTER TABLE CAMPUS_ANALYTICA.Cliente DROP CONSTRAINT Clientes_Usuarios;
 
-ALTER TABLE Compra DROP CONSTRAINT Compra_Clientes;
+ALTER TABLE CAMPUS_ANALYTICA.Compra DROP CONSTRAINT Compra_Clientes;
 
-ALTER TABLE Compra DROP CONSTRAINT Compra_Tajetas;
+ALTER TABLE CAMPUS_ANALYTICA.Compra DROP CONSTRAINT Compra_Tajetas;
 
-ALTER TABLE EmpresaDireccion DROP CONSTRAINT EmpresaDireccion_Direccion;
+ALTER TABLE CAMPUS_ANALYTICA.EmpresaDireccion DROP CONSTRAINT EmpresaDireccion_Direccion;
 
-ALTER TABLE EmpresaDireccion DROP CONSTRAINT EmpresaDireccion_Empresa;
+ALTER TABLE CAMPUS_ANALYTICA.EmpresaDireccion DROP CONSTRAINT EmpresaDireccion_Empresa;
 
-ALTER TABLE Empresa DROP CONSTRAINT Empresas_Usuarios;
+ALTER TABLE CAMPUS_ANALYTICA.Empresa DROP CONSTRAINT Empresas_Usuarios;
 
-ALTER TABLE Facturas DROP CONSTRAINT Facturas_Empresas;
+ALTER TABLE CAMPUS_ANALYTICA.Facturas DROP CONSTRAINT Facturas_Empresas;
 
-ALTER TABLE Canjes DROP CONSTRAINT Historial_canje_Clientes;
+ALTER TABLE CAMPUS_ANALYTICA.Canjes DROP CONSTRAINT Historial_canje_Clientes;
 
-ALTER TABLE Items_factura DROP CONSTRAINT Items_factura_Facturas;
+ALTER TABLE CAMPUS_ANALYTICA.Items_factura DROP CONSTRAINT Items_factura_Facturas;
 
-ALTER TABLE Publicaciones DROP CONSTRAINT Publicaciones_Empresas;
+ALTER TABLE CAMPUS_ANALYTICA.Publicaciones DROP CONSTRAINT Publicaciones_Empresas;
 
-ALTER TABLE Publicaciones DROP CONSTRAINT Publicaciones_Grados_publicacion;
+ALTER TABLE CAMPUS_ANALYTICA.Publicaciones DROP CONSTRAINT Publicaciones_Grados_publicacion;
 
-ALTER TABLE Publicaciones DROP CONSTRAINT Publicaciones_Rubros;
+ALTER TABLE CAMPUS_ANALYTICA.Publicaciones DROP CONSTRAINT Publicaciones_Rubros;
 
-ALTER TABLE Rol_Funcionalidad DROP CONSTRAINT Rol_Funcionalidad_Funcionalidad;
+ALTER TABLE CAMPUS_ANALYTICA.Rol_Funcionalidad DROP CONSTRAINT Rol_Funcionalidad_Funcionalidad;
 
-ALTER TABLE Rol_Funcionalidad DROP CONSTRAINT Rol_Funcionalidad_Rol;
+ALTER TABLE CAMPUS_ANALYTICA.Rol_Funcionalidad DROP CONSTRAINT Rol_Funcionalidad_Rol;
 
-ALTER TABLE Tajetas DROP CONSTRAINT Tajetas_Clientes;
+ALTER TABLE CAMPUS_ANALYTICA.Tajetas DROP CONSTRAINT Tajetas_Clientes;
 
-ALTER TABLE Tipos_publicacion DROP CONSTRAINT Tipos_publicacion_Grados_publicacion;
+ALTER TABLE CAMPUS_ANALYTICA.Tipos_publicacion DROP CONSTRAINT Tipos_publicacion_Grados_publicacion;
 
-ALTER TABLE Ubicacion DROP CONSTRAINT Ubicacion_Compra;
+ALTER TABLE CAMPUS_ANALYTICA.Ubicacion DROP CONSTRAINT Ubicacion_Compra;
 
-ALTER TABLE Ubicacion DROP CONSTRAINT Ubicacion_Publicaciones;
+ALTER TABLE CAMPUS_ANALYTICA.Ubicacion DROP CONSTRAINT Ubicacion_Publicaciones;
 
-ALTER TABLE Usuario_Rol DROP CONSTRAINT Usuario_Rol_Rol;
+ALTER TABLE CAMPUS_ANALYTICA.Usuario_Rol DROP CONSTRAINT Usuario_Rol_Rol;
 
-ALTER TABLE Usuario_Rol DROP CONSTRAINT Usuario_Rol_Usuario;
+ALTER TABLE CAMPUS_ANALYTICA.Usuario_Rol DROP CONSTRAINT Usuario_Rol_Usuario;
 
-ALTER TABLE Usuario DROP CONSTRAINT Usuarios_Tipos_usuario;
+ALTER TABLE CAMPUS_ANALYTICA.Usuario DROP CONSTRAINT Usuarios_Tipos_usuario;
 
 -- tables
-DROP TABLE Canjes;
+DROP TABLE CAMPUS_ANALYTICA.Canjes;
 
-DROP TABLE Cliente;
+DROP TABLE CAMPUS_ANALYTICA.Cliente;
 
-DROP TABLE ClienteDireccion;
+DROP TABLE CAMPUS_ANALYTICA.ClienteDireccion;
 
-DROP TABLE Compra;
+DROP TABLE CAMPUS_ANALYTICA.Compra;
 
-DROP TABLE Direccion;
+DROP TABLE CAMPUS_ANALYTICA.Direccion;
 
-DROP TABLE Empresa;
+DROP TABLE CAMPUS_ANALYTICA.Empresa;
 
-DROP TABLE EmpresaDireccion;
+DROP TABLE CAMPUS_ANALYTICA.EmpresaDireccion;
 
-DROP TABLE Facturas;
+DROP TABLE CAMPUS_ANALYTICA.Facturas;
 
-DROP TABLE Funcionalidad;
+DROP TABLE CAMPUS_ANALYTICA.Funcionalidad;
 
-DROP TABLE Grados_publicacion;
+DROP TABLE CAMPUS_ANALYTICA.Grados_publicacion;
 
-DROP TABLE Items_factura;
+DROP TABLE CAMPUS_ANALYTICA.Items_factura;
 
-DROP TABLE Premios;
+DROP TABLE CAMPUS_ANALYTICA.Premios;
 
-DROP TABLE Publicaciones;
+DROP TABLE CAMPUS_ANALYTICA.Publicaciones;
 
-DROP TABLE Rol;
+DROP TABLE CAMPUS_ANALYTICA.Rol;
 
-DROP TABLE Rol_Funcionalidad;
+DROP TABLE CAMPUS_ANALYTICA.Rol_Funcionalidad;
 
-DROP TABLE Rubros;
+DROP TABLE CAMPUS_ANALYTICA.Rubros;
 
-DROP TABLE Tajetas;
+DROP TABLE CAMPUS_ANALYTICA.Tajetas;
 
-DROP TABLE Tipos_publicacion;
+DROP TABLE CAMPUS_ANALYTICA.Tipos_publicacion;
 
-DROP TABLE Tipos_usuario;
+DROP TABLE CAMPUS_ANALYTICA.Tipos_usuario;
 
-DROP TABLE Ubicacion;
+DROP TABLE CAMPUS_ANALYTICA.Ubicacion;
 
-DROP TABLE Usuario;
+DROP TABLE CAMPUS_ANALYTICA.Usuario;
 
-DROP TABLE Usuario_Rol;
+DROP TABLE CAMPUS_ANALYTICA.Usuario_Rol;
+
+DROP TABLE CAMPUS_ANALYTICA.TIPO_DOCUMENTO;
+
+DROP TABLE dbo.Logins;
 
 -- End of file.
 
