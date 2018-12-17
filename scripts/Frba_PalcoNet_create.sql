@@ -371,6 +371,21 @@ GO
 
 	
 --*******************************INSERT***********************************	--
+
+GO
+SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Usuario] ON;  
+GO  
+INSERT INTO [CAMPUS_ANALYTICA].[Usuario]
+           (id
+		   ,[Username]
+           ,[Password]
+           ,[Estado]
+           ,[Tipos_usuario_Id]
+           ,[Cant_Login_Fallidos])
+     VALUES
+           (0,'notiene','123','B',2,0)
+GO
+
 /* INSERT FUNCIONALIDADES */
 print('Cargando tabla de funcionalidad...')
 INSERT INTO CAMPUS_ANALYTICA.FUNCIONALIDAD (Nombre) VALUES ('ABM de Rol');
