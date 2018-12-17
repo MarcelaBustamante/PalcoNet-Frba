@@ -113,10 +113,10 @@
     <Compile Include="Canje Puntos\PanelPuntaje.Designer.cs">
       <DependentUpon>PanelPuntaje.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\generarCompra.cs">
+    <Compile Include="Generar Rendicion Comisiones\Comprar\generarCompra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar\generarCompra.Designer.cs">
+    <Compile Include="Generar Rendicion Comisiones\Comprar\generarCompra.Designer.cs">
       <DependentUpon>generarCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="dbmanager.cs" />
@@ -224,7 +224,7 @@
     <EmbeddedResource Include="Canje Puntos\PanelPuntaje.resx">
       <DependentUpon>PanelPuntaje.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\generarCompra.resx">
+    <EmbeddedResource Include="Generar Rendicion Comisiones\Comprar\generarCompra.resx">
       <DependentUpon>generarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\Publicaciones.resx">

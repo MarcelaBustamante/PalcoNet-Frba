@@ -5,3 +5,8 @@
 /.vs
 /PalcoNet/.vs/PalcoNet/v15/Server/sqlite3/db.lock
 /PalcoNet/.vs/PalcoNet/v15/Server/sqlite3
+/bin/Debug
+v15
+/obj/Debug
+/.suo
+
