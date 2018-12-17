@@ -20,8 +20,8 @@ namespace PalcoNet.Abm_Grado
             this.db = dbMng;
             InitializeComponent();
             CargaCombo();
-            this.tbComisionGradoPublicacion.Text = CargarComision(this.cbGradoPublicaccion.SelectedItem);
-        }      
+            this.tbComisionGradoPublicacion.Text = CargarComision(Decimal.Parse(this.cbGradoPublicaccion.SelectedValue.ToString()));
+        }
 
         public String CargarComision(object idGrado)
         {
