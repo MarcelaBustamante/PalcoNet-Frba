@@ -2,6 +2,9 @@
 USE GD2C2018 -- Indica la base de datos a utilizar
 GO
 /* CREACIÓN DEL ESQUEMA */
+if EXISTS(select name from sys.schemas where name='CAMPUS_ANALYTICA')
+drop schema CAMPUS_ANALYTICA
+go
 CREATE SCHEMA CAMPUS_ANALYTICA AUTHORIZATION gdEspectaculos2018
 GO
 
@@ -227,6 +230,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].Usuario (
     Password varchar(500)  NOT NULL,
     Estado char  NOT NULL DEFAULT 'A',--A:ALTA Y B:BAJA
     Tipos_usuario_Id int  ,
+	Cant_Login_Fallidos int NOT NULL ,
     CONSTRAINT Usuario_pk PRIMARY KEY  (Id)
 );
 -- Table: Usuario_Rol
@@ -372,6 +376,26 @@ GO
 	
 --*******************************INSERT***********************************	--
 
+
+print('Cargando tipos de usuarios...')
+/* INSERT tipo usuario*/
+print('Cargando tabla de tipo_usuario...')
+INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
+           ([Descripcion])
+     VALUES
+           ('Administrador General')
+INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
+           ([Descripcion])
+     VALUES
+           ('Empresa')
+INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
+           ([Descripcion])
+     VALUES
+           ('Cliente')		   
+		   
+GO
+
+print('Cargando usuarios...')
 GO
 SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Usuario] ON;  
 GO  
@@ -385,6 +409,8 @@ INSERT INTO [CAMPUS_ANALYTICA].[Usuario]
      VALUES
            (0,'notiene','123','B',2,0)
 GO
+SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Usuario] OFF;  
+GO  
 
 /* INSERT FUNCIONALIDADES */
 print('Cargando tabla de funcionalidad...')
@@ -432,27 +458,11 @@ INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_al
 INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (11,3,GETDATE());
 
 GO
-/* INSERT tipo usuario*/
-print('Cargando tabla de tipo_usuario...')
-INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
-           ([Descripcion])
-     VALUES
-           ('Administrador General')
-INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
-           ([Descripcion])
-     VALUES
-           ('Empresa')
-INSERT INTO [CAMPUS_ANALYTICA].[Tipos_usuario]
-           ([Descripcion])
-     VALUES
-           ('Cliente')		   
-		   
-GO
 
 /* INSERT  usuario general*/
 print('Cargando tabla de usuario general...')
-INSERT INTO [CAMPUS_ANALYTICA].[Usuario] ([Username],[Password],[Estado],[Tipos_usuario_Id])
-		 VALUES  ('admin','w23e','A',1)
+INSERT INTO [CAMPUS_ANALYTICA].[Usuario] ([Username],[Password],[Estado],[Tipos_usuario_Id],[Cant_Login_Fallidos])
+		 VALUES  ('admin','w23e','A',1,0)
 		   
 GO
 /* insert Rubros **/
@@ -470,6 +480,10 @@ GO
 /************************************************ CREACIÓN DE PROCEDIMIENTOS ************************************************/
 
 /* PROCEDIMIENTO QUE MIGRA LAS EMPRESAS Y LES ASIGNA USUARIO */
+
+if EXISTS(select name from sysobjects where name='MigraEmpresas')
+drop procedure MigraEmpresas
+
 GO
 CREATE PROCEDURE MigraEmpresas AS
 BEGIN   
@@ -540,6 +554,9 @@ BEGIN
            ,[Depoto])
      VALUES
            (@direccion_id,@v_Dom_Calle,@v_Nro_Calle,@v_Piso,@v_cod_Postal,'caba',@v_Depto)	
+
+
+
 		   SET @Password = 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3' -- La password por defecto es '123'				
 			
 				
@@ -547,8 +564,9 @@ BEGIN
            ([Username]
            ,[Password]
            ,[Estado]
-           ,[Tipos_usuario_Id])
-				VALUES (@v_Razon_Social, @Password,'A',2 )
+           ,[Tipos_usuario_Id]
+		   ,[Cant_Login_Fallidos])
+				VALUES (@v_Razon_Social, @Password,'A',2,0 )
 
 		   INSERT INTO [CAMPUS_ANALYTICA].[Empresa]
            ([Razon_social]
@@ -597,6 +615,11 @@ END
 GO
 
 /*************migra clientes***************/    
+
+if EXISTS(select name from sysobjects where name='MigraClientes')
+drop procedure MigraClientes
+
+GO
 CREATE PROCEDURE MigraClientes AS
 BEGIN   
 	DECLARE @usuario_id INT
@@ -682,8 +705,9 @@ BEGIN
            ([Username]
            ,[Password]
            ,[Estado]
-           ,[Tipos_usuario_Id])
-				VALUES (CONVERT(varchar(255),@usuario_id)+@Cli_Nombre+@Cli_Apeliido,@Password,'A',3 )	
+           ,[Tipos_usuario_Id]
+		   ,[Cant_Login_Fallidos])
+				VALUES (CONVERT(varchar(255),@usuario_id)+@Cli_Nombre+@Cli_Apeliido,@Password,'A',3,0 )	
 
 		   INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
 					   ([Nombre]
@@ -859,25 +883,6 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
 	     and m.Cli_Mail is not null
 		
 GO
-
-/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
-BEGIN TRANSACTION
-SET QUOTED_IDENTIFIER ON
-SET ARITHABORT ON
-SET NUMERIC_ROUNDABORT OFF
-SET CONCAT_NULL_YIELDS_NULL ON
-SET ANSI_NULLS ON
-SET ANSI_PADDING ON
-SET ANSI_WARNINGS ON
-COMMIT
-BEGIN TRANSACTION
-GO
-ALTER TABLE CAMPUS_ANALYTICA.Usuario ADD
-	Cant_Login_Fallidos int NOT NULL CONSTRAINT DF_Usuario_Cant_Login_Fallidos DEFAULT 0
-GO
-ALTER TABLE CAMPUS_ANALYTICA.Usuario SET (LOCK_ESCALATION = TABLE)
-GO
-COMMIT
 
 /* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
 BEGIN TRANSACTION
