@@ -41,10 +41,10 @@
             this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.canjeDePuntosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialDelClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.publicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comisionesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.historialDelClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,7 +114,7 @@
             // 
             this.publicaciónToolStripMenuItem.Name = "publicaciónToolStripMenuItem";
             this.publicaciónToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
-            this.publicaciónToolStripMenuItem.Text = "ABM grado de Publicación";
+            this.publicaciónToolStripMenuItem.Text = "ABM grado de publicación";
             this.publicaciónToolStripMenuItem.Click += new System.EventHandler(this.publicaciónToolStripMenuItem_Click);
             // 
             // comisionesToolStripMenuItem
@@ -155,6 +155,13 @@
             this.canjeDePuntosToolStripMenuItem1.Text = "Canje y administración de puntos";
             this.canjeDePuntosToolStripMenuItem1.Click += new System.EventHandler(this.canjeDePuntosToolStripMenuItem1_Click);
             // 
+            // historialDelClienteToolStripMenuItem
+            // 
+            this.historialDelClienteToolStripMenuItem.Name = "historialDelClienteToolStripMenuItem";
+            this.historialDelClienteToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+            this.historialDelClienteToolStripMenuItem.Text = "Historial del cliente";
+            this.historialDelClienteToolStripMenuItem.Click += new System.EventHandler(this.historialDelClienteToolStripMenuItem_Click_1);
+            // 
             // empresaToolStripMenuItem
             // 
             this.empresaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -177,13 +184,6 @@
             this.comisionesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.comisionesToolStripMenuItem1.Text = "Editar Publicación";
             this.comisionesToolStripMenuItem1.Click += new System.EventHandler(this.comisionesToolStripMenuItem1_Click);
-            // 
-            // historialDelClienteToolStripMenuItem
-            // 
-            this.historialDelClienteToolStripMenuItem.Name = "historialDelClienteToolStripMenuItem";
-            this.historialDelClienteToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
-            this.historialDelClienteToolStripMenuItem.Text = "Historial del cliente";
-            this.historialDelClienteToolStripMenuItem.Click += new System.EventHandler(this.historialDelClienteToolStripMenuItem_Click_1);
             // 
             // MenuPrincipal
             // 

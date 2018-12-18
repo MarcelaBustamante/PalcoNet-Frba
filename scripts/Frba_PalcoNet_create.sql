@@ -449,7 +449,6 @@ INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_al
 INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (11,1,GETDATE());
 INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (12,1,GETDATE());
 INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (13,1,GETDATE());
-INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (6,2,GETDATE());
 INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (7,2,GETDATE());
 INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (8,2,GETDATE());
 INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (12,2,GETDATE());
