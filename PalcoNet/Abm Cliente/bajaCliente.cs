@@ -33,5 +33,10 @@ namespace PalcoNet.Abm_Cliente
 			}
 			DialogResult = DialogResult.OK;
 		}
-    }
+
+		private void cancelar_Click(object sender, EventArgs e)
+		{
+			Dispose();
+		}
+	}
 }

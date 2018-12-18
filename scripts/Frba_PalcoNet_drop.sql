@@ -1,99 +1,76 @@
 
+USE GD2C2018
+
+-- ESTE SCRIPT ELIMINA TODAS LAS CONSTRAINT DE LA DB
+
+DECLARE @sql NVARCHAR(MAX);
+SET @sql = N'';
+
+SELECT @sql = @sql + N'
+  ALTER TABLE ' + QUOTENAME(s.name) + N'.'
+  + QUOTENAME(t.name) + N' DROP CONSTRAINT '
+  + QUOTENAME(c.name) + ';'
+FROM sys.objects AS c
+INNER JOIN sys.tables AS t
+ON c.parent_object_id = t.[object_id]
+INNER JOIN sys.schemas AS s 
+ON t.[schema_id] = s.[schema_id]
+WHERE c.[type] IN ('D','C','F','PK','UQ')
+ORDER BY c.[type];
+
+PRINT @sql;
+EXEC sys.sp_executesql @sql;
 
 
--- foreign keys
-ALTER TABLE Canjes DROP CONSTRAINT Canjes_Premios;
+-- ELIMINAR TABLAS
 
-ALTER TABLE ClienteDireccion DROP CONSTRAINT ClienteDireccion_Clientes;
+DROP TABLE CAMPUS_ANALYTICA.Canjes;
 
-ALTER TABLE ClienteDireccion DROP CONSTRAINT ClienteDireccion_Direccion;
+DROP TABLE CAMPUS_ANALYTICA.Cliente;
 
-ALTER TABLE Cliente DROP CONSTRAINT Clientes_Usuarios;
+DROP TABLE CAMPUS_ANALYTICA.ClienteDireccion;
 
-ALTER TABLE Compra DROP CONSTRAINT Compra_Clientes;
+DROP TABLE CAMPUS_ANALYTICA.Compra;
 
-ALTER TABLE Compra DROP CONSTRAINT Compra_Tajetas;
+DROP TABLE CAMPUS_ANALYTICA.Direccion;
 
-ALTER TABLE EmpresaDireccion DROP CONSTRAINT EmpresaDireccion_Direccion;
+DROP TABLE CAMPUS_ANALYTICA.Empresa;
 
-ALTER TABLE EmpresaDireccion DROP CONSTRAINT EmpresaDireccion_Empresa;
+DROP TABLE CAMPUS_ANALYTICA.EmpresaDireccion;
 
-ALTER TABLE Empresa DROP CONSTRAINT Empresas_Usuarios;
+DROP TABLE CAMPUS_ANALYTICA.Facturas;
 
-ALTER TABLE Facturas DROP CONSTRAINT Facturas_Empresas;
+DROP TABLE CAMPUS_ANALYTICA.Funcionalidad;
 
-ALTER TABLE Canjes DROP CONSTRAINT Historial_canje_Clientes;
+DROP TABLE CAMPUS_ANALYTICA.Grados_publicacion;
 
-ALTER TABLE Items_factura DROP CONSTRAINT Items_factura_Facturas;
+DROP TABLE CAMPUS_ANALYTICA.Items_factura;
 
-ALTER TABLE Publicaciones DROP CONSTRAINT Publicaciones_Empresas;
+DROP TABLE CAMPUS_ANALYTICA.Premios;
 
-ALTER TABLE Publicaciones DROP CONSTRAINT Publicaciones_Grados_publicacion;
+DROP TABLE CAMPUS_ANALYTICA.Publicaciones;
 
-ALTER TABLE Publicaciones DROP CONSTRAINT Publicaciones_Rubros;
+DROP TABLE CAMPUS_ANALYTICA.Rol;
 
-ALTER TABLE Rol_Funcionalidad DROP CONSTRAINT Rol_Funcionalidad_Funcionalidad;
+DROP TABLE CAMPUS_ANALYTICA.Rol_Funcionalidad;
 
-ALTER TABLE Rol_Funcionalidad DROP CONSTRAINT Rol_Funcionalidad_Rol;
+DROP TABLE CAMPUS_ANALYTICA.Rubros;
 
-ALTER TABLE Tajetas DROP CONSTRAINT Tajetas_Clientes;
+DROP TABLE CAMPUS_ANALYTICA.Tajetas;
 
-ALTER TABLE Tipos_publicacion DROP CONSTRAINT Tipos_publicacion_Grados_publicacion;
+DROP TABLE CAMPUS_ANALYTICA.Tipos_publicacion;
 
-ALTER TABLE Ubicacion DROP CONSTRAINT Ubicacion_Compra;
+DROP TABLE CAMPUS_ANALYTICA.Tipos_usuario;
 
-ALTER TABLE Ubicacion DROP CONSTRAINT Ubicacion_Publicaciones;
+DROP TABLE CAMPUS_ANALYTICA.Ubicacion;
 
-ALTER TABLE Usuario_Rol DROP CONSTRAINT Usuario_Rol_Rol;
+DROP TABLE CAMPUS_ANALYTICA.Usuario;
 
-ALTER TABLE Usuario_Rol DROP CONSTRAINT Usuario_Rol_Usuario;
+DROP TABLE CAMPUS_ANALYTICA.Usuario_Rol;
 
-ALTER TABLE Usuario DROP CONSTRAINT Usuarios_Tipos_usuario;
+DROP TABLE CAMPUS_ANALYTICA.TIPO_DOCUMENTO;
 
--- tables
-DROP TABLE Canjes;
-
-DROP TABLE Cliente;
-
-DROP TABLE ClienteDireccion;
-
-DROP TABLE Compra;
-
-DROP TABLE Direccion;
-
-DROP TABLE Empresa;
-
-DROP TABLE EmpresaDireccion;
-
-DROP TABLE Facturas;
-
-DROP TABLE Funcionalidad;
-
-DROP TABLE Grados_publicacion;
-
-DROP TABLE Items_factura;
-
-DROP TABLE Premios;
-
-DROP TABLE Publicaciones;
-
-DROP TABLE Rol;
-
-DROP TABLE Rol_Funcionalidad;
-
-DROP TABLE Rubros;
-
-DROP TABLE Tajetas;
-
-DROP TABLE Tipos_publicacion;
-
-DROP TABLE Tipos_usuario;
-
-DROP TABLE Ubicacion;
-
-DROP TABLE Usuario;
-
-DROP TABLE Usuario_Rol;
+DROP TABLE dbo.Logins;
 
 -- End of file.
 

@@ -30,7 +30,7 @@ namespace PalcoNet
         public void Ingreso(String username, Decimal rolId)
         {
             this._rolId = rolId;
-            //RecorrerItemsMenu(barraMenu.Items, Username, RolId); // Oculta las opciones del menu a las cuales el usuario no tiene acceso
+            RecorrerItemsMenu(menuStrip1.Items, _username, _rolId); // Oculta las opciones del menu a las cuales el usuario no tiene acceso
         }
 
         public void CierraMenu(Object sender, FormClosedEventArgs e)
@@ -45,7 +45,14 @@ namespace PalcoNet
 
                 Boolean existe = false;
                 String funcionalidad = item.Text;
-                String consulta = "SELECT F.Funcionalidad_Id FROM BENDECIDOS.USUARIO_ROL UR " +
+                String consulta = "SELECT F.Id " +
+                                  "FROM CAMPUS_ANALYTICA.Usuario U " +
+                                  "LEFT JOIN CAMPUS_ANALYTICA.Usuario_Rol UR ON U.Id = UR.Usuario_Id " +
+                                  "LEFT JOIN CAMPUS_ANALYTICA.Rol_Funcionalidad RF ON UR.Rol_Id = RF.Rol_id " +
+                                  "LEFT JOIN CAMPUS_ANALYTICA.Funcionalidad F ON RF.Funcionalidad_id = F.Id " +
+                                  "WHERE U.Username = '" + username + "' AND F.Nombre = '" + funcionalidad + "' ";
+
+                String consulta2 = "SELECT F.Funcionalidad_Id FROM BENDECIDOS.USUARIO_ROL UR " +
                                   "JOIN BENDECIDOS.ROL_FUNCIONALIDAD RF ON RF.Rol_Id = UR.Rol_Id " +
                                   "JOIN BENDECIDOS.FUNCIONALIDAD F ON F.Funcionalidad_Id = RF.Funcionalidad_Id " +
                                   "WHERE UR.Username = '" + username + "' AND F.Funcionalidad_Nombre = '" + funcionalidad + "'" +
@@ -61,7 +68,7 @@ namespace PalcoNet
                     item.Visible = false;
                 }
 
-                if ((item.Text == "Funcionalidades") || (item.Text == "Maestros") || (item.Text == "Listado estadistico" && rol != 2))
+                if ((item.Text == "Administracion") || (item.Text == "Cliente") || (item.Text == "Empresa"))
                 {
                     item.Visible = true;
                 }
@@ -99,7 +106,7 @@ namespace PalcoNet
 
         private void empresaToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            listaEmpresa f = new listaEmpresa();
+            listaEmpresa f = new listaEmpresa(_db);
             f.Show();
         }
 
@@ -135,7 +142,7 @@ namespace PalcoNet
 
         private void comprasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            generarCompra f = new generarCompra();
+            generarCompra f = new generarCompra(_db, _username);
             f.Show();
         }
 
@@ -147,13 +154,19 @@ namespace PalcoNet
 
         private void publicacionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AltaPublicacion f = new AltaPublicacion();
+            AltaPublicacion f = new AltaPublicacion(_db);
             f.Show();
         }
 
         private void comisionesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Publicaciones f = new Publicaciones();
+            Publicaciones f = new Publicaciones(_db);
+            f.Show();
+        }
+
+        private void historialDelClienteToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Historial_Cliente.Form1 f = new Historial_Cliente.Form1();
             f.Show();
         }
     }
