@@ -1,56 +1,29 @@
 
-use GD2C2018
+USE GD2C2018
 
--- foreign keys
-ALTER TABLE CAMPUS_ANALYTICA.Canjes DROP CONSTRAINT Canjes_Premios;
+-- ESTE SCRIPT ELIMINA TODAS LAS CONSTRAINT DE LA DB
 
-ALTER TABLE CAMPUS_ANALYTICA.ClienteDireccion DROP CONSTRAINT ClienteDireccion_Clientes;
+DECLARE @sql NVARCHAR(MAX);
+SET @sql = N'';
 
-ALTER TABLE CAMPUS_ANALYTICA.ClienteDireccion DROP CONSTRAINT ClienteDireccion_Direccion;
+SELECT @sql = @sql + N'
+  ALTER TABLE ' + QUOTENAME(s.name) + N'.'
+  + QUOTENAME(t.name) + N' DROP CONSTRAINT '
+  + QUOTENAME(c.name) + ';'
+FROM sys.objects AS c
+INNER JOIN sys.tables AS t
+ON c.parent_object_id = t.[object_id]
+INNER JOIN sys.schemas AS s 
+ON t.[schema_id] = s.[schema_id]
+WHERE c.[type] IN ('D','C','F','PK','UQ')
+ORDER BY c.[type];
 
-ALTER TABLE CAMPUS_ANALYTICA.Cliente DROP CONSTRAINT Clientes_Usuarios;
+PRINT @sql;
+EXEC sys.sp_executesql @sql;
 
-ALTER TABLE CAMPUS_ANALYTICA.Compra DROP CONSTRAINT Compra_Clientes;
 
-ALTER TABLE CAMPUS_ANALYTICA.Compra DROP CONSTRAINT Compra_Tajetas;
+-- ELIMINAR TABLAS
 
-ALTER TABLE CAMPUS_ANALYTICA.EmpresaDireccion DROP CONSTRAINT EmpresaDireccion_Direccion;
-
-ALTER TABLE CAMPUS_ANALYTICA.EmpresaDireccion DROP CONSTRAINT EmpresaDireccion_Empresa;
-
-ALTER TABLE CAMPUS_ANALYTICA.Empresa DROP CONSTRAINT Empresas_Usuarios;
-
-ALTER TABLE CAMPUS_ANALYTICA.Facturas DROP CONSTRAINT Facturas_Empresas;
-
-ALTER TABLE CAMPUS_ANALYTICA.Canjes DROP CONSTRAINT Historial_canje_Clientes;
-
-ALTER TABLE CAMPUS_ANALYTICA.Items_factura DROP CONSTRAINT Items_factura_Facturas;
-
-ALTER TABLE CAMPUS_ANALYTICA.Publicaciones DROP CONSTRAINT Publicaciones_Empresas;
-
-ALTER TABLE CAMPUS_ANALYTICA.Publicaciones DROP CONSTRAINT Publicaciones_Grados_publicacion;
-
-ALTER TABLE CAMPUS_ANALYTICA.Publicaciones DROP CONSTRAINT Publicaciones_Rubros;
-
-ALTER TABLE CAMPUS_ANALYTICA.Rol_Funcionalidad DROP CONSTRAINT Rol_Funcionalidad_Funcionalidad;
-
-ALTER TABLE CAMPUS_ANALYTICA.Rol_Funcionalidad DROP CONSTRAINT Rol_Funcionalidad_Rol;
-
-ALTER TABLE CAMPUS_ANALYTICA.Tajetas DROP CONSTRAINT Tajetas_Clientes;
-
-ALTER TABLE CAMPUS_ANALYTICA.Tipos_publicacion DROP CONSTRAINT Tipos_publicacion_Grados_publicacion;
-
-ALTER TABLE CAMPUS_ANALYTICA.Ubicacion DROP CONSTRAINT Ubicacion_Compra;
-
-ALTER TABLE CAMPUS_ANALYTICA.Ubicacion DROP CONSTRAINT Ubicacion_Publicaciones;
-
-ALTER TABLE CAMPUS_ANALYTICA.Usuario_Rol DROP CONSTRAINT Usuario_Rol_Rol;
-
-ALTER TABLE CAMPUS_ANALYTICA.Usuario_Rol DROP CONSTRAINT Usuario_Rol_Usuario;
-
-ALTER TABLE CAMPUS_ANALYTICA.Usuario DROP CONSTRAINT Usuarios_Tipos_usuario;
-
--- tables
 DROP TABLE CAMPUS_ANALYTICA.Canjes;
 
 DROP TABLE CAMPUS_ANALYTICA.Cliente;
