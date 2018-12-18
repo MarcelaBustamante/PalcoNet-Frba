@@ -194,6 +194,12 @@
     <Compile Include="Registro de Usuario\ListaUsuario.Designer.cs">
       <DependentUpon>ListaUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ubicaciones\Ubicaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ubicaciones\Ubicaciones.Designer.cs">
+      <DependentUpon>Ubicaciones.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Abm Cliente\AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -268,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\ListaUsuario.resx">
       <DependentUpon>ListaUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ubicaciones\Ubicaciones.resx">
+      <DependentUpon>Ubicaciones.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

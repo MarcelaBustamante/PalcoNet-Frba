@@ -154,13 +154,13 @@ namespace PalcoNet
 
         private void publicacionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AltaPublicacion f = new AltaPublicacion();
+            AltaPublicacion f = new AltaPublicacion(_db);
             f.Show();
         }
 
         private void comisionesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Publicaciones f = new Publicaciones();
+            Publicaciones f = new Publicaciones(_db);
             f.Show();
         }
 
