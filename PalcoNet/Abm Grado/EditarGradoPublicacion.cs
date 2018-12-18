@@ -44,7 +44,7 @@ namespace PalcoNet.Abm_Grado
         {
             DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Grado FROM CAMPUS_ANALYTICA.Grados_publicacion", this.db.StringConexion());
-            da.Fill(ds, "CAMPUS_ANALYTICA.PAIS");
+            da.Fill(ds, "CAMPUS_ANALYTICA.Grados_Publicacion");
             this.cbGradoPublicaccion.DataSource = ds.Tables[0].DefaultView;
             this.cbGradoPublicaccion.DisplayMember = "Grado";
             this.cbGradoPublicaccion.ValueMember = "Id";
