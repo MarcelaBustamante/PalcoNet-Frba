@@ -15,7 +15,7 @@ namespace PalcoNet
             Application.SetCompatibleTextRenderingDefault(false);
             dbmanager db = new dbmanager();//se coneta la base
             Application.Run(new Login.Login(db));
-            //Application.Run(new Abm_Empresa_Espectaculo.listaEmpresa(db));
+            //Application.Run(new generarCompra(db, "admin"));
         }
     }
 }

@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -113,10 +114,10 @@
     <Compile Include="Canje Puntos\PanelPuntaje.Designer.cs">
       <DependentUpon>PanelPuntaje.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Comprar\generarCompra.cs">
+    <Compile Include="Comprar\generarCompra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Comprar\generarCompra.Designer.cs">
+    <Compile Include="Comprar\generarCompra.Designer.cs">
       <DependentUpon>generarCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="dbmanager.cs" />
@@ -230,7 +231,7 @@
     <EmbeddedResource Include="Canje Puntos\PanelPuntaje.resx">
       <DependentUpon>PanelPuntaje.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Rendicion Comisiones\Comprar\generarCompra.resx">
+    <EmbeddedResource Include="Comprar\generarCompra.resx">
       <DependentUpon>generarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\Publicaciones.resx">

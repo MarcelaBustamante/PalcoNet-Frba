@@ -142,7 +142,7 @@ namespace PalcoNet
 
         private void comprasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            generarCompra f = new generarCompra();
+            generarCompra f = new generarCompra(_db, _username);
             f.Show();
         }
 

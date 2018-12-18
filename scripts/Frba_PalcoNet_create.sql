@@ -948,7 +948,7 @@ INSERT INTO [CAMPUS_ANALYTICA].[Compra]
 			,M.Compra_Cantidad
 			,U.Id
 	 FROM [GD2C2018].[gd_esquema].[Maestra] m
-	 LEFT JOIN CAMPUS_ANALYTICA.Cliente C ON M.Cli_Dom_Calle = C.Nro_documento
+	 LEFT JOIN CAMPUS_ANALYTICA.Cliente C ON M.Cli_Dni = C.Nro_documento
 	 LEFT JOIN CAMPUS_ANALYTICA.Ubicacion U ON U.Publicaciones_Id = M.Espectaculo_Cod --AND U.Asiento = M.Ubicacion_Asiento AND U.Fila = M.Ubicacion_Fila AND U.Tipo_Codigo = M.Ubicacion_Tipo_Codigo
 	 WHERE M.Compra_Fecha IS NOT NULL
 GO
