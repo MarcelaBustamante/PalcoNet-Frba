@@ -57,6 +57,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].Compra (
     Tajetas_Nro_tarjeta nvarchar(255) null,
     Cliente_Id int  ,
     Cantidad numeric(18,0)  NOT NULL,
+	Ubicacion_Id int NOT NULL,
     CONSTRAINT Compra_pk PRIMARY KEY  (Id)
 );
 
@@ -145,7 +146,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].Premios (
 );
 
 CREATE TABLE [CAMPUS_ANALYTICA].Publicaciones (
-    Id int  NOT NULL IDENTITY,
+    Id numeric(18, 0)  NOT NULL IDENTITY,
     Estado nvarchar(255)  NOT NULL,
     Fecha_inicio datetime  NOT NULL,
     Fecha_Vencimiento datetime  NOT NULL,
@@ -216,11 +217,11 @@ CREATE TABLE [CAMPUS_ANALYTICA].Ubicacion (
     Asiento numeric(10,0)  NOT NULL,
     Precio numeric(18,0)  NOT NULL,
     Comprada char NULL,
-    Publicaciones_Id int   NULL,
+    Publicaciones_Id numeric(18, 0)   NULL,
     sin_numerar bit   NULL,
     Tipo_Codigo numeric(18,0)   NULL,
     Tipo_descripcion nvarchar(255)   NULL,
-    Compra_Id int   NULL,
+    --Compra_Id int   NULL,
     CONSTRAINT Ubicacion_pk PRIMARY KEY  (Id,Fila)
 );
 
@@ -816,15 +817,14 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
 					 [Publicaciones_Id] ,
 					 [sin_numerar] ,
 					 [Tipo_Codigo] , 
-					 [Tipo_descripcion] , 
-					 [Compra_Id]) 
+					 [Tipo_descripcion]) 
             SELECT DISTINCT
                m.Ubicacion_Fila,
                m.Ubicacion_Asiento,
                m.Ubicacion_Precio,
               ( case
                   when
-                        m.Factura_Nro is not null
+                        m.Compra_Fecha is not null
                   then
                      'S' 
                   else
@@ -833,55 +833,11 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
 			    m.Espectaculo_Cod ,
 				m.Ubicacion_Sin_numerar,
 				m.Ubicacion_Tipo_Codigo,
-				m.Ubicacion_Tipo_Descripcion,
-				m.Factura_Nro
+				m.Ubicacion_Tipo_Descripcion
             FROM
                gd_esquema.Maestra M 
     
 		   GO
-/* insert Factura **/
-		print('Cargando tabla factura ...')	 		
-	
-	INSERT INTO [CAMPUS_ANALYTICA].[Facturas]
-			   ([Fecha]
-			   ,[Empresa_Id]
-			   ,[Numero]
-			   ,[Total])
-		SELECT  
-		   m.[Factura_Fecha],
-		   (select e.id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social= m.Espec_Empresa_Razon_Social) empresa,
-		   m.[Factura_Nro],
-		  [Factura_Total]
-	  FROM [GD2C2018].[gd_esquema].[Maestra] m
-	  where m.Factura_Fecha is not null
-	GO
-	/* insert item_Factura **/
-		print('Cargando tabla item_factura ...')
-	
-	go
-	INSERT INTO [CAMPUS_ANALYTICA].[Items_factura]
-			   ([Monto]
-			   ,[Cantidad]
-			   ,[Facturas_Id]
-			   ,[Descripcion]
-			   ,[Compras_Id])
-	SELECT distinct
-		   m.Item_Factura_Monto,
-		   m.Item_Factura_Cantidad,
-		   m.Factura_Nro,
-		   m.Item_Factura_Descripcion,
-		   c.Id
-	  FROM [GD2C2018].[gd_esquema].[Maestra] m
-	  join CAMPUS_ANALYTICA.Cliente cli
-	  on cli.Mail like m.Cli_Mail
-	  join CAMPUS_ANALYTICA.Compra c
-	  on c.Cliente_Id =cli.Id
-	  and c.Cantidad = m.Compra_Cantidad
-	  and c.Fecha= m.Compra_Fecha
-	  where m.Factura_Fecha is not null
-	     and m.Cli_Mail is not null
-		
-GO
 
 /* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
 BEGIN TRANSACTION
@@ -929,3 +885,70 @@ INSERT INTO [CAMPUS_ANALYTICA].[Usuario_Rol]
            ,null)
 GO
 
+/* insert Compra */
+		print('Cargando tabla compra ...')	 		
+
+
+
+
+
+/* insert Factura **/
+		print('Cargando tabla factura ...')	 		
+	
+	INSERT INTO [CAMPUS_ANALYTICA].[Facturas]
+			   ([Fecha]
+			   ,[Empresa_Id]
+			   ,[Numero]
+			   ,[Total])
+		SELECT  
+		   m.[Factura_Fecha],
+		   (select e.id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social= m.Espec_Empresa_Razon_Social) empresa,
+		   m.[Factura_Nro],
+		  [Factura_Total]
+	  FROM [GD2C2018].[gd_esquema].[Maestra] m
+	  where m.Factura_Fecha is not null
+	GO
+	/* insert item_Factura **/
+		print('Cargando tabla item_factura ...')
+	
+	go
+	INSERT INTO [CAMPUS_ANALYTICA].[Items_factura]
+			   ([Monto]
+			   ,[Cantidad]
+			   ,[Facturas_Id]
+			   ,[Descripcion]
+			   ,[Compras_Id])
+	SELECT distinct
+		   m.Item_Factura_Monto,
+		   m.Item_Factura_Cantidad,
+		   m.Factura_Nro,
+		   m.Item_Factura_Descripcion,
+		   c.Id
+	  FROM [GD2C2018].[gd_esquema].[Maestra] m
+	  join CAMPUS_ANALYTICA.Cliente cli
+	  on cli.Mail like m.Cli_Mail
+	  join CAMPUS_ANALYTICA.Compra c
+	  on c.Cliente_Id =cli.Id
+	  and c.Cantidad = m.Compra_Cantidad
+	  and c.Fecha= m.Compra_Fecha
+	  where m.Factura_Fecha is not null
+	     and m.Cli_Mail is not null
+		
+GO
+
+INSERT INTO [CAMPUS_ANALYTICA].[Compra]
+           ([Fecha]
+           ,[Tajetas_Nro_tarjeta]
+           ,[Cliente_Id]
+           ,[Cantidad]
+           ,[Ubicacion_Id])
+     SELECT M.Compra_Fecha
+			,NULL
+			,C.Id
+			,M.Compra_Cantidad
+			,U.Id
+	 FROM [GD2C2018].[gd_esquema].[Maestra] m
+	 LEFT JOIN CAMPUS_ANALYTICA.Cliente C ON M.Cli_Dom_Calle = C.Nro_documento
+	 LEFT JOIN CAMPUS_ANALYTICA.Ubicacion U ON U.Publicaciones_Id = M.Espectaculo_Cod --AND U.Asiento = M.Ubicacion_Asiento AND U.Fila = M.Ubicacion_Fila AND U.Tipo_Codigo = M.Ubicacion_Tipo_Codigo
+	 WHERE M.Compra_Fecha IS NOT NULL
+GO
