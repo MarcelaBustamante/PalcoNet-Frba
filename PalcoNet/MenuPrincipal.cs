@@ -136,7 +136,7 @@ namespace PalcoNet
 
         private void estadisticasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lista f = new lista();
+            lista f = new lista(_db);
             f.Show();
         }
 

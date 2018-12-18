@@ -249,6 +249,9 @@
     <EmbeddedResource Include="Historial Cliente\historial del cliente.resx">
       <DependentUpon>historial del cliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\lista.resx">
+      <DependentUpon>lista.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
