@@ -34,6 +34,7 @@ namespace PalcoNet.Abm_Cliente
         public void cargaGrilla()
         {
             this.grillaClientes.AllowUserToAddRows = false;
+			limpiarTabla();
             DataTable dt = new DataTable();
             SqlDataAdapter da = new SqlDataAdapter("SELECT c.id, [Nombre],[Apellido],[Nro_documento],[CUIL],[Mail],[Telefono],[Fecha_nacimiento],c.[Fecha_alta],d.Calle,d.Numero,d.Piso,d.Localidad,c.estado FROM [GD2C2018].[CAMPUS_ANALYTICA].[Cliente] c join CAMPUS_ANALYTICA.ClienteDireccion cd on Cliente_id=Id join CAMPUS_ANALYTICA.Direccion  d on Direccion_id=d.Id", this.db.StringConexion());
             da.SelectCommand.CommandType = CommandType.Text;

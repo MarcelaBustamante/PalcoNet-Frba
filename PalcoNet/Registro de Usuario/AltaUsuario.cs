@@ -56,7 +56,7 @@ namespace PalcoNet.Registro_de_Usuario
                 this.db.Leer();
                 tbUsername.Text = this.db.ObtenerValor("Username");
                 tbPassword.Text = "********";
-                cbTipoCliente.SelectedIndex = Int16.Parse(this.db.ObtenerValor("Tipos_usuario_Id"))-1;
+                cbTipoCliente.SelectedValue = Int16.Parse(this.db.ObtenerValor("Tipos_usuario_Id"));
                 Habilitado = Char.Parse(this.db.ObtenerValor("Estado").ToString());
             }
             //tbUsername.Enabled = false;
@@ -159,27 +159,29 @@ namespace PalcoNet.Registro_de_Usuario
             } else{
                 this.Habilitado= 'B';
             }
-            
-            if (tbPassword.Text != "********")
-            {
-                String passHash = hash(tbPassword.Text);
-                this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario]   " +
-                 "SET [Username] = '" + tbUsername.Text +
-                 "' ,[Password] = '" + passHash +
-                 "' ,[Estado] = '" + Habilitado +
-                 "' ,[Tipos_usuario_Id] = " + cbTipoCliente.SelectedIndex +
-                    " WHERE Id = " + usrId);
-            }
-            else
-            {
-                this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario]   " +
-                 "SET [Username] = '" + tbUsername.Text +
-                 "' ,[Estado] = '" + Habilitado +
-                 "' ,[Tipos_usuario_Id] = " + cbTipoCliente.SelectedIndex +
-                    " WHERE Id = " + usrId);
-            }
 
-            MessageBox.Show("Usuario Modificado.");
+			if (tbPassword.Text != "********")
+			{
+				String passHash = hash(tbPassword.Text);
+				this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario]   " +
+				 "SET [Username] = '" + tbUsername.Text +
+				 "' ,[Password] = '" + passHash +
+				 "' ,[Estado] = '" + Habilitado +
+				 "' ,[Tipos_usuario_Id] = " + cbTipoCliente.SelectedValue +
+					" WHERE Id = " + usrId);
+			}
+			else
+			{
+				int resp = this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario]   " +
+				 "SET [Username] = '" + tbUsername.Text +
+				 "' ,[Estado] = '" + Habilitado +
+				 "' ,[Tipos_usuario_Id] = " + cbTipoCliente.SelectedValue +
+					" WHERE Id = " + usrId);
+				if (resp == 1)
+				{
+					MessageBox.Show("Usuario Modificado.");
+				}
+			}
         }
 
         private Decimal obtenerIDUSR() // Obtiene el ultimo ID de usuario
