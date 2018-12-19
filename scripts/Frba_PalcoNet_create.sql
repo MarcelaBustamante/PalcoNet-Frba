@@ -461,6 +461,23 @@ INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_al
 INSERT INTO CAMPUS_ANALYTICA.Rol_Funcionalidad (Funcionalidad_id,rol_id,fecha_alta) values (11,3,GETDATE());
 
 GO
+/* INSERT  usuario general*/
+print('Cargando tabla Rubro/categoria...')
+INSERT INTO [CAMPUS_ANALYTICA].[Rubros]
+           ([Descripcion])
+     VALUES
+           ('Teatro');
+
+INSERT INTO [CAMPUS_ANALYTICA].[Rubros]
+           ([Descripcion])
+     VALUES
+           ('Musica');
+
+INSERT INTO [CAMPUS_ANALYTICA].[Rubros]
+           ([Descripcion])
+     VALUES
+           ('Comida');
+GO
 
 /* INSERT  usuario general*/
 print('Cargando tabla de usuario general...')

@@ -70,7 +70,7 @@ namespace PalcoNet.Generar_Publicacion
             cargarComboRubro();
             cargarComboGrado();
             cargarComboResponsable();
-           // cargarComboEstado();
+            cargarComboEstado();
         }
 
         private void cargarComboEstado()
@@ -106,9 +106,9 @@ namespace PalcoNet.Generar_Publicacion
             DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Descripcion FROM CAMPUS_ANALYTICA.Rubros", this.db.StringConexion());
             da.Fill(ds, "CAMPUS_ANALYTICA.Rubros");
-            this.cbGradoPubli.DataSource = ds.Tables[0].DefaultView;
-            this.cbGradoPubli.DisplayMember = "Descripcion";
-            this.cbGradoPubli.ValueMember = "Id";
+            this.cbRubro.DataSource = ds.Tables[0].DefaultView;
+            this.cbRubro.DisplayMember = "Descripcion";
+            this.cbRubro.ValueMember = "Id";
         }
 
         private void aceptar_Click(object sender, EventArgs e)
