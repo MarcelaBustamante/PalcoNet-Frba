@@ -160,7 +160,6 @@
             this.historialDelClienteToolStripMenuItem.Name = "historialDelClienteToolStripMenuItem";
             this.historialDelClienteToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
             this.historialDelClienteToolStripMenuItem.Text = "Historial del cliente";
-          
             // 
             // empresaToolStripMenuItem
             // 
