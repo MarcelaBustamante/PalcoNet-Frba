@@ -54,6 +54,9 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelDescripcion = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grillaPublicaciones)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -74,6 +77,7 @@
             this.grillaPublicaciones.Location = new System.Drawing.Point(3, 27);
             this.grillaPublicaciones.Name = "grillaPublicaciones";
             this.grillaPublicaciones.ReadOnly = true;
+            this.grillaPublicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.grillaPublicaciones.Size = new System.Drawing.Size(462, 446);
             this.grillaPublicaciones.TabIndex = 2;
             this.grillaPublicaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaPublicaciones_CellContentClick);
@@ -224,6 +228,7 @@
             // comprar
             // 
             this.comprar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comprar.Enabled = false;
             this.comprar.Location = new System.Drawing.Point(583, 471);
             this.comprar.Name = "comprar";
             this.comprar.Size = new System.Drawing.Size(281, 35);
@@ -240,14 +245,18 @@
             this.cancelar.TabIndex = 6;
             this.cancelar.Text = "Cancelar";
             this.cancelar.UseVisualStyleBackColor = true;
+            this.cancelar.Click += new System.EventHandler(this.cancelar_Click);
             // 
             // flowLayoutPanel3
             // 
+            this.flowLayoutPanel3.Controls.Add(this.label4);
+            this.flowLayoutPanel3.Controls.Add(this.labelDescripcion);
+            this.flowLayoutPanel3.Controls.Add(this.label6);
             this.flowLayoutPanel3.Controls.Add(this.label1);
             this.flowLayoutPanel3.Controls.Add(this.grillaUbicaciones);
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(506, 0);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(487, 0);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(358, 412);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(377, 465);
             this.flowLayoutPanel3.TabIndex = 18;
             // 
             // label1
@@ -255,11 +264,11 @@
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(3, 46);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 24);
+            this.label1.Size = new System.Drawing.Size(233, 24);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Selecciona las ubicaciones";
+            this.label1.Text = "Selecciona la ubicacion";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // grillaUbicaciones
@@ -273,11 +282,13 @@
             this.Column1,
             this.Column4,
             this.Column3});
-            this.grillaUbicaciones.Location = new System.Drawing.Point(3, 27);
+            this.grillaUbicaciones.Location = new System.Drawing.Point(3, 73);
             this.grillaUbicaciones.Name = "grillaUbicaciones";
             this.grillaUbicaciones.ReadOnly = true;
-            this.grillaUbicaciones.Size = new System.Drawing.Size(352, 365);
+            this.grillaUbicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.grillaUbicaciones.Size = new System.Drawing.Size(374, 365);
             this.grillaUbicaciones.TabIndex = 2;
+            this.grillaUbicaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaUbicaciones_CellContentClick);
             // 
             // Id
             // 
@@ -308,9 +319,38 @@
             // 
             // Column3
             // 
-            this.Column3.HeaderText = "Precio";
+            this.Column3.HeaderText = "Precio ($)";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
+            // 
+            // labelDescripcion
+            // 
+            this.labelDescripcion.AutoSize = true;
+            this.labelDescripcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDescripcion.ForeColor = System.Drawing.Color.DarkRed;
+            this.labelDescripcion.Location = new System.Drawing.Point(3, 13);
+            this.labelDescripcion.Name = "labelDescripcion";
+            this.labelDescripcion.Size = new System.Drawing.Size(244, 20);
+            this.labelDescripcion.TabIndex = 4;
+            this.labelDescripcion.Text = "Haz doble click en un evento.";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(187, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "                                                            ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 33);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(187, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "                                                            ";
             // 
             // generarCompra
             // 
@@ -362,5 +402,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelDescripcion;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -13,7 +13,7 @@ namespace PalcoNet.Comprar
         private int PgSize = 15;
         private int CurrentPageIndex = 1;
         private int CantidadPaginas = 10;
-        private DateTime todayDateTime = DateTime.Now;
+        private int ubiSelectedRow = 0;
 
         public generarCompra(dbmanager db, String username)
         {
@@ -25,6 +25,7 @@ namespace PalcoNet.Comprar
 
         }
 
+        private DateTime todayDateTime = DateTime.Now;
         private void GetTodayDate()
         {
             string date = ConfigurationManager.AppSettings["FechaSistema"];
@@ -44,14 +45,14 @@ namespace PalcoNet.Comprar
 
         private void generarCompra_Load(object sender, EventArgs e)
         {
-
+            GetTodayDate();
         }
 
         private void CalcularCantidadPaginas()
         {
             String query = "  select count(*) as nro" +
             " FROM[GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones]" +
-            " where Fecha_inicio > GETDATE() and Fecha_Vencimiento<getdate()";
+            " where Fecha_inicio < '" + todayDateTime.Date.ToString() + "' and Fecha_Vencimiento > '" + todayDateTime.Date.ToString() + "'";
 
             db.Consultar(query);
             if (db.Leer())
@@ -84,14 +85,14 @@ namespace PalcoNet.Comprar
                            " ,[Grados_publicacion_Id]" +
                            " ,[Rubros_Id]" +
                            " FROM[GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones]" +
-                           " where Fecha_inicio > GETDATE() and Fecha_Vencimiento < GETDATE()";
+                           " where Fecha_inicio <  '" + todayDateTime.Date.ToString() + "'  and Fecha_Vencimiento >  '" + todayDateTime.Date.ToString() + "' ";
 
             if (page > 1)
             {
                 query = query + "AND Id NOT IN " +
                         "(Select TOP " + (page - 1) * PgSize +
                         " Id from [CAMPUS_ANALYTICA].[Publicaciones] " +
-                        " where Fecha_inicio > GETDATE() and Fecha_Vencimiento < GETDATE()"
+                        " where Fecha_inicio < '" + todayDateTime.Date.ToString() + "' and Fecha_Vencimiento >  '" + todayDateTime.Date.ToString() + "' "
                         + " ORDER BY Id) ";
             }
 
@@ -145,14 +146,39 @@ namespace PalcoNet.Comprar
 
         private void grillaPublicaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            int selectedRow = e.RowIndex;
+
+            labelDescripcion.Text = grillaPublicaciones.Rows[selectedRow].Cells[1].Value.ToString();
+
+            int pubId = int.Parse(grillaPublicaciones.Rows[selectedRow].Cells[0].Value.ToString());
+
+            CargaGrillaUbicaciones(pubId);
+
         }
 
         private void comprar_Click(object sender, EventArgs e)
         {
 
+            int ubiId = int.Parse(grillaUbicaciones.Rows[ubiSelectedRow].Cells[0].Value.ToString());
+
+            pagarCompra form = new pagarCompra(db, username, ubiId, this);
+
+            form.Show();
+
+
+
         }
 
+        public void SeComproUbicacion(int ubiId)
+        {
+            foreach (DataGridViewRow grillaUbicacionesRow in grillaUbicaciones.Rows)
+            {
+                if (grillaUbicacionesRow.Cells[0].Value.ToString() == ubiId.ToString())
+                {
+                    grillaUbicaciones.Rows.RemoveAt(grillaUbicacionesRow.Index);
+                }
+            }
+        }
 
         public void CargaGrillaUbicaciones(int pubId)
         {
@@ -160,31 +186,33 @@ namespace PalcoNet.Comprar
 
             DataTable dt = new DataTable();
 
-            String query = "SELECT TOP " + PgSize + " [Id] " +
-                           " ,[Estado] " +
-                           " ,[Fecha_inicio]" +
-                           " ,[Fecha_Vencimiento]" +
-                           " ,[Localidades]" +
-                           " ,[Descripcion]" +
-                           " ,[Direccion]" +
-                           " ,[Empresa_Id]" +
-                           " ,[Grados_publicacion_Id]" +
-                           " ,[Rubros_Id]" +
-                           " FROM[GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones]" +
-                           " where Fecha_inicio > GETDATE() and Fecha_Vencimiento < GETDATE()";
+            String query = "SELECT TOP 1000 [Id],[Fila],[Asiento],[Tipo_descripcion],[Precio]" +
+                           " FROM [GD2C2018].[CAMPUS_ANALYTICA].[Ubicacion]" +
+                           " WHERE Comprada = 'N' AND Publicaciones_Id = "
+                           + pubId.ToString();
 
             SqlDataAdapter da = new SqlDataAdapter(query, this.db.StringConexion());
             da.SelectCommand.CommandType = CommandType.Text;
             da.Fill(dt);
 
-            grillaPublicaciones.Rows.Clear();
+            grillaUbicaciones.Rows.Clear();
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                this.grillaPublicaciones.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][5].ToString(), dt.Rows[i][2].ToString(), dt.Rows[i][3].ToString());
+                this.grillaUbicaciones.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString(), dt.Rows[i][3].ToString(), dt.Rows[i][4].ToString());
             }
-            
+
         }
 
+        private void cancelar_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void grillaUbicaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ubiSelectedRow = e.RowIndex;
+            comprar.Enabled = true;
+        }
     }
 }
