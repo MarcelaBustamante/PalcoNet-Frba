@@ -14,7 +14,7 @@ namespace PalcoNet.Historial_Cliente
     public partial class HistrorialCliente : Form
     {
         private dbmanager db;
-        decimal Cliente_Id = 0;
+        string nombreUsuario;
         int filasPorPagina = 10;
         int numeroPagina = 1;
         int inicioPaginado = 0;
@@ -22,11 +22,11 @@ namespace PalcoNet.Historial_Cliente
         int numeroRegistro;
         DataTable dt = new DataTable();
 
-        public HistrorialCliente(dbmanager dbMng, decimal idCliente)
+        public HistrorialCliente(dbmanager dbMng, string cliente)
         {
             InitializeComponent();
             this.db = dbMng;
-            this.Cliente_Id = idCliente;
+            this.nombreUsuario = cliente;
             cargaGrilla();
         }
 
@@ -47,7 +47,9 @@ namespace PalcoNet.Historial_Cliente
                 "on u.Id = c.Ubicacion_Id " +
                 "join CAMPUS_ANALYTICA.Publicaciones p " +
                 "on p.Id = u.Publicaciones_Id " +
-                "where c.Cliente_Id =" + Cliente_Id, this.db.StringConexion());
+                "join CAMPUS_ANALYTICA.Cliente cli on cli.Id = c.Cliente_Id " +
+                "join CAMPUS_ANALYTICA.Usuario usr on usr.Id = c.Usuarios_Id " +
+                "where usr.Username = " + nombreUsuario, this.db.StringConexion());
             da.SelectCommand.CommandType = CommandType.Text;
             da.Fill(dt);
             grillaHistorial.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
