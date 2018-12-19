@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PalcoNet.Comprar;
+using System;
 using System.Windows.Forms;
 
 namespace PalcoNet
@@ -14,8 +15,9 @@ namespace PalcoNet
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             dbmanager db = new dbmanager();//se coneta la base
-            Application.Run(new Login.Login(db));
-            //Application.Run(new generarCompra(db, "admin"));
+            //Application.Run(new facturarEmpresa(db, "admin"));
+            //Application.Run(new Login.Login(db));
+            Application.Run(new generarCompra(db, "admin"));
         }
     }
 }

@@ -806,7 +806,7 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
       from
          gd_esquema.Maestra m 
          GO 
-	
+	SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] OFF
 	/* insert Ubicacion **/
 	print('Cargando tabla Ubicacion ...')	 
          INSERT INTO
@@ -887,55 +887,6 @@ GO
 
 /* insert Compra */
 		print('Cargando tabla compra ...')	 		
-
-
-
-
-
-/* insert Factura **/
-		print('Cargando tabla factura ...')	 		
-	
-	INSERT INTO [CAMPUS_ANALYTICA].[Facturas]
-			   ([Fecha]
-			   ,[Empresa_Id]
-			   ,[Numero]
-			   ,[Total])
-		SELECT  
-		   m.[Factura_Fecha],
-		   (select e.id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social= m.Espec_Empresa_Razon_Social) empresa,
-		   m.[Factura_Nro],
-		  [Factura_Total]
-	  FROM [GD2C2018].[gd_esquema].[Maestra] m
-	  where m.Factura_Fecha is not null
-	GO
-	/* insert item_Factura **/
-		print('Cargando tabla item_factura ...')
-	
-	go
-	INSERT INTO [CAMPUS_ANALYTICA].[Items_factura]
-			   ([Monto]
-			   ,[Cantidad]
-			   ,[Facturas_Id]
-			   ,[Descripcion]
-			   ,[Compras_Id])
-	SELECT distinct
-		   m.Item_Factura_Monto,
-		   m.Item_Factura_Cantidad,
-		   m.Factura_Nro,
-		   m.Item_Factura_Descripcion,
-		   c.Id
-	  FROM [GD2C2018].[gd_esquema].[Maestra] m
-	  join CAMPUS_ANALYTICA.Cliente cli
-	  on cli.Mail like m.Cli_Mail
-	  join CAMPUS_ANALYTICA.Compra c
-	  on c.Cliente_Id =cli.Id
-	  and c.Cantidad = m.Compra_Cantidad
-	  and c.Fecha= m.Compra_Fecha
-	  where m.Factura_Fecha is not null
-	     and m.Cli_Mail is not null
-		
-GO
-
 INSERT INTO [CAMPUS_ANALYTICA].[Compra]
            ([Fecha]
            ,[Tajetas_Nro_tarjeta]
@@ -986,4 +937,52 @@ INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
            ,0
            ,GETDATE()
            ,1)
+GO
+
+
+/* insert Factura **/
+		print('Cargando tabla factura ...')	 		
+	SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Facturas] ON
+	INSERT INTO [CAMPUS_ANALYTICA].[Facturas]
+			   ([Id]
+			   ,[Fecha]
+			   ,[Empresa_Id]
+			   ,[Numero]
+			   ,[Total])
+		SELECT  
+		   m.[Factura_Nro],
+		   m.[Factura_Fecha],
+		   (select e.id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social= m.Espec_Empresa_Razon_Social) empresa,
+		   m.[Factura_Nro],
+		  [Factura_Total]
+	  FROM [GD2C2018].[gd_esquema].[Maestra] m
+	  where m.Factura_Fecha is not null
+	  group by Factura_Fecha, Factura_Nro, Factura_Total, m.Espec_Empresa_Razon_Social
+	GO
+	/* insert item_Factura **/
+		print('Cargando tabla item_factura ...')
+	SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Facturas] OFF
+	go
+	INSERT INTO [CAMPUS_ANALYTICA].[Items_factura]
+			   ([Monto]
+			   ,[Cantidad]
+			   ,[Facturas_Id]
+			   ,[Descripcion]
+			   ,[Compras_Id])
+	SELECT distinct
+		   m.Item_Factura_Monto,
+		   m.Item_Factura_Cantidad,
+		   m.Factura_Nro,
+		   m.Item_Factura_Descripcion,
+		   c.Id
+	  FROM [GD2C2018].[gd_esquema].[Maestra] m
+	  join CAMPUS_ANALYTICA.Cliente cli
+	  on cli.Mail like m.Cli_Mail
+	  join CAMPUS_ANALYTICA.Compra c
+	  on c.Cliente_Id =cli.Id
+	  and c.Cantidad = m.Compra_Cantidad
+	  and c.Fecha= m.Compra_Fecha
+	  where m.Factura_Fecha is not null
+	     and m.Cli_Mail is not null
+		
 GO

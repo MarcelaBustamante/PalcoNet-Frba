@@ -20,8 +20,6 @@ namespace PalcoNet.Comprar
             InitializeComponent();
             this.db = db;
             this.username = username;
-            this.CargaGrilla(1);
-            this.CalcularCantidadPaginas();
 
         }
 
@@ -46,6 +44,8 @@ namespace PalcoNet.Comprar
         private void generarCompra_Load(object sender, EventArgs e)
         {
             GetTodayDate();
+            this.CalcularCantidadPaginas();
+            this.CargaGrilla(1);
         }
 
         private void CalcularCantidadPaginas()

@@ -29,9 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.limpiar = new System.Windows.Forms.Button();
+            this.aceptar = new System.Windows.Forms.Button();
+            this.tbPublicacion = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbcompra = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnGenerarFact = new System.Windows.Forms.Button();
-            this.cancelar = new System.Windows.Forms.Button();
             this.NroCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idUbicacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,12 +45,8 @@
             this.codigoPublicacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcionPublicacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.importeComision = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbcompra = new System.Windows.Forms.TextBox();
-            this.tbPublicacion = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.aceptar = new System.Windows.Forms.Button();
-            this.limpiar = new System.Windows.Forms.Button();
+            this.btnGenerarFact = new System.Windows.Forms.Button();
+            this.cancelar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -66,6 +66,56 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtro de búsqueda";
             // 
+            // limpiar
+            // 
+            this.limpiar.Location = new System.Drawing.Point(350, 51);
+            this.limpiar.Name = "limpiar";
+            this.limpiar.Size = new System.Drawing.Size(75, 23);
+            this.limpiar.TabIndex = 5;
+            this.limpiar.Text = "Limpiar";
+            this.limpiar.UseVisualStyleBackColor = true;
+            // 
+            // aceptar
+            // 
+            this.aceptar.Location = new System.Drawing.Point(350, 24);
+            this.aceptar.Name = "aceptar";
+            this.aceptar.Size = new System.Drawing.Size(75, 23);
+            this.aceptar.TabIndex = 4;
+            this.aceptar.Text = "Aceptar";
+            this.aceptar.UseVisualStyleBackColor = true;
+            // 
+            // tbPublicacion
+            // 
+            this.tbPublicacion.Location = new System.Drawing.Point(178, 53);
+            this.tbPublicacion.Name = "tbPublicacion";
+            this.tbPublicacion.Size = new System.Drawing.Size(133, 20);
+            this.tbPublicacion.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(46, 61);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Numero de publicacion";
+            // 
+            // tbcompra
+            // 
+            this.tbcompra.Location = new System.Drawing.Point(178, 28);
+            this.tbcompra.Name = "tbcompra";
+            this.tbcompra.Size = new System.Drawing.Size(133, 20);
+            this.tbcompra.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(46, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Numero de compra";
+            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -81,27 +131,8 @@
             this.importeComision});
             this.dataGridView1.Location = new System.Drawing.Point(28, 152);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(748, 197);
+            this.dataGridView1.Size = new System.Drawing.Size(786, 197);
             this.dataGridView1.TabIndex = 1;
-            // 
-            // btnGenerarFact
-            // 
-            this.btnGenerarFact.Location = new System.Drawing.Point(562, 388);
-            this.btnGenerarFact.Name = "btnGenerarFact";
-            this.btnGenerarFact.Size = new System.Drawing.Size(114, 23);
-            this.btnGenerarFact.TabIndex = 3;
-            this.btnGenerarFact.Text = "Generar factura";
-            this.btnGenerarFact.UseVisualStyleBackColor = true;
-            this.btnGenerarFact.Click += new System.EventHandler(this.btnGenerarFact_Click);
-            // 
-            // cancelar
-            // 
-            this.cancelar.Location = new System.Drawing.Point(701, 388);
-            this.cancelar.Name = "cancelar";
-            this.cancelar.Size = new System.Drawing.Size(75, 23);
-            this.cancelar.TabIndex = 4;
-            this.cancelar.Text = "Cancelar";
-            this.cancelar.UseVisualStyleBackColor = true;
             // 
             // NroCompra
             // 
@@ -148,55 +179,24 @@
             this.importeComision.HeaderText = "Importe Comisión";
             this.importeComision.Name = "importeComision";
             // 
-            // label1
+            // btnGenerarFact
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Numero de compra";
+            this.btnGenerarFact.Location = new System.Drawing.Point(562, 388);
+            this.btnGenerarFact.Name = "btnGenerarFact";
+            this.btnGenerarFact.Size = new System.Drawing.Size(114, 23);
+            this.btnGenerarFact.TabIndex = 3;
+            this.btnGenerarFact.Text = "Generar factura";
+            this.btnGenerarFact.UseVisualStyleBackColor = true;
+            this.btnGenerarFact.Click += new System.EventHandler(this.btnGenerarFact_Click);
             // 
-            // tbcompra
+            // cancelar
             // 
-            this.tbcompra.Location = new System.Drawing.Point(178, 28);
-            this.tbcompra.Name = "tbcompra";
-            this.tbcompra.Size = new System.Drawing.Size(133, 20);
-            this.tbcompra.TabIndex = 1;
-            // 
-            // tbPublicacion
-            // 
-            this.tbPublicacion.Location = new System.Drawing.Point(178, 53);
-            this.tbPublicacion.Name = "tbPublicacion";
-            this.tbPublicacion.Size = new System.Drawing.Size(133, 20);
-            this.tbPublicacion.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 61);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Numero de publicacion";
-            // 
-            // aceptar
-            // 
-            this.aceptar.Location = new System.Drawing.Point(350, 24);
-            this.aceptar.Name = "aceptar";
-            this.aceptar.Size = new System.Drawing.Size(75, 23);
-            this.aceptar.TabIndex = 4;
-            this.aceptar.Text = "Aceptar";
-            this.aceptar.UseVisualStyleBackColor = true;
-            // 
-            // limpiar
-            // 
-            this.limpiar.Location = new System.Drawing.Point(350, 51);
-            this.limpiar.Name = "limpiar";
-            this.limpiar.Size = new System.Drawing.Size(75, 23);
-            this.limpiar.TabIndex = 5;
-            this.limpiar.Text = "Limpiar";
-            this.limpiar.UseVisualStyleBackColor = true;
+            this.cancelar.Location = new System.Drawing.Point(701, 388);
+            this.cancelar.Name = "cancelar";
+            this.cancelar.Size = new System.Drawing.Size(75, 23);
+            this.cancelar.TabIndex = 4;
+            this.cancelar.Text = "Cancelar";
+            this.cancelar.UseVisualStyleBackColor = true;
             // 
             // generarFactura
             // 
@@ -208,7 +208,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Name = "generarFactura";
-            this.Text = "Form1";
+            this.Text = "Generar pago Comisiones";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

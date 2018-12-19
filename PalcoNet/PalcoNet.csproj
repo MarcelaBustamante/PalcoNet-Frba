@@ -145,11 +145,11 @@
     <Compile Include="Generar Rendicion Comisiones\generarFactura.Designer.cs">
       <DependentUpon>generarFactura.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\popupComison.cs">
+    <Compile Include="Generar Rendicion Comisiones\facturarEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\popupComison.Designer.cs">
-      <DependentUpon>popupComison.cs</DependentUpon>
+    <Compile Include="Generar Rendicion Comisiones\facturarEmpresa.Designer.cs">
+      <DependentUpon>facturarEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Historial Cliente\historial del cliente.cs">
       <SubType>Form</SubType>
@@ -242,6 +242,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\generarCompra.resx">
       <DependentUpon>generarCompra.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\Publicaciones.resx">
       <DependentUpon>Publicaciones.cs</DependentUpon>
@@ -252,8 +253,8 @@
     <EmbeddedResource Include="Generar Rendicion Comisiones\generarFactura.resx">
       <DependentUpon>generarFactura.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Rendicion Comisiones\popupComison.resx">
-      <DependentUpon>popupComison.cs</DependentUpon>
+    <EmbeddedResource Include="Generar Rendicion Comisiones\facturarEmpresa.resx">
+      <DependentUpon>facturarEmpresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\historial del cliente.resx">
       <DependentUpon>historial del cliente.cs</DependentUpon>
