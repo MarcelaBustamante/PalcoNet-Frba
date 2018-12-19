@@ -52,16 +52,28 @@ namespace PalcoNet.Abm_Grado
 
         private void aceptar_Click(object sender, EventArgs e)
         {
+			Decimal id =Decimal.Parse(cbGradoPublicaccion.SelectedValue.ToString());
+			String grado = cbGradoPublicaccion.Text;
+			Decimal comision= Decimal.Parse(tbComisionGradoPublicacion.Text);
             if(tbComisionGradoPublicacion.Text != null)
             {
-                string query = "update  CAMPUS_ANALYTICA.Grados_Publicacion SET (Id, Grado, Comision) values ('" +
-                    this.cbGradoPublicaccion.ValueMember+ "', '" + this.cbGradoPublicaccion.Text + "', '" + this.tbComisionGradoPublicacion.Text + "')";
-                db.Ejecutar(query);
+                string query = "UPDATE [CAMPUS_ANALYTICA].[Grados_publicacion]   SET[Grado] = '"+grado +"' ,[Comision] =" +comision+
+												" WHERE id =" + id;
+					
+               int res= db.Ejecutar(query);
+
+				if (res == 1) { MessageBox.Show("Se actualizo correctamente la comision"); }
+			 
             }
             else
             {
                 MessageBox.Show("Se debe ingresar un valor mayor igual a 0 para la comisión");
             }
         }
-    }
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			Dispose();
+		}
+	}
 }

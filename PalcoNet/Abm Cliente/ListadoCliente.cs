@@ -137,6 +137,7 @@ namespace PalcoNet.Abm_Cliente
             Decimal clieID = Decimal.Parse(this.grillaClientes.Rows[fila].Cells[0].Value.ToString());
             PalcoNet.Abm_Cliente.bajaCliente clienteDadoDeBaja = new bajaCliente(this.db, clieID);
             DialogResult res = clienteDadoDeBaja.ShowDialog();
+			cargaGrilla();
         }
 
         private void grillaClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
