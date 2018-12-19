@@ -15,7 +15,7 @@ namespace PalcoNet
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             dbmanager db = new dbmanager();//se coneta la base
-            Application.Run(new Generar_Publicacion.AltaPublicacion(db));
+            Application.Run(new Generar_Publicacion.AltaPublicacion(db,"userEmpresa"));
            // Application.Run(new Login.Login(db));
             //Application.Run(new generarCompra(db, "admin"));
         }

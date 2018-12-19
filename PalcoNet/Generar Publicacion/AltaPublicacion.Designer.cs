@@ -50,8 +50,8 @@
 			this.cancelar = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.label7 = new System.Windows.Forms.Label();
-			this.tbLocalidades = new System.Windows.Forms.TextBox();
-			this.btAgregarLocalidades = new System.Windows.Forms.Button();
+			this.bnLocalidades = new System.Windows.Forms.Button();
+			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -245,33 +245,29 @@
 			this.label7.TabIndex = 18;
 			this.label7.Text = "Localidades";
 			// 
-			// tbLocalidades
+			// bnLocalidades
 			// 
-			this.tbLocalidades.Enabled = false;
-			this.tbLocalidades.Location = new System.Drawing.Point(431, 384);
-			this.tbLocalidades.Name = "tbLocalidades";
-			this.tbLocalidades.Size = new System.Drawing.Size(67, 20);
-			this.tbLocalidades.TabIndex = 19;
+			this.bnLocalidades.Location = new System.Drawing.Point(521, 383);
+			this.bnLocalidades.Name = "bnLocalidades";
+			this.bnLocalidades.Size = new System.Drawing.Size(142, 23);
+			this.bnLocalidades.TabIndex = 20;
+			this.bnLocalidades.Text = "Agregar localidades";
+			this.bnLocalidades.UseVisualStyleBackColor = true;
 			// 
-			// btAgregarLocalidades
+			// textBox2
 			// 
-			this.btAgregarLocalidades.CausesValidation = false;
-			this.btAgregarLocalidades.DialogResult = System.Windows.Forms.DialogResult.Yes;
-			this.btAgregarLocalidades.Location = new System.Drawing.Point(511, 381);
-			this.btAgregarLocalidades.Name = "btAgregarLocalidades";
-			this.btAgregarLocalidades.Size = new System.Drawing.Size(158, 23);
-			this.btAgregarLocalidades.TabIndex = 20;
-			this.btAgregarLocalidades.Text = "Cargar Localidades";
-			this.btAgregarLocalidades.UseVisualStyleBackColor = true;
-			this.btAgregarLocalidades.Click += new System.EventHandler(this.button2_Click);
+			this.textBox2.Location = new System.Drawing.Point(431, 383);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.Size = new System.Drawing.Size(86, 20);
+			this.textBox2.TabIndex = 21;
 			// 
 			// AltaPublicacion
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(681, 473);
-			this.Controls.Add(this.btAgregarLocalidades);
-			this.Controls.Add(this.tbLocalidades);
+			this.Controls.Add(this.textBox2);
+			this.Controls.Add(this.bnLocalidades);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.cancelar);
@@ -322,9 +318,9 @@
         private System.Windows.Forms.Button cancelar;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tbLocalidades;
-        private System.Windows.Forms.Button btAgregarLocalidades;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label8;
-    }
+		private System.Windows.Forms.Button bnLocalidades;
+		private System.Windows.Forms.TextBox textBox2;
+	}
 }

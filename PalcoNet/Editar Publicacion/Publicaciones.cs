@@ -14,11 +14,13 @@ namespace PalcoNet.Editar_Publicacion
     public partial class Publicaciones : Form
     {
         private dbmanager db;
+		private String usr;
         decimal idPublicacion = 0;
-        public Publicaciones(dbmanager dbMng)
+        public Publicaciones(dbmanager dbMng, String usr)
         {
             InitializeComponent();
             this.db = dbMng;
+			this.usr = usr;
             cargarGrilla();
         }
 
@@ -96,7 +98,7 @@ namespace PalcoNet.Editar_Publicacion
 
         private void alta_Click(object sender, EventArgs e)
         {
-            PalcoNet.Generar_Publicacion.AltaPublicacion nuevaPublicacion = new Generar_Publicacion.AltaPublicacion(this.db);
+            PalcoNet.Generar_Publicacion.AltaPublicacion nuevaPublicacion = new Generar_Publicacion.AltaPublicacion(this.db,usr);
             DialogResult res = nuevaPublicacion.ShowDialog();
             this.cargarGrilla();
         }

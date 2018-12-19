@@ -15,14 +15,14 @@ namespace PalcoNet.Generar_Publicacion
     {
         private dbmanager db;
         private decimal idPublicacion;
-
+		private String Usr;
         
-        public AltaPublicacion(dbmanager dbmanager)
+        public AltaPublicacion(dbmanager dbmanager,String usr)
         {
             InitializeComponent();
             this.db = dbmanager;
-            this.btAgregarLocalidades.Enabled = false;
-            this.tbLocalidades.Text = "0";
+            this.textBox2.Text = "0";
+			this.Usr = usr;
             cargarCombos();
         }
 
@@ -31,7 +31,6 @@ namespace PalcoNet.Generar_Publicacion
             InitializeComponent();
             this.idPublicacion = id;
             this.db = dbmanager;
-            this.btAgregarLocalidades.Enabled = false;
             cargarCombos();
             inicializar();
         }
@@ -54,13 +53,12 @@ namespace PalcoNet.Generar_Publicacion
                 this.db.Leer();
                 this.tbDescripcion.Text = this.db.ObtenerValor("Descripcion");
                 this.tbDirección.Text = this.db.ObtenerValor("Direccion");
-                this.tbLocalidades.Text = this.db.ObtenerValor("Localidades");
+                this.textBox2.Text = this.db.ObtenerValor("Localidades");
                 this.cbEstado.SelectedText = this.db.ObtenerValor("Estado");
                 this.cbGradoPubli.SelectedText = this.db.ObtenerValor("Grado");
                 this.cbRubro.SelectedItem = this.db.ObtenerValor("Rubros_Id");
                 this.mcPublicacion.SelectionStart = new DateTime(long.Parse( this.db.ObtenerValor("Fecha_Vencimiento")));
                 this.mcPublicacion.SelectionEnd = new DateTime(long.Parse(this.db.ObtenerValor("Fecha_Vencimiento")));
-                this.btAgregarLocalidades.Enabled = true;
                 this.aceptar.Text = "Editar";
             }
         }
@@ -84,11 +82,11 @@ namespace PalcoNet.Generar_Publicacion
         private void cargarComboResponsable()
         {
             DataSet ds = new DataSet();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Username FROM CAMPUS_ANALYTICA.Usuario", this.db.StringConexion());
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Username FROM CAMPUS_ANALYTICA.Usuario where username like '"+this.Usr+"'", this.db.StringConexion());
             da.Fill(ds, "CAMPUS_ANALYTICA.Usuario");
-            this.cbGradoPubli.DataSource = ds.Tables[0].DefaultView;
-            this.cbGradoPubli.DisplayMember = "Username";
-            this.cbGradoPubli.ValueMember = "Id";
+            this.cbUserRespon.DataSource = ds.Tables[0].DefaultView;
+            this.cbUserRespon.DisplayMember = "Username";
+            this.cbUserRespon.ValueMember = "Id";
         }
 
         private void cargarComboGrado()
@@ -124,8 +122,8 @@ namespace PalcoNet.Generar_Publicacion
         {
             this.tbDescripcion.Clear();
             this.tbDirección.Clear();
-            this.tbLocalidades.Text = "0";
-            this.tbLocalidades.Enabled = false;
+            this.textBox2.Text = "0";
+            this.textBox2.Enabled = false;
             this.aceptar.Text = "Aceptar";
             this.cbEstado.SelectedIndex = 0;
             this.cbGradoPubli.SelectedIndex = 0;
@@ -144,14 +142,14 @@ namespace PalcoNet.Generar_Publicacion
          ",[Grados_publicacion_Id]" +
          ",[Rubros_Id])" +
    "VALUES" +
-         "( " + cbEstado.SelectedText + "," +
+         "( '" + cbEstado.Text + "'," +
          "," + mcPublicacion.SelectionStart.ToString() + "," +
          ", " + mbEspectaculo.SelectionStart.ToString() + "," +
-         ", " + tbLocalidades.Text + "," +
+         ", " + textBox2.Text + "," +
          ", " + tbDescripcion.Text + "," +
          ", " + tbDirección.Text + "," +
-         ", " + cbGradoPubli.SelectedText + "," +
-         ", " + cbRubro.SelectedItem + ")");
+         ", '" + cbGradoPubli.Text + "'," +
+         ", " + cbRubro.SelectedValue + ")");
             if (res == 1)
             {
                 Boolean r = this.db.Consultar("select top 1 Id from [CAMPUS_ANALYTICA].Ubicacion order by 1 desc");
@@ -159,7 +157,7 @@ namespace PalcoNet.Generar_Publicacion
                 {
                     this.db.Leer();
                     this.idPublicacion = Decimal.Parse(this.db.ObtenerValor("Id"));
-                    btAgregarLocalidades.Enabled = true;
+                    
                 }
             }
         }
@@ -185,7 +183,7 @@ namespace PalcoNet.Generar_Publicacion
       "[Estado] =" + cbEstado.SelectedText +
       ",[Fecha_inicio] =" + mcPublicacion.SelectionStart.ToString() +
       ",[Fecha_Vencimiento] =" + mbEspectaculo.SelectionStart.ToString() +
-      ",[Localidades] =" + tbLocalidades.Text +
+      ",[Localidades] =" + textBox2.Text +
       ",[Descripcion] =" + tbDescripcion.Text +
       ",[Direccion] =" + tbDirección.Text +
       ",[Grados_publicacion_Id] =" + cbGradoPubli.SelectedText +
@@ -207,18 +205,7 @@ namespace PalcoNet.Generar_Publicacion
         {
             return true;
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            PalcoNet.Ubicaciones.Ubicaciones localidades = new Ubicaciones.Ubicaciones(this.db, this.idPublicacion);
-            DialogResult res = localidades.ShowDialog();
-            if (res.Equals(DialogResult.OK))
-            {
-                this.db.Consultar("SELECT COUNT(u.Id) FROM CAMPUS_ANALYTICA.Ubicacion u WHERE u.Publicaciones_Id = " + idPublicacion );
-                this.db.Leer();
-                this.tbLocalidades.Text = this.db.ObtenerValor("Cantidad");
-            }
-        }
+ 
 
         private void cancelar_Click(object sender, EventArgs e)
         {
@@ -232,5 +219,10 @@ namespace PalcoNet.Generar_Publicacion
                 this.aceptar.Text = "Aceptar";
             }
         }
-    }
+
+		private void bnLocalidades_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
