@@ -130,7 +130,7 @@ namespace PalcoNet
 
         private void comisionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            generarFactura f = new generarFactura();
+            facturarEmpresa f = new facturarEmpresa(_db, _username);
             f.Show();
         }
 

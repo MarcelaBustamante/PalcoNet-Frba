@@ -57,6 +57,7 @@
             this.grillaEmpresas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grillaEmpresas.Size = new System.Drawing.Size(306, 251);
             this.grillaEmpresas.TabIndex = 1;
+            this.grillaEmpresas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grillaEmpresas_CellContentClick);
             // 
             // Id
             // 
@@ -78,6 +79,7 @@
             this.continuar.TabIndex = 2;
             this.continuar.Text = "Continuar";
             this.continuar.UseVisualStyleBackColor = true;
+            this.continuar.Click += new System.EventHandler(this.continuar_Click);
             // 
             // facturarEmpresa
             // 

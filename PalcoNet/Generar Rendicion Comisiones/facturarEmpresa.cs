@@ -9,6 +9,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
     {
         private dbmanager db;
         private string username;
+        private int grillaSelectedRow = 0;
 
         public facturarEmpresa(dbmanager db, String username)
         {
@@ -41,6 +42,20 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
             {
                 this.grillaEmpresas.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString());
             }
+        }
+
+        private void continuar_Click(object sender, EventArgs e)
+        {
+            int empId = int.Parse(grillaEmpresas.Rows[grillaSelectedRow].Cells[0].Value.ToString());
+
+            generarFactura generarFactura = new generarFactura(db, username, empId);
+            generarFactura.Show();
+            this.Hide();
+        }
+
+        private void grillaEmpresas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            grillaSelectedRow = e.RowIndex;
         }
     }
 }
