@@ -21,7 +21,7 @@ namespace PalcoNet.Generar_Publicacion
         {
             InitializeComponent();
             this.db = dbmanager;
-            this.textBox2.Text = "0";
+            this.tbLocalidades.Text = "0";
 			this.Usr = usr;
             cargarCombos();
         }
@@ -53,7 +53,7 @@ namespace PalcoNet.Generar_Publicacion
                 this.db.Leer();
                 this.tbDescripcion.Text = this.db.ObtenerValor("Descripcion");
                 this.tbDirección.Text = this.db.ObtenerValor("Direccion");
-                this.textBox2.Text = this.db.ObtenerValor("Localidades");
+                this.tbLocalidades.Text = this.db.ObtenerValor("Localidades");
                 this.cbEstado.SelectedText = this.db.ObtenerValor("Estado");
                 this.cbGradoPubli.SelectedText = this.db.ObtenerValor("Grado");
                 this.cbRubro.SelectedItem = this.db.ObtenerValor("Rubros_Id");
@@ -122,8 +122,8 @@ namespace PalcoNet.Generar_Publicacion
         {
             this.tbDescripcion.Clear();
             this.tbDirección.Clear();
-            this.textBox2.Text = "0";
-            this.textBox2.Enabled = false;
+            this.tbLocalidades.Text = "0";
+            this.tbLocalidades.Enabled = false;
             this.aceptar.Text = "Aceptar";
             this.cbEstado.SelectedIndex = 0;
             this.cbGradoPubli.SelectedIndex = 0;
@@ -132,7 +132,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private void nuevaPublicacion()
         {
-            int res = this.db.Ejecutar("INSERT INTO [CAMPUS_ANALYTICA].[Publicaciones]" +
+            string query = "INSERT INTO [CAMPUS_ANALYTICA].[Publicaciones]" +
          "([Estado]" +
          ",[Fecha_inicio]" +
          ",[Fecha_Vencimiento]" +
@@ -145,11 +145,12 @@ namespace PalcoNet.Generar_Publicacion
          "( '" + cbEstado.Text + "'," +
          "," + mcPublicacion.SelectionStart.ToString() + "," +
          ", " + mbEspectaculo.SelectionStart.ToString() + "," +
-         ", " + textBox2.Text + "," +
+         ", " + tbLocalidades.Text + "," +
          ", " + tbDescripcion.Text + "," +
          ", " + tbDirección.Text + "," +
          ", '" + cbGradoPubli.Text + "'," +
-         ", " + cbRubro.SelectedValue + ")");
+         ", " + cbRubro.SelectedValue + ")";
+            int res = this.db.Ejecutar(query);
             if (res == 1)
             {
                 Boolean r = this.db.Consultar("select top 1 Id from [CAMPUS_ANALYTICA].Ubicacion order by 1 desc");
@@ -183,7 +184,7 @@ namespace PalcoNet.Generar_Publicacion
       "[Estado] =" + cbEstado.SelectedText +
       ",[Fecha_inicio] =" + mcPublicacion.SelectionStart.ToString() +
       ",[Fecha_Vencimiento] =" + mbEspectaculo.SelectionStart.ToString() +
-      ",[Localidades] =" + textBox2.Text +
+      ",[Localidades] =" + tbLocalidades.Text +
       ",[Descripcion] =" + tbDescripcion.Text +
       ",[Direccion] =" + tbDirección.Text +
       ",[Grados_publicacion_Id] =" + cbGradoPubli.SelectedText +
@@ -222,7 +223,20 @@ namespace PalcoNet.Generar_Publicacion
 
 		private void bnLocalidades_Click(object sender, EventArgs e)
 		{
+            Ubicaciones.Ubicaciones u = new Ubicaciones.Ubicaciones(db, idPublicacion);
+            DialogResult res = u.ShowDialog();
+            cargarCantLocalidades();
+        }
 
-		}
-	}
+        private void cargarCantLocalidades()
+        {
+            string query = "SELECT COUNT([Id]) as Cantidad FROM [CAMPUS_ANALYTICA].[Ubicacion] WHERE [Publicaciones_Id] =" + idPublicacion;
+            Boolean resultado = this.db.Consultar(query);
+            if (resultado)
+            {
+                this.db.Leer();
+                this.tbLocalidades.Text = this.db.ObtenerValor("Cantidad");
+            }
+        }
+    }
 }
