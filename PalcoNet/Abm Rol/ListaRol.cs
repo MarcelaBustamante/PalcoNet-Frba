@@ -124,20 +124,19 @@ namespace PalcoNet.Abm_Rol
             PalcoNet.Abm_Rol.DarDeAltaRol f = new DarDeAltaRol(this.db, rol_id, rol_estado);
             Console.Out.WriteLine(rol_estado);
             DialogResult res = f.ShowDialog(); // Comunicación entre formularios
-            if (res == DialogResult.OK) // Cuando vuelve del otro Form con el botón Editar
-            {
+           
                 this.buscar_Click_1(sender, e); // Actualiza la grilla
-            }
+            
         }
  
         private void borrar_Click(object sender, EventArgs e)
         {
             Int32 fila = this.grillaRoles.CurrentCell.RowIndex;
             Decimal rol_id = Decimal.Parse(this.grillaRoles.Rows[fila].Cells[0].Value.ToString());
-
-            this.db.Ejecutar("UPDATE CAMPUS_ANALYTICA.ROL SET Estado = 'B' WHERE Id = " + rol_id);
+			MessageBox.Show("Recuerde que al dar de baja el rol se dara de baja para los usuarios también.");
+			this.db.Ejecutar("UPDATE CAMPUS_ANALYTICA.ROL SET Estado = 'B' WHERE Id = " + rol_id);
             this.db.Ejecutar("delete CAMPUS_ANALYTICA.Usuario_Rol where Rol_Id = " + rol_id);
-            MessageBox.Show("Rol eliminado.");
+            MessageBox.Show("Rol eliminad.");
             this.buscar_Click_1(sender, e); // Actualiza la grilla
         }
 

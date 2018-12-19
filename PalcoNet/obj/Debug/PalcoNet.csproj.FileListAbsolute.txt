@@ -74,3 +74,6 @@ U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debu
 U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.csproj.CopyComplete
 U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.exe
 U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.pdb
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.lista.resources
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Ubicaciones.Ubicaciones.resources
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Comprar.pagarCompra.resources

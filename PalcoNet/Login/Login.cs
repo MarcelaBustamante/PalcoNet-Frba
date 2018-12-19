@@ -102,7 +102,7 @@ namespace PalcoNet.Login
                 }
 
 
-                this.db.Ejecutar("INSERT [dbo].[Logins] ([User],[FechaHora],[LoginCorrecto],[NroLoginFallido]) VALUES (" + dbUsuarioId + ", GETDATE(), 'S', 0)");
+                this.db.Ejecutar("INSERT [dbo].[Logins] ([User],[FechaHora],[LoginCorrecto],[NroLoginFallido]) VALUES (" + dbUsuarioId + ", GETDATE(), 'A', 0)");
 
                 // ABRO EL MENU
                 MenuPrincipal menu = new MenuPrincipal(db, _username);
@@ -118,11 +118,11 @@ namespace PalcoNet.Login
                 this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario] SET Cant_Login_Fallidos = Cant_Login_Fallidos + 1 WHERE Id = '" + dbUsuarioId + "'");
                 if (dbIntentosFallidos == 2)
                 {
-                    this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario] SET Estado = 'N' WHERE Id = " + dbUsuarioId);
+                    this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Usuario] SET Estado = 'B' WHERE Id = " + dbUsuarioId);
                     MessageBox.Show(@"El usuario se ha inhabilitado debido a que se superó la cantidad de intentos fallidos.");
                 }
                 dbIntentosFallidos = dbIntentosFallidos + 1;
-                this.db.Ejecutar("INSERT [dbo].[Logins] ([User],[FechaHora],[LoginCorrecto],[NroLoginFallido]) VALUES (" + dbUsuarioId + ", GETDATE(), 'N', " + dbIntentosFallidos + ")");
+                this.db.Ejecutar("INSERT [dbo].[Logins] ([User],[FechaHora],[LoginCorrecto],[NroLoginFallido]) VALUES (" + dbUsuarioId + ", GETDATE(), 'B', " + dbIntentosFallidos + ")");
 
             }
         }
@@ -172,5 +172,11 @@ namespace PalcoNet.Login
         {
             RolSeleccionado = rol;
         }
-    }
+
+		private void altaUsuario_Click(object sender, EventArgs e)
+		{
+			PalcoNet.Registro_de_Usuario.AltaUsuario nuevoUsr=new Registro_de_Usuario.AltaUsuario(db);
+			DialogResult res = nuevoUsr.ShowDialog();
+		}
+	}
 }

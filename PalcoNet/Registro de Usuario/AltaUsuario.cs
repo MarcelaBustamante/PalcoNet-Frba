@@ -132,8 +132,8 @@ namespace PalcoNet.Registro_de_Usuario
             //MessageBox.Show(passHash);//encripto la pass que deseo guardar
             //creo el usuario
             this.db.Ejecutar("INSERT INTO [CAMPUS_ANALYTICA].[Usuario] ([Username]"+
-                              ",[Password],[Estado],[Tipos_usuario_Id]) VALUES ( '"+tbUsername.Text+"','"+passHash+"','A',"+
-                              tipoUsua + ")"); 
+							  ",[Password],[Estado],[Tipos_usuario_Id],[Cant_Login_Fallidos]) VALUES ( '" + tbUsername.Text+"','"+passHash+"','A',"+
+                              tipoUsua + ",0)"); 
             Decimal idUser = obtenerIDUSR(); 
             //creo el rol del usuario
             this.db.Ejecutar("INSERT INTO [CAMPUS_ANALYTICA].[Usuario_Rol] ([Rol_Id],[Usuario_Id],[Fecha_alta],[Fecha_baja])"+
