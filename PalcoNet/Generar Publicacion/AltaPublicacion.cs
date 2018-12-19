@@ -70,7 +70,7 @@ namespace PalcoNet.Generar_Publicacion
             cargarComboRubro();
             cargarComboGrado();
             cargarComboResponsable();
-            cargarComboEstado();
+           // cargarComboEstado();
         }
 
         private void cargarComboEstado()
