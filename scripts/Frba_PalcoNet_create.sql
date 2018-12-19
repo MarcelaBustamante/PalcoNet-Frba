@@ -788,8 +788,8 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
       select distinct
          m.Espectaculo_Cod,
          m.Espectaculo_Estado,
-         m.Espectaculo_Fecha,
          m.Espectaculo_Fecha_Venc,
+         m.Espectaculo_Fecha,
          0,
          m.Espectaculo_Descripcion,
          'N/A',
@@ -951,4 +951,39 @@ INSERT INTO [CAMPUS_ANALYTICA].[Compra]
 	 LEFT JOIN CAMPUS_ANALYTICA.Cliente C ON M.Cli_Dni = C.Nro_documento
 	 LEFT JOIN CAMPUS_ANALYTICA.Ubicacion U ON U.Publicaciones_Id = M.Espectaculo_Cod --AND U.Asiento = M.Ubicacion_Asiento AND U.Fila = M.Ubicacion_Fila AND U.Tipo_Codigo = M.Ubicacion_Tipo_Codigo
 	 WHERE M.Compra_Fecha IS NOT NULL
+GO
+GO
+
+INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
+           ([Nombre]
+           ,[Apellido]
+           ,[Tipo_documento]
+           ,[Nro_documento]
+           ,[CUIL]
+           ,[Mail]
+           ,[Telefono]
+           ,[Fecha_nacimiento]
+           ,[Fecha_alta]
+           ,[Fecha_baja]
+           ,[Estado]
+           ,[Cliente_frecuente]
+           ,[Puntos]
+           ,[Fecha_venc_puntos]
+           ,[Usuarios_Id])
+     VALUES
+           ('admin'
+           ,'admin'
+           ,1
+           ,123456789
+           ,123456789
+           ,'admin@gmail.com'
+           ,12345667
+           ,GETDATE()
+           ,GETDATE()
+           ,null
+           ,'A'
+           ,0
+           ,0
+           ,GETDATE()
+           ,1)
 GO
