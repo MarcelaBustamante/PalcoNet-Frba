@@ -58,6 +58,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].Compra (
     Cliente_Id int  ,
     Cantidad numeric(18,0)  NOT NULL,
 	Ubicacion_Id int NOT NULL,
+	Facturada char(1),
     CONSTRAINT Compra_pk PRIMARY KEY  (Id)
 );
 
@@ -104,6 +105,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].Facturas (
     Empresa_Id int ,
     Numero numeric(18,0)  NOT NULL,
     Total numeric(18,2)  NOT NULL,
+	TotalComision numeric(18,2)  NOT NULL,
     CONSTRAINT Facturas_pk PRIMARY KEY  (Id)
 );
 
@@ -127,6 +129,7 @@ CREATE TABLE [CAMPUS_ANALYTICA].Grados_publicacion (
 CREATE TABLE [CAMPUS_ANALYTICA].Items_factura (
 	Id int identity,
     Monto numeric(18,2)  NOT NULL ,
+	Comision numeric(18,2)  NOT NULL ,
     Cantidad numeric(18,0)  NOT NULL,
     Facturas_Id int  NOT NULL,
 	Compras_Id int, 
@@ -892,12 +895,14 @@ INSERT INTO [CAMPUS_ANALYTICA].[Compra]
            ,[Tajetas_Nro_tarjeta]
            ,[Cliente_Id]
            ,[Cantidad]
-           ,[Ubicacion_Id])
+           ,[Ubicacion_Id]
+		   ,[Facturada])
      SELECT M.Compra_Fecha
 			,NULL
 			,C.Id
 			,M.Compra_Cantidad
 			,U.Id
+			,'S'
 	 FROM [GD2C2018].[gd_esquema].[Maestra] m
 	 LEFT JOIN CAMPUS_ANALYTICA.Cliente C ON M.Cli_Dni = C.Nro_documento
 	 LEFT JOIN CAMPUS_ANALYTICA.Ubicacion U ON U.Publicaciones_Id = M.Espectaculo_Cod --AND U.Asiento = M.Ubicacion_Asiento AND U.Fila = M.Ubicacion_Fila AND U.Tipo_Codigo = M.Ubicacion_Tipo_Codigo
@@ -948,13 +953,15 @@ GO
 			   ,[Fecha]
 			   ,[Empresa_Id]
 			   ,[Numero]
-			   ,[Total])
+			   ,[Total]
+			   ,[TotalComision])
 		SELECT  
 		   m.[Factura_Nro],
 		   m.[Factura_Fecha],
 		   (select e.id from CAMPUS_ANALYTICA.Empresa e where e.Razon_social= m.Espec_Empresa_Razon_Social) empresa,
 		   m.[Factura_Nro],
-		  [Factura_Total]
+		  [Factura_Total],
+		  [Factura_Total]/10
 	  FROM [GD2C2018].[gd_esquema].[Maestra] m
 	  where m.Factura_Fecha is not null
 	  group by Factura_Fecha, Factura_Nro, Factura_Total, m.Espec_Empresa_Razon_Social
@@ -968,13 +975,15 @@ GO
 			   ,[Cantidad]
 			   ,[Facturas_Id]
 			   ,[Descripcion]
-			   ,[Compras_Id])
+			   ,[Compras_Id]
+			   ,[Comision])
 	SELECT distinct
 		   m.Item_Factura_Monto,
 		   m.Item_Factura_Cantidad,
 		   m.Factura_Nro,
 		   m.Item_Factura_Descripcion,
-		   c.Id
+		   c.Id,
+		   m.Item_Factura_Monto/10
 	  FROM [GD2C2018].[gd_esquema].[Maestra] m
 	  join CAMPUS_ANALYTICA.Cliente cli
 	  on cli.Mail like m.Cli_Mail
