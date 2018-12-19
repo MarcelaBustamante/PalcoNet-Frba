@@ -76,6 +76,7 @@
 			this.label24 = new System.Windows.Forms.Label();
 			this.label25 = new System.Windows.Forms.Label();
 			this.label26 = new System.Windows.Forms.Label();
+			this.label27 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -499,11 +500,21 @@
 			this.label26.TabIndex = 34;
 			this.label26.Text = "Ingresar sin guiones o espacios";
 			// 
+			// label27
+			// 
+			this.label27.AutoSize = true;
+			this.label27.Location = new System.Drawing.Point(640, 298);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(138, 13);
+			this.label27.TabIndex = 35;
+			this.label27.Text = "Ingrese los 4 digitos del año";
+			// 
 			// AltaCliente
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(848, 437);
+			this.Controls.Add(this.label27);
 			this.Controls.Add(this.label26);
 			this.Controls.Add(this.label25);
 			this.Controls.Add(this.label24);
@@ -601,5 +612,6 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
-    }
+		private System.Windows.Forms.Label label27;
+	}
 }

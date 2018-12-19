@@ -20,8 +20,6 @@ D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Publicaciones.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.AltaPublicacion.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.generarFactura.resources
-D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.popupComison.resources
-D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.Form1.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Login.Login.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Login.SelRol.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.MenuPrincipal.resources
@@ -77,3 +75,5 @@ U:\Users\Santiago\Source\Repos\MarcelaBustamante\PalcoNet-Frba\PalcoNet\obj\Debu
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.lista.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Ubicaciones.Ubicaciones.resources
 D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Comprar.pagarCompra.resources
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.facturarEmpresa.resources
+D:\gestion de datos\TP2C2018 k3673 CAMPUS_ANALYTICA14\PalcoNet-Frba\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.HistrorialCliente.resources

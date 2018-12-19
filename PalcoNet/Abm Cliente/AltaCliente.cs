@@ -97,10 +97,10 @@ namespace PalcoNet.Abm_Cliente
 					}
 				}
 
-				aceptar.Text = "Editar";
-				tbNumeroDNI.Enabled = false;
-				cbTipodoc.Enabled = false;
 			}
+			aceptar.Text = "Editar";
+			tbNumeroDNI.Enabled = false;
+			cbTipodoc.Enabled = false;
 
 		}
 
@@ -154,6 +154,8 @@ namespace PalcoNet.Abm_Cliente
 
 			public void guardarCliente()
 			{
+			try
+			{
 				String cliNombre = tbNombre.Text;
 				String cliApellido = tbApellido.Text;
 				Decimal cliTipoDoc = Decimal.Parse(cbTipodoc.SelectedValue.ToString());
@@ -206,9 +208,17 @@ namespace PalcoNet.Abm_Cliente
 				}
 
 				nuevoUsuario(cliId);
-
 			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Error al crear el cliente" );
+				return ;
+			}
+
+		}
 			public void editarCliente()
+			{
+			try
 			{
 				String cliNombre = tbNombre.Text;
 				String cliApellido = tbApellido.Text;
@@ -250,12 +260,18 @@ namespace PalcoNet.Abm_Cliente
 													",[Piso] = " + cliPiso +
 													",[Codigo_postal] ='" + cliPostal + "'" +
 													",[Localidad] = '" + cliLocalidad + "'" +
-													",[Depoto] ='" + cliDepto +"'"+ " WHERE id=(select direccion_Id from CAMPUS_ANALYTICA.ClienteDireccion where Cliente_id=" + cliId + ")");
+													",[Depoto] ='" + cliDepto + "'" + " WHERE id=(select direccion_Id from CAMPUS_ANALYTICA.ClienteDireccion where Cliente_id=" + cliId + ")");
 				//modifico la tarjeta
 				int restjt = this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Tajetas]  SET [Nro_tarjeta] = " + cliNroTarjeta +
 												"WHERE Cliente_Id =" + cliId);
-			    if(res==1 && resdir==1 && restjt==1) { MessageBox.Show("Cliente actualizado correctamente."); }
+				if (res == 1 && resdir == 1 && restjt == 1) { MessageBox.Show("Cliente actualizado correctamente."); }
 			}
+			catch (Exception e)
+			{
+				MessageBox.Show("Error al editar los datos: " + e.Message);
+				return ;
+			}
+		}
 			//secuenciador de cliente
 			private Decimal UltimoCliID() // Obtiene el ultimo ID de CLIENTE
 			{
@@ -333,7 +349,7 @@ namespace PalcoNet.Abm_Cliente
 					return 1;
 				}
 				//validar que no exista cuil
-				Boolean existeCuil = this.db.Consultar("SELECT c.id, [Nombre],[Apellido],[Nro_documento],[CUIL],[Mail],[Telefono],[Fecha_nacimiento],c.[Fecha_alta],d.Calle,d.Numero,d.Piso,d.Localidad FROM [GD2C2018].[CAMPUS_ANALYTICA].[Cliente] c join CAMPUS_ANALYTICA.ClienteDireccion cd on Cliente_id=Id join CAMPUS_ANALYTICA.Direccion  d on Direccion_id=d.Id where c.CUIL like '" + tbCuil.Text + "'" + " and c.Id <> " + cliId);
+				Boolean existeCuil = this.db.Consultar("SELECT c.id, [Nombre],[Apellido],[Nro_documento],[CUIL],[Mail],[Telefono],[Fecha_nacimiento],c.[Fecha_alta],d.Calle,d.Numero,d.Piso,d.Localidad FROM [GD2C2018].[CAMPUS_ANALYTICA].[Cliente] c join CAMPUS_ANALYTICA.ClienteDireccion cd on Cliente_id=Id join CAMPUS_ANALYTICA.Direccion  d on Direccion_id=d.Id where c.Estado like 'A' and c.CUIL like '" + tbCuil.Text + "'" + " and c.Id <> " + cliId);
 				if (existeCuil )
 				{
 					MessageBox.Show("El Cuil ya se encuentra dado de alta con otro usuario");

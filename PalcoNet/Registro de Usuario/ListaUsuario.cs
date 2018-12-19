@@ -23,8 +23,10 @@ namespace PalcoNet.Registro_de_Usuario
         }
 
         void cargaGrillaUsuario(){
-            this.grillaUsuarios.AllowUserToAddRows = false;
-            DataTable dt = new DataTable();
+			
+			this.grillaUsuarios.AllowUserToAddRows = false;
+			limpiarTabla();
+			DataTable dt = new DataTable();
             SqlDataAdapter da = new SqlDataAdapter("SELECT u.[Id],[Username],[Estado], tu.Descripcion "+
                                                     " FROM [CAMPUS_ANALYTICA].[Usuario] u join"+
                                                     " CAMPUS_ANALYTICA.Tipos_usuario tu on tu.Id=u.Tipos_usuario_Id" +
@@ -90,7 +92,10 @@ namespace PalcoNet.Registro_de_Usuario
         {
             PalcoNet.Registro_de_Usuario.AltaUsuario nuevoUsuario = new AltaUsuario(db);
             DialogResult res = nuevoUsuario.ShowDialog();
-        }
+			
+			cargaGrillaUsuario();
+
+		}
 
         private void modificacion_Click(object sender, EventArgs e)
         {
@@ -98,7 +103,9 @@ namespace PalcoNet.Registro_de_Usuario
             Decimal usrId = Decimal.Parse(this.grillaUsuarios.Rows[fila].Cells[0].Value.ToString());
             PalcoNet.Registro_de_Usuario.AltaUsuario nuevoUsuario = new AltaUsuario(db, usrId);
             DialogResult res = nuevoUsuario.ShowDialog();
-        }
+			cargaGrillaUsuario();
+
+		}
 
         private void baja_Click(object sender, EventArgs e)
         {
