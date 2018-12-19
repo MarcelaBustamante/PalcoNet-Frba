@@ -46,11 +46,11 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
         private void continuar_Click(object sender, EventArgs e)
         {
+            continuar.Text = @"Espere...";
             int empId = int.Parse(grillaEmpresas.Rows[grillaSelectedRow].Cells[0].Value.ToString());
-
+            continuar.Enabled = false;
             generarFactura generarFactura = new generarFactura(db, username, empId);
             generarFactura.Show();
-            this.Hide();
         }
 
         private void grillaEmpresas_CellContentClick(object sender, DataGridViewCellEventArgs e)
