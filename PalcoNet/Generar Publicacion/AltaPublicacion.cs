@@ -151,7 +151,7 @@ namespace PalcoNet.Generar_Publicacion
          ", " + tbDescripcion.Text + "," +
          ", " + tbDirección.Text + "," +
          ", " + cbGradoPubli.SelectedText + "," +
-         ", " + cbRubro.SelectedItem + ",)");
+         ", " + cbRubro.SelectedItem + ")");
             if (res == 1)
             {
                 Boolean r = this.db.Consultar("select top 1 Id from [CAMPUS_ANALYTICA].Ubicacion order by 1 desc");
@@ -182,23 +182,15 @@ namespace PalcoNet.Generar_Publicacion
         private void editarPublicacion()
         {
             int res = this.db.Ejecutar("UPDATE [CAMPUS_ANALYTICA].[Publicaciones] SET" +
-      "([Estado]" +
-      ",[Fecha_inicio]" +
-      ",[Fecha_Vencimiento]" +
-      ",[Localidades]" +
-      ",[Descripcion]" +
-      ",[Direccion]" +
-      ",[Grados_publicacion_Id]" +
-      ",[Rubros_Id])" +
-"VALUES" +
-      "( " + cbEstado.SelectedText + "," +
-      "," + mcPublicacion.SelectionStart.ToString() + "," +
-      ", " + mbEspectaculo.SelectionStart.ToString() + "," +
-      ", " + tbLocalidades.Text + "," +
-      ", " + tbDescripcion.Text + "," +
-      ", " + tbDirección.Text + "," +
-      ", " + cbGradoPubli.SelectedText + "," +
-      ", " + cbRubro.SelectedItem + ")");
+      "[Estado] =" + cbEstado.SelectedText +
+      ",[Fecha_inicio] =" + mcPublicacion.SelectionStart.ToString() +
+      ",[Fecha_Vencimiento] =" + mbEspectaculo.SelectionStart.ToString() +
+      ",[Localidades] =" + tbLocalidades.Text +
+      ",[Descripcion] =" + tbDescripcion.Text +
+      ",[Direccion] =" + tbDirección.Text +
+      ",[Grados_publicacion_Id] =" + cbGradoPubli.SelectedText +
+      ",[Rubros_Id] =" + cbRubro.SelectedItem + 
+      "WHERE [Id] = " + idPublicacion);
             if (res == 1)
             {
                 Boolean r = this.db.Consultar("select top 1 Id from [CAMPUS_ANALYTICA].Ubicacion order by 1 desc");
