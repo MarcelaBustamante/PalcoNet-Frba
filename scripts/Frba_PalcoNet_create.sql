@@ -843,13 +843,12 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
 					 [sin_numerar] ,
 					 [Tipo_Codigo] , 
 					 [Tipo_descripcion]) 
-            SELECT DISTINCT
-               m.Ubicacion_Fila,
+SELECT         m.Ubicacion_Fila,
                m.Ubicacion_Asiento,
                m.Ubicacion_Precio,
               ( case
                   when
-                        m.Compra_Fecha is not null
+                        COUNT(m.Compra_Cantidad) > 0
                   then
                      'S' 
                   else
@@ -859,9 +858,8 @@ SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Publicaciones] ON
 				m.Ubicacion_Sin_numerar,
 				m.Ubicacion_Tipo_Codigo,
 				m.Ubicacion_Tipo_Descripcion
-            FROM
-               gd_esquema.Maestra M 
-    
+FROM gd_esquema.Maestra m
+GROUP BY m.Espectaculo_Cod, m.Ubicacion_Fila, m.Ubicacion_Asiento, m.Ubicacion_Precio, m.Ubicacion_Sin_numerar, m.Ubicacion_Tipo_Codigo, m.Ubicacion_Tipo_Descripcion
 		   GO
 
 /* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
@@ -924,12 +922,18 @@ INSERT INTO [CAMPUS_ANALYTICA].[Compra]
 			,C.Id
 			,M.Compra_Cantidad
 			,U.Id
-			,'S'
+			,( case
+                  when
+                        m.Factura_Nro is not null
+                  then
+                     'S' 
+                  else
+                     'N' 
+               end) as facturada
 	 FROM [GD2C2018].[gd_esquema].[Maestra] m
-	 LEFT JOIN CAMPUS_ANALYTICA.Cliente C ON M.Cli_Dni = C.Nro_documento
-	 LEFT JOIN CAMPUS_ANALYTICA.Ubicacion U ON U.Publicaciones_Id = M.Espectaculo_Cod --AND U.Asiento = M.Ubicacion_Asiento AND U.Fila = M.Ubicacion_Fila AND U.Tipo_Codigo = M.Ubicacion_Tipo_Codigo
-	 WHERE M.Compra_Fecha IS NOT NULL
-GO
+	 JOIN CAMPUS_ANALYTICA.Ubicacion U ON U.Publicaciones_Id = M.Espectaculo_Cod AND U.Asiento = M.Ubicacion_Asiento AND U.Fila = M.Ubicacion_Fila AND U.Tipo_Codigo = M.Ubicacion_Tipo_Codigo
+	 JOIN CAMPUS_ANALYTICA.Cliente C ON M.Cli_Dni = C.Nro_documento
+	 WHERE U.Comprada = 'S'
 GO
 
 INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
@@ -987,10 +991,15 @@ GO
 	  FROM [GD2C2018].[gd_esquema].[Maestra] m
 	  where m.Factura_Fecha is not null
 	  group by Factura_Fecha, Factura_Nro, Factura_Total, m.Espec_Empresa_Razon_Social
-	GO
+
+	SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Facturas] OFF
+	GO	
+
+
+
+
 	/* insert item_Factura **/
 		print('Cargando tabla item_factura ...')
-	SET IDENTITY_INSERT [CAMPUS_ANALYTICA].[Facturas] OFF
 	go
 	INSERT INTO [CAMPUS_ANALYTICA].[Items_factura]
 			   ([Monto]
@@ -999,21 +1008,17 @@ GO
 			   ,[Descripcion]
 			   ,[Compras_Id]
 			   ,[Comision])
-	SELECT distinct
+	SELECT 
 		   m.Item_Factura_Monto,
 		   m.Item_Factura_Cantidad,
 		   m.Factura_Nro,
 		   m.Item_Factura_Descripcion,
 		   c.Id,
 		   m.Item_Factura_Monto
-	  FROM [GD2C2018].[gd_esquema].[Maestra] m
-	  join CAMPUS_ANALYTICA.Cliente cli
-	  on cli.Mail like m.Cli_Mail
-	  join CAMPUS_ANALYTICA.Compra c
-	  on c.Cliente_Id =cli.Id
-	  and c.Cantidad = m.Compra_Cantidad
-	  and c.Fecha= m.Compra_Fecha
-	  where m.Factura_Fecha is not null
-	     and m.Cli_Mail is not null
-		
+	FROM CAMPUS_ANALYTICA.Compra C 
+	JOIN CAMPUS_ANALYTICA.Ubicacion U ON C.Ubicacion_Id = U.Id
+	JOIN gd_esquema.Maestra M ON U.Publicaciones_Id = M.Espectaculo_Cod AND U.Fila = M.Ubicacion_Fila AND U.Asiento = M.Ubicacion_Asiento
+	where m.Compra_Cantidad is not null AND m.Factura_Nro is not null
 GO
+
+
