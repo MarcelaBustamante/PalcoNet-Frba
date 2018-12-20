@@ -29,9 +29,9 @@ namespace PalcoNet.Editar_Publicacion
             this.grillaPublicaciones.AllowUserToAddRows = false;
             DataTable dt = new DataTable();
             SqlDataAdapter da = new SqlDataAdapter("SELECT p.[Id], p.[Descripcion],p.[Fecha_inicio]," +
-                "[Fecha_Vencimiento], r.descripcion , r.[Direccion], p.[Estado] " +
+                "[Fecha_Vencimiento], r.descripcion , p.[Estado] " +
                 "FROM [GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones] p join CAMPUS_ANALYTICA.Rubros r on r.id=p.Rubros_Id" +
-                " join CAMPUS_ANALYTICA.Grados_publicaciones gd on gd.[Grado]=p.[Grados_publicacion_Id]", this.db.StringConexion());
+                " join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id]", this.db.StringConexion());
             da.SelectCommand.CommandType = CommandType.Text;
             da.Fill(dt);
             grillaPublicaciones.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
@@ -40,7 +40,7 @@ namespace PalcoNet.Editar_Publicacion
             {
                 this.grillaPublicaciones.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString()
                      , dt.Rows[i][3].ToString(), dt.Rows[i][4].ToString(), dt.Rows[i][5].ToString()
-                     , dt.Rows[i][6].ToString(), dt.Rows[i][7].ToString());
+                     );
             }
             grillaPublicaciones.RowHeadersVisible = false;
         }
@@ -54,16 +54,16 @@ namespace PalcoNet.Editar_Publicacion
                 if(tbCodigo.Text != "")
                 {
                     query = "SELECT p.[Id], p.[Descripcion],p.[Fecha_inicio]," +
-                "[Fecha_Vencimiento], r.descripcion , r.[Direccion], p.[Estado] " +
+                "[Fecha_Vencimiento], r.descripcion , p.[Estado] " +
                 "FROM [GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones] p join CAMPUS_ANALYTICA.Rubros r on r.id=p.Rubros_Id" +
-                " join CAMPUS_ANALYTICA.Grados_publicaciones gd on gd.[Grado]=p.[Grados_publicacion_Id] WHERE p.[Id] = " + tbCodigo.Text.ToString();
+				" join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id] WHERE p.[Id] = " + tbCodigo.Text.ToString();
                 }
                 else
                 {
                     query = "SELECT p.[Id], p.[Descripcion],p.[Fecha_inicio]," +
-                "[Fecha_Vencimiento], r.descripcion , r.[Direccion], p.[Estado] " +
+                "[Fecha_Vencimiento], r.descripcion , p.[Estado] " +
                 "FROM [GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones] p join CAMPUS_ANALYTICA.Rubros r on r.id=p.Rubros_Id" +
-                " join CAMPUS_ANALYTICA.Grados_publicaciones gd on gd.[Grado]=p.[Grados_publicacion_Id] WHERE p.[Descripcion] = " + tbDescripcion.Text.ToString();
+				" join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id] WHERE p.[Descripcion] = " + tbDescripcion.Text.ToString();
                 }
                 SqlDataAdapter da = new SqlDataAdapter(query, this.db.StringConexion());
                 da.SelectCommand.CommandType = CommandType.Text;
@@ -73,7 +73,7 @@ namespace PalcoNet.Editar_Publicacion
                 {
                     this.grillaPublicaciones.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString()
                         , dt.Rows[i][3].ToString(), dt.Rows[i][4].ToString(), dt.Rows[i][5].ToString()
-                        , dt.Rows[i][6].ToString(), dt.Rows[i][7].ToString());
+                        );
                 }
             }
             else
@@ -111,6 +111,11 @@ namespace PalcoNet.Editar_Publicacion
             DialogResult res = publciacionEditada.ShowDialog();
             this.cargarGrilla();
         }
-    }
+
+		private void cancelar_Click(object sender, EventArgs e)
+		{
+			Dispose();
+		}
+	}
 }
 
