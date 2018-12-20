@@ -122,11 +122,7 @@ namespace PalcoNet
             f.Show();
         }
 
-        private void historialDelClienteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Historial_Cliente.HistrorialCliente f = new Historial_Cliente.HistrorialCliente(_db, _username);
-            f.Show();
-        }
+      
 
         private void comisionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -164,6 +160,11 @@ namespace PalcoNet
             Publicaciones f = new Publicaciones(_db,_username);
             f.Show();
         }
-        
-    }
+
+		private void historialDelClienteToolStripMenuItem_Click_1(object sender, EventArgs e)
+		{
+			Historial_Cliente.HistrorialCliente f = new Historial_Cliente.HistrorialCliente(_db, _username);
+			f.Show();
+		}
+	}
 }

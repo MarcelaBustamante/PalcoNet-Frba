@@ -50,6 +50,8 @@
 			this.aceptar = new System.Windows.Forms.Button();
 			this.cancelar = new System.Windows.Forms.Button();
 			this.cbHabilitado = new System.Windows.Forms.CheckBox();
+			this.tbCiudad = new System.Windows.Forms.TextBox();
+			this.Ciudad = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -103,6 +105,8 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.tbCiudad);
+			this.groupBox1.Controls.Add(this.Ciudad);
 			this.groupBox1.Controls.Add(this.tbcodPostal);
 			this.groupBox1.Controls.Add(this.label7);
 			this.groupBox1.Controls.Add(this.tbLocalidad);
@@ -246,6 +250,22 @@
 			this.cbHabilitado.Text = "Habilitado";
 			this.cbHabilitado.UseVisualStyleBackColor = true;
 			// 
+			// tbCiudad
+			// 
+			this.tbCiudad.Location = new System.Drawing.Point(101, 126);
+			this.tbCiudad.Name = "tbCiudad";
+			this.tbCiudad.Size = new System.Drawing.Size(155, 20);
+			this.tbCiudad.TabIndex = 17;
+			// 
+			// Ciudad
+			// 
+			this.Ciudad.AutoSize = true;
+			this.Ciudad.Location = new System.Drawing.Point(16, 129);
+			this.Ciudad.Name = "Ciudad";
+			this.Ciudad.Size = new System.Drawing.Size(40, 13);
+			this.Ciudad.TabIndex = 16;
+			this.Ciudad.Text = "Ciudad";
+			// 
 			// AltaEmpresa
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -296,5 +316,7 @@
         private System.Windows.Forms.Button aceptar;
         private System.Windows.Forms.Button cancelar;
         private System.Windows.Forms.CheckBox cbHabilitado;
-    }
+		private System.Windows.Forms.TextBox tbCiudad;
+		private System.Windows.Forms.Label Ciudad;
+	}
 }
