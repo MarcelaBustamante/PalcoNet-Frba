@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -110,7 +110,7 @@ namespace PalcoNet.Editar_Publicacion
             this.idPublicacion = Decimal.Parse(this.grillaPublicaciones.Rows[fila].Cells[0].Value.ToString());
             if (validar(idPublicacion))
             {
-                PalcoNet.Generar_Publicacion.AltaPublicacion publciacionEditada = new Generar_Publicacion.AltaPublicacion(this.db, this.idPublicacion);
+                PalcoNet.Generar_Publicacion.AltaPublicacion publciacionEditada = new Generar_Publicacion.AltaPublicacion(this.db, this.idPublicacion, this.usr);
                 DialogResult res = publciacionEditada.ShowDialog();
                 this.grillaPublicaciones.Rows.Clear();
                 this.cargarGrilla();

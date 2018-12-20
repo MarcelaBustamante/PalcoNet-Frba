@@ -25,18 +25,34 @@ namespace PalcoNet.Generar_Publicacion
 			this.Usr = usr;
             cargarCombos();
             this.mbEspectaculo.MaxSelectionCount = 1;
-            this.mcPublicacion.MaxSelectionCount = 1;
+            this.mcPublicacion.MaxSelectionCount = 1;         
+            
         }
 
-        public AltaPublicacion(dbmanager dbmanager, decimal id)
+        public AltaPublicacion(dbmanager dbmanager, decimal id, String usr)
         {
             InitializeComponent();
             this.idPublicacion = id;
             this.db = dbmanager;
+            this.Usr = usr;
             cargarCombos();
             inicializar();
             this.mbEspectaculo.MaxSelectionCount = 1;
             this.mcPublicacion.MaxSelectionCount = 1;
+            habilitarControlesLocalidades();
+            cargarGrilla();
+            cargarComboTipoUbicacacion();
+        }
+
+        private void habilitarControlesLocalidades()
+        {
+            this.tbCantidad.Enabled = true;
+            this.tbFila.Enabled = true;
+            this.tbPrecio.Enabled = true;
+            this.cbTipoPublicacion.Enabled = true;
+            this.btnEditarLocalidad.Enabled = true;
+            this.btnEliminar.Enabled = true;
+            btnAgregar.Enabled = true;
         }
 
         private void inicializar()
@@ -75,7 +91,7 @@ namespace PalcoNet.Generar_Publicacion
             cargarComboRubro();
             cargarComboGrado();
             cargarComboResponsable();
-            cargarComboEstado();
+            cargarComboEstado();            
         }
 
         private void cargarComboEstado()
@@ -114,6 +130,36 @@ namespace PalcoNet.Generar_Publicacion
             this.cbRubro.DataSource = ds.Tables[0].DefaultView;
             this.cbRubro.DisplayMember = "Descripcion";
             this.cbRubro.ValueMember = "Id";
+        }
+
+        private void cargarGrilla()
+        {
+            this.grillaUbicaciones.AllowUserToAddRows = false;
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT  u.Tipo_descripcion, u.Fila, u.Precio, COUNT(u.Id) as Cantidad" +
+                " FROM CAMPUS_ANALYTICA.Ubicacion u " +
+                "WHERE u.Publicaciones_Id = " + idPublicacion + " " +
+                "Group by u.Fila, u.Tipo_descripcion, u.Precio", this.db.StringConexion());
+            da.SelectCommand.CommandType = CommandType.Text;
+            da.Fill(dt);
+            grillaUbicaciones.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
+            grillaUbicaciones.RowHeadersVisible = false;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                this.grillaUbicaciones.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString()
+                     , dt.Rows[i][3].ToString());
+            }
+            grillaUbicaciones.RowHeadersVisible = false;
+        }
+
+        private void cargarComboTipoUbicacacion()
+        {
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT Distinct Tipo_Codigo, Tipo_Descripcion FROM CAMPUS_ANALYTICA.Ubicacion" , this.db.StringConexion());
+            da.Fill(ds, "CAMPUS_ANALYTICA.Ubicacion");
+            this.cbTipoPublicacion.DataSource = ds.Tables[0].DefaultView;
+            this.cbTipoPublicacion.DisplayMember = "Tipo_Descripcion";
+            this.cbTipoPublicacion.ValueMember = "Tipo_Codigo";
         }
 
         private void aceptar_Click(object sender, EventArgs e)
@@ -192,11 +238,11 @@ namespace PalcoNet.Generar_Publicacion
             string query = "UPDATE [CAMPUS_ANALYTICA].[Publicaciones] SET [Estado] = '" + cbEstado.SelectedItem +"'"+
                 ",[Fecha_inicio] = '" + mbEspectaculo.SelectionStart.ToString() +"'"+
                 ",[Fecha_Vencimiento] ='" + mcPublicacion.SelectionStart.ToString() + "'" +
-                ",[Localidades] =" + tbLocalidades.Text +
-                ",[Descripcion] =" + tbDescripcion.Text +
-                ",[Direccion] =" + tbDirección.Text +
-                ",[Grados_publicacion_Id] =" + cbGradoPubli.SelectedText +
-                ",[Rubros_Id] =" + cbRubro.SelectedItem +
+                ",[Localidades] ='" + tbLocalidades.Text + "'"+
+                ",[Descripcion] ='" + tbDescripcion.Text + "'" +
+                ",[Direccion] ='" + tbDirección.Text + "'" +
+                ",[Grados_publicacion_Id] =" + Decimal.Parse(cbGradoPubli.SelectedValue.ToString()) +
+                ",[Rubros_Id] =" + Decimal.Parse(cbRubro.SelectedValue.ToString()) +
                 "WHERE [Id] = " + idPublicacion;
             int res = this.db.Ejecutar(query);
             if (res == 1)
@@ -229,13 +275,7 @@ namespace PalcoNet.Generar_Publicacion
             }
         }
 
-		private void bnLocalidades_Click(object sender, EventArgs e)
-		{
-            Ubicaciones.Ubicaciones u = new Ubicaciones.Ubicaciones(db, idPublicacion);
-            DialogResult res = u.ShowDialog();
-            cargarCantLocalidades();
-        }
-
+		
         private void cargarCantLocalidades()
         {
             string query = "SELECT COUNT([Id]) as Cantidad FROM [CAMPUS_ANALYTICA].[Ubicacion] WHERE [Publicaciones_Id] =" + idPublicacion;
@@ -246,5 +286,130 @@ namespace PalcoNet.Generar_Publicacion
                 this.tbLocalidades.Text = this.db.ObtenerValor("Cantidad");
             }
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            if (validarCamposLocalidad())
+            {
+                decimal cantAsientos = Decimal.Parse(tbCantidad.Text);
+                string fila = tbFila.Text;
+                double precio = Double.Parse(tbPrecio.Text);
+                
+                decimal tipoUbicacionCodigo = Decimal.Parse(cbTipoPublicacion.SelectedValue.ToString());
+                string tipoUbicacionDescripcion = obtenerTipoDescripcion(tipoUbicacionCodigo);
+                if (btnAgregar.Text == "Agregar")
+                {
+                    for (int i = 1; i <= cantAsientos; i++)
+                    {
+                        string query = "INSERT INTO [CAMPUS_ANALYTICA].[Ubicacion]" +
+                            "([Fila],[Asiento],[Precio],[Comprada],[Publicaciones_Id]," +
+                            "[sin_numerar],[Tipo_Codigo],[Tipo_descripcion]) VALUES" +
+                            "('" + fila + "'," + i + "," + precio + "," + "'N'" + "" +
+                            "," + idPublicacion + "," + "'0'" + "," + tipoUbicacionCodigo + ", '" + tipoUbicacionDescripcion + "')";
+                        this.db.Ejecutar(query);
+                    }
+                }
+                else if (btnAgregar.Text == "Aceptar")
+                {
+                    for (int i = 1; i <= cantAsientos; i++)
+                    {
+                        string query = "UPDATE[CAMPUS_ANALYTICA].[Ubicacion] SET " +
+                            "[Fila]=" + fila + "," +
+                            "[Asiento]=" + i + "," +
+                            "[Precio]=" + precio + "," +
+                            "[Comprada]=" + "'N'" + "," +
+                            "[Publicaciones_Id]=" + idPublicacion + "," +
+                            "[sin_numerar]=" + "'0'" + "," +
+                            "[Tipo_Codigo]=" + tipoUbicacionCodigo + ", '" +
+                            "[Tipo_descripcion]=" + tipoUbicacionCodigo + "'" +
+                            "WHERE [Comprada] = 'N' ";
+                        this.db.Ejecutar(query);
+                    }
+                }
+
+                limpiarCampos();
+                this.grillaUbicaciones.Rows.Clear();
+                cargarGrilla();
+                cargarCantLocalidades();
+            }
+        }
+
+        private string obtenerTipoDescripcion(decimal tipoUbicacionCodigo)
+        {
+            string query = "Select distinct u.Tipo_descripcion From CAMPUS_ANALYTICA.Ubicacion u where u.Tipo_Codigo =" + tipoUbicacionCodigo;
+            Boolean r = this.db.Consultar(query);
+            if (r)
+            {
+                this.db.Leer();
+                return this.db.ObtenerValor("Tipo_descripcion");
+            }
+            return "Sin Definir";
+     
+        }
+
+        private void limpiarCampos()
+        {
+            this.tbCantidad.Clear();
+            this.tbFila.Clear();
+            this.tbPrecio.Clear();
+            this.cbTipoPublicacion.SelectedIndex = -1;
+            btnAgregar.Text = "Agregar";
+        }
+
+        private bool validarCamposLocalidad()
+        {
+            return true;
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            Int32 fila = this.grillaUbicaciones.CurrentCell.RowIndex;
+            String tipoLocalidad = this.grillaUbicaciones.Rows[fila].Cells[0].Value.ToString();
+            String filaLocalidad = this.grillaUbicaciones.Rows[fila].Cells[1].Value.ToString();
+            String precioLocalidad = this.grillaUbicaciones.Rows[fila].Cells[2].Value.ToString();
+            Boolean existeR;
+            existeR = this.db.Consultar("SELECT Count([Id]) as Cantidad from [CAMPUS_ANALYTICA].[Ubicacion] WHERE [Publicaciones_Id]" + idPublicacion + "" +
+                "AND [Comprada] = 'N'");
+            if (existeR)
+            {
+                this.db.Leer();
+                decimal cantidadLocalidadesABorrar = Decimal.Parse(this.db.ObtenerValor("Cantidad"));
+                for (int i = 0; i < cantidadLocalidadesABorrar; i++)
+                {
+                    this.db.Ejecutar("DELETE FROM [CAMPUS_ANALYTICA].[Ubicacion] WHERE [Publicaciones_Id] =" + idPublicacion + " " +
+                        "AND [Comprada] = 'N'" +
+                        " AND [Fila] = " + filaLocalidad + " " +
+                        "AND [Precio] = " + precioLocalidad + "" +
+                        "AND [Tipo_descripcion] =" + tipoLocalidad);
+                }
+
+            }
+        }
+
+        private void brnEditar_Click(object sender, EventArgs e)
+        {
+            Int32 fila = this.grillaUbicaciones.CurrentCell.RowIndex;
+            String tipoLocalidad = this.grillaUbicaciones.Rows[fila].Cells[0].Value.ToString();
+            String filaLocalidad = this.grillaUbicaciones.Rows[fila].Cells[1].Value.ToString();
+            String precioLocalidad = this.grillaUbicaciones.Rows[fila].Cells[2].Value.ToString();
+
+            Boolean existeR;
+            existeR = this.db.Consultar("SELECT TOP 1 [Fila] ,[Precio],[Tipo_Descripcion],COUNT([Id]) as Cantidad " +
+                "FROM [GD2C2018].[CAMPUS_ANALYTICA].[Ubicacion]" +
+                "WHERE [Publicaciones_Id] = " + idPublicacion + " " +
+                "AND [Fila] = " + filaLocalidad + "  " +
+                "AND [Precio] = " + precioLocalidad + " " +
+                "AND [Tipo_descripcion] = " + tipoLocalidad);
+            if (existeR)
+            {
+                this.db.Leer();
+                btnAgregar.Text = "Editar";
+                this.tbCantidad.Text = this.db.ObtenerValor("Cantidad");
+                this.tbFila.Text = this.db.ObtenerValor("Fila");
+                this.tbPrecio.Text = this.db.ObtenerValor("Precio");
+                this.cbTipoPublicacion.SelectedText = this.db.ObtenerValor("Tipo_Descripcion");
+            }
+        }
+       
     }
 }
