@@ -496,6 +496,11 @@ GO
 print('cargando tipo documento...')
 insert into CAMPUS_ANALYTICA.tipo_documento (descripcion) values('DNI')
 GO   
+/*************************************************** CREACIÓN DE ÍNDICES ****************************************************/
+
+
+CREATE INDEX IX_FACTURA_CAB_Nro ON [CAMPUS_ANALYTICA].Facturas(Numero)
+
 
 /************************************************ CREACIÓN DE PROCEDIMIENTOS ************************************************/
 
@@ -1000,7 +1005,7 @@ GO
 		   m.Factura_Nro,
 		   m.Item_Factura_Descripcion,
 		   c.Id,
-		   m.Item_Factura_Monto/10
+		   m.Item_Factura_Monto
 	  FROM [GD2C2018].[gd_esquema].[Maestra] m
 	  join CAMPUS_ANALYTICA.Cliente cli
 	  on cli.Mail like m.Cli_Mail

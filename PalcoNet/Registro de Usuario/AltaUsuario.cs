@@ -12,10 +12,12 @@ using System.Windows.Forms;
 
 namespace PalcoNet.Registro_de_Usuario
 {
+	
     
     public partial class AltaUsuario : Form
     {
-        private dbmanager db;
+		private String pass= "123"; 
+		private dbmanager db;
         private Decimal cliId = 0;
         private Decimal empId = 0;
         private Decimal usrId;
@@ -25,6 +27,7 @@ namespace PalcoNet.Registro_de_Usuario
             InitializeComponent();
             this.db = db;
             comboTipoUsuario(0);
+			tbPassword.Text = pass;
         }
 
         //para alta desde modulo cliente o empresa
@@ -40,7 +43,8 @@ namespace PalcoNet.Registro_de_Usuario
 			{
 				this.empId = id;
 			}
-        }
+			tbPassword.Text = pass;
+		}
 
         public AltaUsuario(dbmanager db, decimal usrId)
         {
@@ -48,9 +52,9 @@ namespace PalcoNet.Registro_de_Usuario
             this.db = db;
             comboTipoUsuario(1);
             this.usrId = usrId;
-            
-            // busar el usuario a modificar
-            Boolean existeR = this.db.Consultar("select u.Id,u.Username,u.Password,u.Estado,u.Tipos_usuario_Id from CAMPUS_ANALYTICA.Usuario u where u.Id = " + usrId);
+			
+			// busar el usuario a modificar
+			Boolean existeR = this.db.Consultar("select u.Id,u.Username,u.Password,u.Estado,u.Tipos_usuario_Id from CAMPUS_ANALYTICA.Usuario u where u.Id = " + usrId);
             if (existeR)
             {
                 this.db.Leer();

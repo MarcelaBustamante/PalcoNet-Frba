@@ -49,6 +49,7 @@ namespace PalcoNet.Login
 
             _hashPass = this.Hash(tbPassword.Text.Trim());
             _password = tbPassword.Text.Trim();
+			
             _consulta = this.db.Consultar("SELECT Id, Username, Password, Cant_Login_Fallidos FROM [CAMPUS_ANALYTICA].[Usuario] WHERE Username = '" + _username + "' AND Cant_Login_Fallidos < 3 AND Estado = 'A'");
             if (!_consulta)
             {
@@ -61,8 +62,13 @@ namespace PalcoNet.Login
             String dbPassword = this.db.ObtenerValor("Password");
             int dbUsuarioId = Int32.Parse(this.db.ObtenerValor("Id"));
             int dbIntentosFallidos = Int32.Parse(this.db.ObtenerValor("Cant_Login_Fallidos"));
-
-            if ((_password == dbPassword) || (_hashPass == dbPassword)) // Pregunta por el password (para usuarios migrados) o por el hash (nuevos usuarios)
+			if (_password == "123")
+			{
+				MessageBox.Show("Debe cambiar la contraseña");
+				PalcoNet.Registro_de_Usuario.AltaUsuario cambioPass = new Registro_de_Usuario.AltaUsuario(db, dbUsuarioId);
+				DialogResult res = cambioPass.ShowDialog(); 
+			}
+			if ((_password == dbPassword) || (_hashPass == dbPassword)) // Pregunta por el password (para usuarios migrados) o por el hash (nuevos usuarios)
             {
                 if (dbIntentosFallidos > 0) // Si ingresó correctamente su password, y si tenía intentos fallidos, los resetea
                 {

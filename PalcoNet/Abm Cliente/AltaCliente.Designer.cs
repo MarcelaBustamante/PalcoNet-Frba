@@ -218,7 +218,7 @@
 			this.groupBox1.Controls.Add(this.label9);
 			this.groupBox1.Location = new System.Drawing.Point(465, 40);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(341, 186);
+			this.groupBox1.Size = new System.Drawing.Size(341, 166);
 			this.groupBox1.TabIndex = 15;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Dirección";
@@ -226,7 +226,7 @@
 			// label13
 			// 
 			this.label13.AutoSize = true;
-			this.label13.Location = new System.Drawing.Point(161, 151);
+			this.label13.Location = new System.Drawing.Point(161, 125);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(72, 13);
 			this.label13.TabIndex = 20;
@@ -235,7 +235,7 @@
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(13, 151);
+			this.label12.Location = new System.Drawing.Point(13, 125);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(36, 13);
 			this.label12.TabIndex = 19;
@@ -243,21 +243,21 @@
 			// 
 			// tbCodigoPostal
 			// 
-			this.tbCodigoPostal.Location = new System.Drawing.Point(244, 144);
+			this.tbCodigoPostal.Location = new System.Drawing.Point(244, 118);
 			this.tbCodigoPostal.Name = "tbCodigoPostal";
 			this.tbCodigoPostal.Size = new System.Drawing.Size(82, 20);
 			this.tbCodigoPostal.TabIndex = 18;
 			// 
 			// tbDepto
 			// 
-			this.tbDepto.Location = new System.Drawing.Point(67, 144);
+			this.tbDepto.Location = new System.Drawing.Point(67, 118);
 			this.tbDepto.Name = "tbDepto";
 			this.tbDepto.Size = new System.Drawing.Size(82, 20);
 			this.tbDepto.TabIndex = 17;
 			// 
 			// tbLocalidad
 			// 
-			this.tbLocalidad.Location = new System.Drawing.Point(67, 103);
+			this.tbLocalidad.Location = new System.Drawing.Point(67, 86);
 			this.tbLocalidad.Name = "tbLocalidad";
 			this.tbLocalidad.Size = new System.Drawing.Size(166, 20);
 			this.tbLocalidad.TabIndex = 16;
@@ -265,7 +265,7 @@
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(13, 110);
+			this.label11.Location = new System.Drawing.Point(13, 93);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(53, 13);
 			this.label11.TabIndex = 15;
@@ -273,7 +273,7 @@
 			// 
 			// tbNroPiso
 			// 
-			this.tbNroPiso.Location = new System.Drawing.Point(67, 70);
+			this.tbNroPiso.Location = new System.Drawing.Point(67, 58);
 			this.tbNroPiso.Name = "tbNroPiso";
 			this.tbNroPiso.Size = new System.Drawing.Size(166, 20);
 			this.tbNroPiso.TabIndex = 14;
@@ -281,7 +281,7 @@
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(13, 70);
+			this.label10.Location = new System.Drawing.Point(13, 58);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(46, 13);
 			this.label10.TabIndex = 13;
