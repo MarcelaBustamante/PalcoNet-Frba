@@ -24,6 +24,8 @@ namespace PalcoNet.Generar_Publicacion
             this.tbLocalidades.Text = "0";
 			this.Usr = usr;
             cargarCombos();
+            this.mbEspectaculo.MaxSelectionCount = 1;
+            this.mcPublicacion.MaxSelectionCount = 1;
         }
 
         public AltaPublicacion(dbmanager dbmanager, decimal id)
@@ -33,6 +35,8 @@ namespace PalcoNet.Generar_Publicacion
             this.db = dbmanager;
             cargarCombos();
             inicializar();
+            this.mbEspectaculo.MaxSelectionCount = 1;
+            this.mcPublicacion.MaxSelectionCount = 1;
         }
 
         private void inicializar()
@@ -132,24 +136,13 @@ namespace PalcoNet.Generar_Publicacion
 
         private void nuevaPublicacion()
         {
-            string query = "INSERT INTO [CAMPUS_ANALYTICA].[Publicaciones]" +
-         "([Estado]" +
-         ",[Fecha_inicio]" +
-         ",[Fecha_Vencimiento]" +
-         ",[Localidades]" +
-         ",[Descripcion]" +
-         ",[Direccion]" +
-         ",[Grados_publicacion_Id]" +
-         ",[Rubros_Id])" +
-   "VALUES" +
-         "( '" + cbEstado.Text + "'," +
-         "," + mcPublicacion.SelectionStart.ToString() + "," +
-         ", " + mbEspectaculo.SelectionStart.ToString() + "," +
-         ", " + tbLocalidades.Text + "," +
-         ", " + tbDescripcion.Text + "," +
-         ", " + tbDirección.Text + "," +
-         ", '" + cbGradoPubli.Text + "'," +
-         ", " + cbRubro.SelectedValue + ")";
+            string query = "INSERT INTO [CAMPUS_ANALYTICA].[Publicaciones]([Estado],[Fecha_inicio]," +
+                "[Fecha_Vencimiento],[Localidades],[Descripcion]," +
+                "[Direccion],[Empresa_Id],[Grados_publicacion_Id],[Rubros_Id]) " +
+                "VALUES('"+ cbEstado.SelectedText +"' ,'"+ mbEspectaculo.SelectionStart.ToString() +"'," +
+                "'"+ mcPublicacion.SelectionStart.ToString() +"',"+ tbLocalidades.Text +",'"+ tbDescripcion.Text.ToString() +"'," +
+                "'"+ tbDirección.Text.ToString() +"',"+obtenerEmpresaId()+","+ Decimal.Parse(cbGradoPubli.SelectedValue.ToString()) +","+ Decimal.Parse(cbRubro.SelectedValue.ToString()) +")";
+            
             int res = this.db.Ejecutar(query);
             if (res == 1)
             {
@@ -162,6 +155,19 @@ namespace PalcoNet.Generar_Publicacion
                 }
             }
         }
+
+        private string obtenerEmpresaId()
+        {
+            string q = "SELECT e.[Id] FROM [GD2C2018].[CAMPUS_ANALYTICA].[Empresa] e where e.[Usuarios_Id] =" + cbUserRespon.SelectedValue;
+            Boolean r = this.db.Consultar(q);
+            if (r)
+            {
+                this.db.Leer();
+                return  this.db.ObtenerValor("Id").ToString();
+            }
+            return "";
+        }
+
         private Boolean guardarPublicacion()
         {
             if (validarCampos())
