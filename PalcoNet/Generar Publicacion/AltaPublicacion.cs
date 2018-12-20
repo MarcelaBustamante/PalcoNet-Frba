@@ -258,9 +258,101 @@ namespace PalcoNet.Generar_Publicacion
 
         private bool validarCampos()
         {
+            if (validarEspectaculosIguales())
+            {
+                return false;
+            }
+            if (validaEstado())
+            {
+                return false;
+            }
+            if (validarVacios())
+            {
+                return false;
+            }
+            if (validarFecha())
+            {
+                return false;
+            }
             return true;
         }
- 
+
+        private bool validarFecha()
+        {
+            return true;
+        }
+
+        private bool validarVacios()
+        {
+            if (tbDescripcion.Text == "")
+            {
+                MessageBox.Show("Complete campo descripcion");
+                return true;
+            }
+            else if (tbDirección.Text == "")
+            {
+                MessageBox.Show("Complete campo direccion");
+                return true;
+            }
+            else if (cbEstado.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un estado");
+                return true;
+            }
+            else if (cbGradoPubli.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un grado de publicacion");
+                return true;
+            }
+            else if (cbRubro.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un rubro");
+                return true;
+            }
+            return false;
+
+        }
+
+        private bool validaEstado()
+        {
+            if(aceptar.Text == "Editar")
+            {
+                string query = "select [Estado] from [CAMPUS_ANALYTICA].[Publicaciones] WHERE [Id] =" + idPublicacion;
+                Boolean r = this.db.Consultar(query);
+                if (r)
+                {
+                    this.db.Leer();
+                    if(cbEstado.SelectedText == "Borrador" && this.db.ObtenerValor("Estado") != "Borrador")
+                    {
+                        MessageBox.Show("No es posible cambiar a estado Borrador una publicacion Activa o Finalizada");
+                        return true;
+                    }
+                    if(cbEstado.SelectedText != "Finalizada" && this.db.ObtenerValor("Estado") == "Finalizada")
+                    {
+                        MessageBox.Show("No es posible modificar una publicacion finalizada");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private Boolean validarEspectaculosIguales()
+        {
+            string query = "select * from [CAMPUS_ANALYTICA].[Publicaciones] WHERE [Descripcion] =" + tbDescripcion.Text;
+            Boolean r = this.db.Consultar(query);
+            if (r)
+            {
+                this.db.Leer();
+                if(this.db.ObtenerValor("Fecha_Vencimiento") == mcPublicacion.SelectionStart.ToString())
+                {
+                    MessageBox.Show("Seleccione otra fecha para el espectaculo, ya se encuentra un espectaculo publicado con esa fecha");
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
 
         private void cancelar_Click(object sender, EventArgs e)
         {
