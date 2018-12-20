@@ -28,10 +28,11 @@ namespace PalcoNet.Editar_Publicacion
         {
             this.grillaPublicaciones.AllowUserToAddRows = false;
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT p.[Id], p.[Descripcion],p.[Fecha_inicio]," +
-                "[Fecha_Vencimiento], r.descripcion , p.[Estado] " +
+            string query = "SELECT p.[Id], p.[Descripcion],p.[Fecha_inicio]," +
+                "[Fecha_Vencimiento], r.descripcion , gd.grado ,p.[Estado] " +
                 "FROM [GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones] p join CAMPUS_ANALYTICA.Rubros r on r.id=p.Rubros_Id" +
-                " join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id]", this.db.StringConexion());
+                " join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id]";
+            SqlDataAdapter da = new SqlDataAdapter(query, this.db.StringConexion());
             da.SelectCommand.CommandType = CommandType.Text;
             da.Fill(dt);
             grillaPublicaciones.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
@@ -39,7 +40,7 @@ namespace PalcoNet.Editar_Publicacion
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 this.grillaPublicaciones.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString()
-                     , dt.Rows[i][3].ToString(), dt.Rows[i][4].ToString(), dt.Rows[i][5].ToString()
+                     , dt.Rows[i][3].ToString(), dt.Rows[i][4].ToString(), dt.Rows[i][5].ToString(), dt.Rows[i][6].ToString()
                      );
             }
             grillaPublicaciones.RowHeadersVisible = false;
@@ -61,9 +62,9 @@ namespace PalcoNet.Editar_Publicacion
                 else
                 {
                     query = "SELECT p.[Id], p.[Descripcion],p.[Fecha_inicio]," +
-                "[Fecha_Vencimiento], r.descripcion , p.[Estado] " +
+                "[Fecha_Vencimiento], r.descripcion , gd.grado, p.[Estado] " +
                 "FROM [GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones] p join CAMPUS_ANALYTICA.Rubros r on r.id=p.Rubros_Id" +
-				" join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id] WHERE p.[Descripcion] = " + tbDescripcion.Text.ToString();
+				" join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id] WHERE p.[Descripcion] like '" + tbDescripcion.Text.ToString()+"'";
                 }
                 SqlDataAdapter da = new SqlDataAdapter(query, this.db.StringConexion());
                 da.SelectCommand.CommandType = CommandType.Text;
@@ -72,7 +73,7 @@ namespace PalcoNet.Editar_Publicacion
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     this.grillaPublicaciones.Rows.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][2].ToString()
-                        , dt.Rows[i][3].ToString(), dt.Rows[i][4].ToString(), dt.Rows[i][5].ToString()
+                        , dt.Rows[i][3].ToString(), dt.Rows[i][4].ToString(), dt.Rows[i][5].ToString(),  dt.Rows[i][6].ToString()
                         );
                 }
             }
@@ -107,12 +108,43 @@ namespace PalcoNet.Editar_Publicacion
         {
             Int32 fila = this.grillaPublicaciones.CurrentCell.RowIndex;
             this.idPublicacion = Decimal.Parse(this.grillaPublicaciones.Rows[fila].Cells[0].Value.ToString());
-            PalcoNet.Generar_Publicacion.AltaPublicacion publciacionEditada = new Generar_Publicacion.AltaPublicacion(this.db, this.idPublicacion);
-            DialogResult res = publciacionEditada.ShowDialog();
-            this.cargarGrilla();
+            if (validar(idPublicacion))
+            {
+                PalcoNet.Generar_Publicacion.AltaPublicacion publciacionEditada = new Generar_Publicacion.AltaPublicacion(this.db, this.idPublicacion);
+                DialogResult res = publciacionEditada.ShowDialog();
+                this.grillaPublicaciones.Rows.Clear();
+                this.cargarGrilla();
+            }
+            else
+            {
+                MessageBox.Show("Solo se puede editar Publicaciones No Activas Ni Finalizadas");
+            }
+            
         }
 
-		private void cancelar_Click(object sender, EventArgs e)
+        private bool validar(decimal idPublicacion)
+        {
+            string query = "SELECT [Estado] FROM [CAMPUS_ANALYTICA].[Publicaciones] WHERE [Id] =" + idPublicacion;
+            Boolean resultado = this.db.Consultar(query);
+            if (resultado)
+            {
+                this.db.Leer();
+                if(this.db.ObtenerValor("Estado") != "Borrador")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void cancelar_Click(object sender, EventArgs e)
 		{
 			Dispose();
 		}
