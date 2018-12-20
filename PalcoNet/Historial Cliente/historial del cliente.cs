@@ -48,8 +48,8 @@ namespace PalcoNet.Historial_Cliente
                 "join CAMPUS_ANALYTICA.Publicaciones p " +
                 "on p.Id = u.Publicaciones_Id " +
                 "join CAMPUS_ANALYTICA.Cliente cli on cli.Id = c.Cliente_Id " +
-                "join CAMPUS_ANALYTICA.Usuario usr on usr.Id = c.Usuarios_Id " +
-                "where usr.Username = " + nombreUsuario, this.db.StringConexion());
+                "join CAMPUS_ANALYTICA.Usuario usr on usr.Id = cli.Usuarios_Id " +
+                "where usr.Username = '" + nombreUsuario+"'", this.db.StringConexion());
             da.SelectCommand.CommandType = CommandType.Text;
             da.Fill(dt);
             grillaHistorial.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
