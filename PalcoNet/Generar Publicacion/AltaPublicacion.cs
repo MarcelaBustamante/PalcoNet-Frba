@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -16,7 +17,11 @@ namespace PalcoNet.Generar_Publicacion
         private dbmanager db;
         private decimal idPublicacion;
 		private String Usr;
-        
+        private DateTime todayDateTime = DateTime.Now;
+        string horaPublicacion;
+        string fechaPublicacion;
+        string fechaYHora;
+
         public AltaPublicacion(dbmanager dbmanager,String usr)
         {
             InitializeComponent();
@@ -25,6 +30,10 @@ namespace PalcoNet.Generar_Publicacion
 			this.Usr = usr;
             cargarCombos();
             this.mbEspectaculo.MaxSelectionCount = 1;
+            this.mbEspectaculo.SelectionStart = todayDateTime;
+            this.pickerHora.CustomFormat = "hh:mm";
+            this.pickerHora.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.pickerHora.ShowUpDown = true;
             this.mcPublicacion.MaxSelectionCount = 1;         
             
         }
@@ -42,6 +51,10 @@ namespace PalcoNet.Generar_Publicacion
             habilitarControlesLocalidades();
             cargarGrilla();
             cargarComboTipoUbicacacion();
+            cargarCantLocalidades();
+            this.pickerHora.CustomFormat = "hh:mm";
+            this.pickerHora.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.pickerHora.ShowUpDown = true;
         }
 
         private void habilitarControlesLocalidades()
@@ -80,6 +93,7 @@ namespace PalcoNet.Generar_Publicacion
                 this.cbRubro.SelectedItem = this.db.ObtenerValor("Rubros_Id");
                 this.mbEspectaculo.SelectionStart = DateTime.Parse(this.db.ObtenerValor("Fecha_Vencimiento"));
                 this.mbEspectaculo.SelectionEnd =  DateTime.Parse(this.db.ObtenerValor("Fecha_Vencimiento"));
+                this.pickerHora.Value = DateTime.Parse(this.db.ObtenerValor("Fecha_vencimiento"));
                 this.mcPublicacion.SelectionStart = DateTime.Parse(this.db.ObtenerValor("Fecha_inicio"));
                 this.mcPublicacion.SelectionEnd = DateTime.Parse(this.db.ObtenerValor("Fecha_inicio"));
                 this.aceptar.Text = "Editar";
@@ -185,11 +199,14 @@ namespace PalcoNet.Generar_Publicacion
 
         private void nuevaPublicacion()
         {
+            this.horaPublicacion = pickerHora.Value.ToShortTimeString();
+            this.fechaPublicacion = mbEspectaculo.SelectionStart.ToShortDateString();
+            this.fechaYHora = fechaPublicacion + " " +horaPublicacion;
             string query = "INSERT INTO [CAMPUS_ANALYTICA].[Publicaciones]([Estado],[Fecha_inicio]," +
                 "[Fecha_Vencimiento],[Localidades],[Descripcion]," +
                 "[Direccion],[Empresa_Id],[Grados_publicacion_Id],[Rubros_Id]) " +
-                "VALUES('"+ cbEstado.SelectedItem +"' ,'"+ mbEspectaculo.SelectionStart.ToString() +"'," +
-                "'"+ mcPublicacion.SelectionStart.ToString() +"',"+ tbLocalidades.Text +",'"+ tbDescripcion.Text.ToString() +"'," +
+                "VALUES('"+ cbEstado.SelectedItem +"' ,'"+ mcPublicacion.SelectionStart.ToString() +"'," +
+                "'"+ fechaYHora +"',"+ tbLocalidades.Text +",'"+ tbDescripcion.Text.ToString() +"'," +
                 "'"+ tbDirección.Text.ToString() +"',"+obtenerEmpresaId()+","+ Decimal.Parse(cbGradoPubli.SelectedValue.ToString()) +","+ Decimal.Parse(cbRubro.SelectedValue.ToString()) +")";
             
             int res = this.db.Ejecutar(query);
@@ -203,6 +220,9 @@ namespace PalcoNet.Generar_Publicacion
                     
                 }
             }
+            MessageBox.Show("Publicacion Generada");
+            DialogResult = DialogResult.OK;
+            this.Dispose();
         }
 
         private string obtenerEmpresaId()
@@ -235,9 +255,12 @@ namespace PalcoNet.Generar_Publicacion
 
         private void editarPublicacion()
         {
+            this.horaPublicacion = pickerHora.Value.ToShortTimeString();
+            this.fechaPublicacion = mbEspectaculo.SelectionStart.ToShortDateString();
+            this.fechaYHora = fechaPublicacion + " " + horaPublicacion;
             string query = "UPDATE [CAMPUS_ANALYTICA].[Publicaciones] SET [Estado] = '" + cbEstado.SelectedItem +"'"+
-                ",[Fecha_inicio] = '" + mbEspectaculo.SelectionStart.ToString() +"'"+
-                ",[Fecha_Vencimiento] ='" + mcPublicacion.SelectionStart.ToString() + "'" +
+                ",[Fecha_inicio] = '" + mcPublicacion.SelectionStart.ToString() +"'"+
+                ",[Fecha_Vencimiento] ='" + fechaYHora + "'" +
                 ",[Localidades] ='" + tbLocalidades.Text + "'"+
                 ",[Descripcion] ='" + tbDescripcion.Text + "'" +
                 ",[Direccion] ='" + tbDirección.Text + "'" +
@@ -253,6 +276,8 @@ namespace PalcoNet.Generar_Publicacion
                     this.db.Leer();
                     this.idPublicacion = Decimal.Parse(this.db.ObtenerValor("Id"));
                 }
+                MessageBox.Show("Publicacion Editada correctamente");
+                DialogResult = DialogResult.OK;
             }
         }
 
@@ -279,7 +304,20 @@ namespace PalcoNet.Generar_Publicacion
 
         private bool validarFecha()
         {
-            return true;
+            this.horaPublicacion = pickerHora.Value.ToShortTimeString();
+            this.fechaPublicacion = mbEspectaculo.SelectionStart.ToShortDateString();
+            this.fechaYHora = fechaPublicacion + " " + horaPublicacion;
+            if (DateTime.Parse(fechaYHora) < todayDateTime)
+            {
+                MessageBox.Show("La fecha del Espectualo no puede ser menor a la fecha actual");
+                return true;
+            }
+            if(mbEspectaculo.SelectionStart < todayDateTime && aceptar.Text == "Aceptar")
+            {
+                MessageBox.Show("La fecha de una nueva publicacion no puede ser menor a la fecha actual");
+                return true;
+            }
+            return false;
         }
 
         private bool validarVacios()
@@ -339,12 +377,12 @@ namespace PalcoNet.Generar_Publicacion
 
         private Boolean validarEspectaculosIguales()
         {
-            string query = "select * from [CAMPUS_ANALYTICA].[Publicaciones] WHERE [Descripcion] =" + tbDescripcion.Text;
+            string query = "select * from [CAMPUS_ANALYTICA].[Publicaciones] WHERE [Descripcion] ='" + tbDescripcion.Text+"'";
             Boolean r = this.db.Consultar(query);
             if (r)
             {
                 this.db.Leer();
-                if(this.db.ObtenerValor("Fecha_Vencimiento") == mcPublicacion.SelectionStart.ToString())
+                if(this.db.ObtenerValor("Fecha_Vencimiento") == mcPublicacion.SelectionStart.ToString() && aceptar.Text != "Editar")
                 {
                     MessageBox.Show("Seleccione otra fecha para el espectaculo, ya se encuentra un espectaculo publicado con esa fecha");
                     return true;
@@ -502,6 +540,16 @@ namespace PalcoNet.Generar_Publicacion
                 this.cbTipoPublicacion.SelectedText = this.db.ObtenerValor("Tipo_Descripcion");
             }
         }
-       
+        private void GetTodayDate()
+        {
+            string date = ConfigurationManager.AppSettings["FechaSistema"];
+            try
+            {
+                todayDateTime = DateTime.Parse(date);
+            }
+            catch (Exception e)
+            {
+            }
+        }               
     }
 }

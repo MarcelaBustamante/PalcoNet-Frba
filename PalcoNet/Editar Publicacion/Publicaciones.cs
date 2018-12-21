@@ -31,7 +31,7 @@ namespace PalcoNet.Editar_Publicacion
             string query = "SELECT p.[Id], p.[Descripcion],p.[Fecha_inicio]," +
                 "[Fecha_Vencimiento], r.descripcion , gd.grado ,p.[Estado] " +
                 "FROM [GD2C2018].[CAMPUS_ANALYTICA].[Publicaciones] p join CAMPUS_ANALYTICA.Rubros r on r.id=p.Rubros_Id" +
-                " join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id]";
+                " join CAMPUS_ANALYTICA.Grados_publicacion gd on gd.[id]=p.[Grados_publicacion_Id] ORDER BY p.[Id] Desc";
             SqlDataAdapter da = new SqlDataAdapter(query, this.db.StringConexion());
             da.SelectCommand.CommandType = CommandType.Text;
             da.Fill(dt);
