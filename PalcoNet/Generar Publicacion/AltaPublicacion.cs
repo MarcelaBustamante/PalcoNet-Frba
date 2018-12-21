@@ -441,6 +441,7 @@ namespace PalcoNet.Generar_Publicacion
                 }
                 else if (btnAgregar.Text == "Aceptar")
                 {
+                    this.tbCantidad.Enabled = true;
                     for (int i = 1; i <= cantAsientos; i++)
                     {
                         string query = "UPDATE[CAMPUS_ANALYTICA].[Ubicacion] SET " +
@@ -538,6 +539,7 @@ namespace PalcoNet.Generar_Publicacion
                 this.tbFila.Text = this.db.ObtenerValor("Fila");
                 this.tbPrecio.Text = this.db.ObtenerValor("Precio");
                 this.cbTipoPublicacion.SelectedText = this.db.ObtenerValor("Tipo_Descripcion");
+                this.tbCantidad.Enabled = false;
             }
         }
         private void GetTodayDate()
