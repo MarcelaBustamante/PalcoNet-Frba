@@ -144,7 +144,7 @@ namespace PalcoNet
 
         private void canjeDePuntosToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            PanelPuntaje f = new PanelPuntaje();
+            PanelPuntaje f = new PanelPuntaje(_db, _username);
             f.Show();
         }
 

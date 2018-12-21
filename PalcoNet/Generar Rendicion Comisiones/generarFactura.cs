@@ -101,7 +101,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
                 comisionTotal = comisionTotal + double.Parse(dt.Rows[i][5].ToString()) / 10;
             }
 
-            query = "INSERT INTO [CAMPUS_ANALYTICA].[Facturas] ([Fecha],[Empresa_Id],[Numero],[Total],[TotalComision]) VALUES ('" + todayDateTime.Date.ToString() + "', " + empId.ToString() + ", 0, " + montoTotal.ToString() + ", "+ comisionTotal +")";
+            query = "INSERT INTO [CAMPUS_ANALYTICA].[Facturas] ([Fecha],[Empresa_Id],[Numero],[Total],[TotalComision]) VALUES ('" + todayDateTime.Date.ToString() + "', " + empId.ToString() + ", 0, " + montoTotal.ToString() + ", "+ comisionTotal.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) +")";
             db.Ejecutar(query);
 
 
@@ -137,7 +137,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
                 itemCompraId = dt.Rows[i][0].ToString();
 
                 query = "INSERT INTO [CAMPUS_ANALYTICA].[Items_factura] ([Monto],[Cantidad],[Facturas_Id],[Compras_Id],[Descripcion],[Comision])"
-                    + " VALUES (" + itemMonto.ToString() + ", 1, "+ factId.ToString() +", "+ itemCompraId +", 'Comision por compra.', "+ (itemMonto/10).ToString() +")";
+                    + " VALUES (" + itemMonto.ToString() + ", 1, "+ factId.ToString() +", "+ itemCompraId +", 'Comision por compra.', "+ (itemMonto/10).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) +")";
 
                 db.Ejecutar(query);
 

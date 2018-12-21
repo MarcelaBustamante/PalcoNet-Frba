@@ -271,15 +271,20 @@ ALTER TABLE [CAMPUS_ANALYTICA].ClienteDireccion ADD CONSTRAINT ClienteDireccion_
     FOREIGN KEY (Cliente_Id)
     REFERENCES [CAMPUS_ANALYTICA].Cliente (Id);
 
+-- Reference: UsuarioUsuarioRol (table: Usuario)
+ALTER TABLE [CAMPUS_ANALYTICA].Usuario_Rol ADD CONSTRAINT UsuarioRol_Usuario
+    FOREIGN KEY (Usuario_Id)
+    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
+
 -- Reference: ClienteDireccion_Direccion (table: ClienteDireccion)
 ALTER TABLE [CAMPUS_ANALYTICA].ClienteDireccion ADD CONSTRAINT ClienteDireccion_Direccion
     FOREIGN KEY (Direccion_Id)
     REFERENCES [CAMPUS_ANALYTICA].Direccion (Id);
 
 ---- Reference: Clientes_Usuarios (table: Cliente)
---ALTER TABLE [CAMPUS_ANALYTICA].Cliente ADD CONSTRAINT Clientes_Usuarios
---    FOREIGN KEY (Usuarios_Id)
---    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
+ALTER TABLE [CAMPUS_ANALYTICA].Cliente ADD CONSTRAINT Clientes_Usuarios
+    FOREIGN KEY (Usuarios_Id)
+    REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
 
 -- Reference: Compra_Clientes (table: Compra)
 ALTER TABLE [CAMPUS_ANALYTICA].Compra ADD CONSTRAINT Compra_Clientes
@@ -304,9 +309,9 @@ ALTER TABLE [CAMPUS_ANALYTICA].Empresa ADD CONSTRAINT Empresas_Usuarios
     REFERENCES [CAMPUS_ANALYTICA].Usuario (Id);
 
 -- Reference: Facturas_Empresas (table: Facturas)
-/*ALTER TABLE [CAMPUS_ANALYTICA].Facturas ADD CONSTRAINT Facturas_Empresas
+ALTER TABLE [CAMPUS_ANALYTICA].Facturas ADD CONSTRAINT Facturas_Empresas
     FOREIGN KEY (Empresa_Id)
-    REFERENCES [CAMPUS_ANALYTICA].Empresa (Id);*/
+    REFERENCES [CAMPUS_ANALYTICA].Empresa (Id);
 
 -- Reference: Historial_canje_Clientes (table: Canjes)
 ALTER TABLE [CAMPUS_ANALYTICA].Canjes ADD CONSTRAINT Historial_canje_Clientes
@@ -314,9 +319,9 @@ ALTER TABLE [CAMPUS_ANALYTICA].Canjes ADD CONSTRAINT Historial_canje_Clientes
     REFERENCES [CAMPUS_ANALYTICA].Cliente (Id);
 
 ---- Reference: Items_factura_Facturas (table: Items_factura)
---ALTER TABLE [CAMPUS_ANALYTICA].Items_factura ADD CONSTRAINT Items_factura_Facturas
---    FOREIGN KEY (Facturas_Id)
---    REFERENCES [CAMPUS_ANALYTICA].Facturas (Id);
+ALTER TABLE [CAMPUS_ANALYTICA].Items_factura ADD CONSTRAINT Items_factura_Facturas
+    FOREIGN KEY (Facturas_Id)
+    REFERENCES [CAMPUS_ANALYTICA].Facturas (Id);
 
 -- Reference: Publicaciones_Empresas (table: Publicaciones)
 ALTER TABLE [CAMPUS_ANALYTICA].Publicaciones ADD CONSTRAINT Publicaciones_Empresas
@@ -965,7 +970,7 @@ INSERT INTO [CAMPUS_ANALYTICA].[Cliente]
            ,null
            ,'A'
            ,0
-           ,0
+           ,5000
            ,GETDATE()
            ,1)
 GO
@@ -1022,3 +1027,76 @@ GO
 GO
 
 
+INSERT INTO [CAMPUS_ANALYTICA].[Premios]
+           ([Descripcion]
+           ,[Puntos_necesarios]
+           ,[Condiciones]
+           ,[Fecha_alta]
+           ,[Fecha_baja])
+     VALUES
+           ('Televisor 32 Samsung'
+           ,5000
+           ,'Sin condiciones'
+           ,GETDATE()
+           ,null)
+GO
+
+
+INSERT INTO [CAMPUS_ANALYTICA].[Premios]
+           ([Descripcion]
+           ,[Puntos_necesarios]
+           ,[Condiciones]
+           ,[Fecha_alta]
+           ,[Fecha_baja])
+     VALUES
+           ('Aire Acondicionado 3200 Samsung'
+           ,3000
+           ,'Sin condiciones'
+           ,GETDATE()
+           ,null)
+GO
+
+
+INSERT INTO [CAMPUS_ANALYTICA].[Premios]
+           ([Descripcion]
+           ,[Puntos_necesarios]
+           ,[Condiciones]
+           ,[Fecha_alta]
+           ,[Fecha_baja])
+     VALUES
+           ('Caja LEGO Batman Rises'
+           ,1500
+           ,'Sin condiciones'
+           ,GETDATE()
+           ,null)
+GO
+
+
+INSERT INTO [CAMPUS_ANALYTICA].[Premios]
+           ([Descripcion]
+           ,[Puntos_necesarios]
+           ,[Condiciones]
+           ,[Fecha_alta]
+           ,[Fecha_baja])
+     VALUES
+           ('Nintendo Switch'
+           ,2300
+           ,'Sin condiciones'
+           ,GETDATE()
+           ,null)
+GO
+
+
+INSERT INTO [CAMPUS_ANALYTICA].[Premios]
+           ([Descripcion]
+           ,[Puntos_necesarios]
+           ,[Condiciones]
+           ,[Fecha_alta]
+           ,[Fecha_baja])
+     VALUES
+           ('Un caramelo de menta'
+           ,15
+           ,'Solo para testing, es muy triste como premio.'
+           ,GETDATE()
+           ,null)
+GO
