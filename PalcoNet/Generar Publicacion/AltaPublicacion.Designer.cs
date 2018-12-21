@@ -33,7 +33,6 @@
             this.mcPublicacion = new System.Windows.Forms.MonthCalendar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.mbEspectaculo = new System.Windows.Forms.MonthCalendar();
             this.cbRubro = new System.Windows.Forms.ComboBox();
@@ -67,6 +66,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.cbTipoPublicacion = new System.Windows.Forms.ComboBox();
+            this.pickerHora = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grillaUbicaciones)).BeginInit();
@@ -106,7 +106,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.pickerHora);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.mbEspectaculo);
             this.groupBox2.Location = new System.Drawing.Point(359, 40);
@@ -115,13 +115,6 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fecha del Espectaculo";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(48, 203);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(70, 20);
-            this.textBox1.TabIndex = 4;
             // 
             // label8
             // 
@@ -404,6 +397,13 @@
             this.cbTipoPublicacion.Size = new System.Drawing.Size(116, 21);
             this.cbTipoPublicacion.TabIndex = 22;
             // 
+            // pickerHora
+            // 
+            this.pickerHora.Location = new System.Drawing.Point(49, 206);
+            this.pickerHora.Name = "pickerHora";
+            this.pickerHora.Size = new System.Drawing.Size(200, 20);
+            this.pickerHora.TabIndex = 4;
+            // 
             // AltaPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -473,7 +473,6 @@
         private System.Windows.Forms.Button cancelar;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.TextBox tbLocalidades;
         private System.Windows.Forms.Button btnAgregar;
@@ -492,5 +491,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbTipoPublicacion;
+        private System.Windows.Forms.DateTimePicker pickerHora;
     }
 }
